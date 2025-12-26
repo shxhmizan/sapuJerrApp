@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+	<persistence-unit name="SapuJerrApp">
+		<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+		<jta-data-source>java:openejb/Resource/sapujerrDB</jta-data-source>
+		<class>model.BookingDAO</class>
+		<class>model.CarDAO</class>
+		<class>model.DriverDAO</class>
+		<class>model.NotificationDAO</class>
+		<class>model.SubscriptionPackageDAO</class>
+		<class>model.PaymentDAO</class>
+		<class>model.PricingRateDAO</class>
+		<class>model.ReviewDAO</class>
+		<class>model.StudentDAO</class>
+		<class>model.SubscriptionDAO</class>
+		<class>model.UserDAO</class>
+	</persistence-unit>
+</persistence>
