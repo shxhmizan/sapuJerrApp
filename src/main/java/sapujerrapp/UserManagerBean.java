@@ -5,6 +5,7 @@ import java.util.List;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import model.UserDAO;
 
@@ -26,7 +27,7 @@ public class UserManagerBean {
 			user.setEmail(email);
 			user.setPhone(phone);
 			user.setAccountStatus("Active");
-			user.setUserTypes(UserDAO.UserType.STUDENT);
+			user.setUserTypes(UserDAO.UserType.student);
 			user.setUserId("U" + user.hashCode());
 			em.persist(user);
 			return true;
@@ -35,7 +36,11 @@ public class UserManagerBean {
 			System.out.println(e);
 			return false;
 		}
-		
-
+	}
+	
+	public boolean test() {
+		Query q = em.createQuery("SELECT u FROM UserDAO u");
+		q.getResultList();
+		return true;
 	}
 }
