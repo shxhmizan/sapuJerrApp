@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SapuJerr - Loading...</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #D30015; /* Brand Red */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', sans-serif;
+            overflow: hidden;
+        }
+        
+        .splash-logo {
+            font-size: 4rem;
+            font-weight: 800;
+            font-style: italic;
+            color: white;
+            letter-spacing: -3px;
+            margin-bottom: 20px;
+            animation: pulseLogo 2s infinite;
+        }
+        
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-bottom-color: white;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulseLogo {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="splash-logo">SapuJerr</div>
+    <span class="loader"></span>
+
+    <script>
+        // Redirect to dashboard after 2 seconds
+        setTimeout(() => {
+            window.location.replace('dashboard.jsp');
+        }, 2000);
+    </script>
+</body>
+</html>

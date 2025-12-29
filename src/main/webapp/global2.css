@@ -1,0 +1,124 @@
+@charset "UTF-8";
+/* RESET */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+/* PLAIN BACKGROUND (Based on your second image) */
+body {
+    background-color: #EEECE1; /* Matches the beige tone */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* For corner logo positioning */
+}
+
+/* MAIN CONTAINER (STACKED) */
+.signup-container {
+    width: 900px;
+    background-color: white;
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+/* TOP HEADER (BEIGE) */
+.signup-header-panel {
+    background-color: #EEECE1; /* Beige */
+    padding: 30px;
+    text-align: center;
+}
+.signup-header-panel h1 {
+    color: #D30015; /* Red Text */
+    font-size: 3rem;
+    font-weight: 800;
+}
+
+/* BOTTOM FORM (RED) */
+.signup-form-panel {
+    background-color: #D30015; /* Red Background */
+    padding: 40px;
+    color: white;
+}
+
+/* GRID SYSTEM */
+.signup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns */
+    gap: 20px 40px; /* Row gap 20px, Column gap 40px */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid white;
+    background: transparent;
+    border-radius: 12px;
+    color: white;
+    font-size: 1.1rem;
+    outline: none;
+}
+
+/* TOGGLE SWITCH */
+.toggle-group {
+    display: flex;
+    align-items: flex-end; /* Align to bottom of label space */
+}
+.toggle-container {
+    width: 100%;
+    display: flex;
+    border: 2px solid white;
+    border-radius: 12px;
+    height: 48px; /* Match input height roughly */
+    overflow: hidden;
+}
+.toggle-btn {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+.toggle-btn.active {
+    background-color: #EEECE1; /* Beige active */
+    color: #D30015;
+}
+
+/* SUBMIT BUTTON */
+.full-width {
+    grid-column: span 2; /* Stretch across both columns */
+    margin-top: 20px;
+}
+.signup-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: white;
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 800;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+.signup-btn:hover { background-color: #f0f0f0; }
+
+/* CORNER LOGO */
+.corner-logo {
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    font-size: 3rem;
+    font-weight: 800;
+    font-style: italic;
+    color: #D30015;
+    letter-spacing: -2px;
+}

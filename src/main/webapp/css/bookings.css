@@ -1,0 +1,239 @@
+
+        /* ============================
+           1. THEME VARIABLES
+           ============================ */
+        :root {
+            --brand-red: #D30015;
+            --brand-red-hover: #b00012;
+            --brand-beige: #EEECE1;
+            --brand-green: #007d40;
+            --brand-gold: #FFD700;
+            --brand-blue: #0056b3;
+            --text-dark: #2c2c2c;
+            --text-gray: #666666;
+            --sidebar-width: 320px;
+            --shadow-card: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        body {
+            background-color: var(--brand-beige);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* ============================
+           2. SIDEBAR & HEADER
+           ============================ */
+        .backdrop {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 900; opacity: 0; visibility: hidden; transition: all 0.3s ease;
+        }
+        .backdrop.active { opacity: 1; visibility: visible; }
+
+        .sidebar {
+            position: fixed; top: 0; left: calc(var(--sidebar-width) * -1);
+            width: var(--sidebar-width); height: 100vh; background: white;
+            z-index: 1000; box-shadow: 5px 0 30px rgba(0,0,0,0.1);
+            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column;
+        }
+        .sidebar.active { left: 0; }
+        .sidebar-header { background-color: var(--brand-red); padding: 40px 30px 30px; color: white; }
+        .user-profile-row { display: flex; align-items: center; gap: 15px; }
+        .profile-avatar-large {
+            width: 60px; height: 60px; background: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; color: var(--brand-red); font-size: 1.5rem;
+        }
+        .plan-badge {
+            display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px;
+            border-radius: 20px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
+            background: #FFD700; color: black; border: 1px solid #e6c200;
+        }
+        .sidebar-menu { padding: 20px 0; flex: 1; overflow-y: auto; }
+        .menu-item {
+            display: flex; align-items: center; gap: 20px; padding: 18px 30px;
+            font-size: 1.1rem; font-weight: 500; color: var(--text-dark);
+            cursor: pointer; transition: background 0.2s; text-decoration: none;
+        }
+        .menu-item:hover { background-color: #f5f5f5; color: var(--brand-red); }
+        .sidebar-footer { padding: 20px 30px; border-top: 1px solid #eee; }
+
+        .header {
+            background-color: var(--brand-red); height: 70px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 60px; color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative; z-index: 100;
+        }
+        .header-left { display: flex; align-items: center; }
+        .btn-profile-toggle {
+            background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.4); color: white; font-weight: 600;
+            cursor: pointer; display: flex; align-items: center; gap: 10px; transition: background 0.3s;
+        }
+        .btn-profile-toggle:hover { background: rgba(255,255,255,0.3); }
+        .logo { font-size: 2rem; font-weight: 800; font-style: italic; letter-spacing: -1px; }
+
+        /* ============================
+           3. MAIN CONTAINER
+           ============================ */
+        .main-container {
+            max-width: 900px; margin: 0 auto; padding: 40px 20px; width: 100%;
+        }
+        .page-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 30px; color: var(--brand-red); }
+
+        .tabs-wrapper {
+            display: flex; gap: 10px; border-bottom: 2px solid #ddd; margin-bottom: 30px;
+        }
+        .tab-btn {
+            padding: 12px 25px; font-size: 1.1rem; font-weight: 600; color: #777;
+            background: transparent; border: none; cursor: pointer; position: relative;
+            transition: all 0.3s;
+        }
+        .tab-btn::after {
+            content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 3px;
+            background: var(--brand-red); transition: width 0.3s;
+        }
+        .tab-btn.active { color: var(--brand-red); }
+        .tab-btn.active::after { width: 100%; }
+
+        /* ============================
+           4. BOOKING CARD
+           ============================ */
+        .booking-list { display: flex; flex-direction: column; gap: 20px; }
+        
+        .booking-card {
+            background: white; border-radius: 20px; padding: 25px;
+            box-shadow: var(--shadow-card); transition: transform 0.2s;
+            border: 1px solid transparent;
+        }
+        .booking-card:hover { transform: translateY(-5px); border-color: rgba(0,0,0,0.1); }
+
+        .card-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-bottom: 15px; border-bottom: 1px solid #eee; margin-bottom: 20px;
+        }
+        .booking-date { font-size: 1.1rem; font-weight: 700; color: var(--text-dark); }
+        .booking-id { font-size: 0.85rem; color: #888; font-weight: 400; margin-left: 10px; }
+        
+        .status-badge {
+            padding: 5px 12px; border-radius: 15px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
+        }
+        .status-scheduled { background: #e3f2fd; color: var(--brand-blue); }
+        .status-completed { background: #e8f5e9; color: var(--brand-green); }
+
+        .card-body { display: flex; gap: 30px; align-items: center; margin-bottom: 20px; }
+        
+        .route-visual { width: 100%; flex: 1.5; }
+        .route-row { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 15px; position: relative; }
+        .route-icon { width: 20px; display: flex; flex-direction: column; align-items: center; height: 100%; }
+        .dot { width: 10px; height: 10px; background: var(--brand-red); border-radius: 50%; }
+        .line { width: 2px; height: 35px; background: #ddd; margin: 2px 0; }
+        .pin { color: var(--brand-red); font-size: 1rem; }
+        .route-text h4 { font-size: 1rem; font-weight: 700; margin-bottom: 2px; }
+        .route-text p { font-size: 0.9rem; color: #666; }
+
+        .driver-info {
+            flex: 1; display: flex; flex-direction: column; align-items: flex-end; text-align: right;
+            border-left: 1px solid #eee; padding-left: 20px;
+        }
+        .driver-car { font-weight: 700; font-size: 1.1rem; color: var(--text-dark); }
+        .driver-plate { font-size: 0.9rem; background: #eee; padding: 2px 8px; border-radius: 5px; margin-top: 5px; display: inline-block; font-weight: 600; }
+        .price-tag { font-size: 1.8rem; font-weight: 800; color: var(--brand-red); margin-top: 10px; }
+
+        .card-footer { display: flex; justify-content: flex-end; gap: 10px; }
+        
+        .btn-sm {
+            padding: 10px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 700;
+            cursor: pointer; border: none; transition: all 0.2s; display: flex; align-items: center; gap: 5px;
+        }
+        .btn-track { background: var(--brand-red); color: white; box-shadow: 0 4px 10px rgba(211, 0, 21, 0.3); }
+        .btn-track:hover { background: var(--brand-red-hover); transform: translateY(-2px); }
+        .btn-edit { background: white; border: 1px solid #ddd; color: var(--text-dark); }
+        .btn-edit:hover { border-color: var(--text-dark); background: #f9f9f9; }
+        .btn-cancel { background: #ffebee; color: var(--brand-red); }
+        .btn-cancel:hover { background: #ffcdd2; }
+        
+        /* Rate Button (Gold) */
+        .btn-rate { background: #FFD700; color: #000; box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3); }
+        .btn-rate:hover { background: #e6c200; transform: translateY(-2px); }
+
+        /* ============================
+           5. MODALS
+           ============================ */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 2000;
+            display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px);
+        }
+        .modal-overlay.show { display: flex; }
+        
+        .modal-card {
+            background: white; padding: 30px; border-radius: 20px; text-align: center;
+            width: 400px; max-width: 90%; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            position: relative; animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp { from {transform: translateY(20px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
+
+        .modal-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; }
+        .modal-actions { display: flex; gap: 15px; margin-top: 20px; }
+        .btn-modal { flex: 1; padding: 12px; border-radius: 10px; font-weight: 700; cursor: pointer; border: none; }
+        .btn-modal-confirm { background: var(--brand-red); color: white; }
+        .btn-modal-back { background: #eee; color: #333; }
+
+        /* --- DRIVER INFO MODAL --- */
+        .driver-card-modal { text-align: center; overflow: hidden; padding: 0; }
+        .driver-modal-header {
+            background: var(--brand-red); padding: 30px; color: white;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .driver-avatar-xl {
+            width: 90px; height: 90px; background: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--brand-red); font-size: 2.5rem; border: 4px solid rgba(255,255,255,0.3);
+            margin-bottom: 10px;
+        }
+        .rating-pill { background: rgba(0,0,0,0.2); padding: 4px 12px; border-radius: 20px; font-size: 0.9rem; margin-top: 5px; }
+        
+        .driver-details-grid {
+            padding: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; background: #f9f9f9;
+        }
+        .detail-item { display: flex; flex-direction: column; align-items: center; }
+        .detail-item .label { font-size: 0.8rem; color: #888; font-weight: 600; text-transform: uppercase; }
+        .detail-item .value { font-size: 1.1rem; font-weight: 700; color: var(--text-dark); margin-top: 3px; }
+        .detail-item .value-plate {
+            font-size: 1.2rem; font-weight: 800; background: white; border: 2px solid #333;
+            padding: 2px 10px; border-radius: 6px; margin-top: 3px;
+        }
+        
+        /* Call Button Styles */
+        .driver-contacts { padding: 0 30px 30px; display: flex; justify-content: center; }
+        .btn-contact {
+            flex: 1; padding: 15px; border-radius: 15px; border: none; font-weight: 800; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.2s;
+            font-size: 1.1rem; text-decoration: none;
+        }
+        .btn-call { background: var(--brand-green); color: white; width: 100%; box-shadow: 0 5px 15px rgba(0,128,0,0.2); }
+        .btn-call:hover { transform: scale(1.05); background-color: var(--brand-green-hover); }
+        .btn-close-text { background: transparent; border: none; color: #888; cursor: pointer; margin-bottom: 20px; font-weight: 600; }
+
+        /* --- RATING MODAL --- */
+        .rating-stars {
+            font-size: 2.5rem; color: #ddd; cursor: pointer; margin: 20px 0;
+            display: flex; justify-content: center; gap: 10px;
+        }
+        .rating-stars i.active { color: var(--brand-gold); text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+        .rating-textarea {
+            width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 15px;
+            font-size: 1rem; resize: none; outline: none; margin-bottom: 10px;
+            font-family: inherit; transition: border-color 0.3s;
+        }
+        .rating-textarea:focus { border-color: var(--brand-red); }
+
+        @media (max-width: 768px) {
+            .card-body { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .driver-info { border-left: none; padding-left: 0; align-items: flex-start; text-align: left; border-top: 1px solid #eee; padding-top: 15px; width: 100%; flex-direction: row; justify-content: space-between; }
+            .header { padding: 0 20px; }
+            .sidebar { width: 85%; }
+        }
+    
