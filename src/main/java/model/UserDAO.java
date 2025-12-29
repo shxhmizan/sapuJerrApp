@@ -16,8 +16,8 @@ public class UserDAO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public enum UserType{
-		STUDENT,
-		DRIVER
+		student,
+		driver
 	};
 	
 	@Id
