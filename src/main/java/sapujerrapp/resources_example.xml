@@ -2,8 +2,11 @@
 <Resources>
 	<Resource id="mysqlDB" type="javax.sql.DataSource">
 		jdbcDriver = com.mysql.cj.jdbc.Driver
-		jdbcUrl = jdbc:mysql://localhost:3306/servlet
-		userName = javaweb
-		password = javaweb
+		<!-- Change URL depending on your database config -->
+		<!-- Format: jdbc:mysql://<host URL and port>/<database name> -->
+		jdbcUrl = jdbc:mysql://localhost:3306/sapujerr1
+		<!-- Change username and password for your database user access -->
+		userName = sapujerrapp
+		password = sapujerrapp
 	</Resource>
 </Resources>
