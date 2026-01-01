@@ -1,0 +1,219 @@
+        /* ============================
+           1. THEME VARIABLES
+           ============================ */
+        :root {
+            --brand-red: #D30015;
+            --brand-beige: #F5F3E6;
+            --brand-black: #111111;
+            --brand-white: #FFFFFF;
+            --brand-green: #008f4c;
+            --brand-gold: #FFD700;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--brand-beige);
+            color: var(--brand-black);
+            overflow-x: hidden;
+        }
+
+        /* ============================
+           2. NAVIGATION
+           ============================ */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 40px; position: fixed; width: 100%; top: 0; z-index: 1000;
+            background: rgba(245, 243, 230, 0.9); backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05); transition: all 0.3s;
+        }
+        .logo { font-size: 1.8rem; font-weight: 800; font-style: italic; letter-spacing: -1px; color: var(--brand-red); text-decoration: none; }
+        
+        .nav-center { display: flex; gap: 30px; }
+        .nav-link {
+            text-decoration: none; color: var(--brand-black); font-size: 0.95rem; font-weight: 600; 
+            position: relative; opacity: 0.7; transition: opacity 0.2s;
+        }
+        .nav-link:hover { opacity: 1; }
+        
+        .auth-buttons { display: flex; gap: 15px; align-items: center; }
+        .btn-auth {
+            padding: 8px 20px; border-radius: 20px; font-size: 0.9rem; font-weight: 700; 
+            text-decoration: none; transition: transform 0.2s;
+        }
+        .btn-login { border: 2px solid var(--brand-black); color: var(--brand-black); }
+        .btn-login:hover { background: var(--brand-black); color: white; }
+        .btn-signup { background: var(--brand-red); color: white; border: 2px solid var(--brand-red); }
+        .btn-signup:hover { background: #b00010; transform: translateY(-2px); }
+
+        /* ============================
+           3. HERO SECTION
+           ============================ */
+        .hero {
+            height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 0 20px; position: relative; overflow: hidden;
+        }
+        
+        .hero-slideshow { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; }
+        .slide {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            opacity: 0; transition: opacity 1.5s ease-in-out;
+        }
+        .slide.active { opacity: 1; }
+
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(245, 243, 230, 0.9), rgba(245, 243, 230, 0.7), var(--brand-beige));
+            z-index: -1;
+        }
+
+        h1 {
+            font-size: 6rem; font-weight: 900; line-height: 1.1; letter-spacing: -3px;
+            color: var(--brand-black); margin-bottom: 20px; min-height: 2.2em;
+        }
+        
+        .cursor {
+            display: inline-block; width: 4px; background-color: var(--brand-black);
+            margin-left: 5px; animation: blink 1s infinite;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        
+        .hero p { 
+            font-size: 1.5rem; color: #444; font-weight: 500; max-width: 600px; margin-bottom: 40px; 
+            animation: fadeInUp 1s ease-out 1s backwards;
+        }
+        
+        .hero-btns { display: flex; gap: 20px; animation: fadeInUp 1s ease-out 1.2s backwards; }
+        .hero-btn {
+            padding: 15px 40px; border-radius: 30px; font-size: 1.2rem; font-weight: 700; text-decoration: none; transition: all 0.3s;
+        }
+        .btn-primary { background: var(--brand-red); color: white; box-shadow: 0 10px 30px rgba(211, 0, 21, 0.4); }
+        .btn-primary:hover { transform: scale(1.05); }
+        .btn-outline { background: white; color: var(--brand-black); border: 1px solid #ddd; }
+        .btn-outline:hover { background: #eee; }
+
+        /* ============================
+           4. FEATURES
+           ============================ */
+        .features-section { padding: 100px 50px; max-width: 1400px; margin: 0 auto; }
+        .section-header { margin-bottom: 60px; font-size: 3rem; font-weight: 800; letter-spacing: -2px; }
+
+        .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 320px); gap: 25px; }
+        .bento-card {
+            background: var(--brand-white); border-radius: 30px; padding: 35px;
+            position: relative; overflow: hidden; transition: transform 0.4s;
+            border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .bento-card:hover { transform: scale(1.02); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+        .bento-large { grid-column: span 2; background: white; }
+        .bento-tall { grid-row: span 2; background: #111; color: white; }
+        .bento-dark-red { background: var(--brand-red); color: white; }
+        .bento-icon { font-size: 2.5rem; margin-bottom: 15px; display: block; }
+        .bento-title { font-size: 1.8rem; font-weight: 800; line-height: 1.1; margin-bottom: 10px; }
+        .bento-desc { font-size: 1rem; opacity: 0.8; font-weight: 500; line-height: 1.5; }
+        .bento-img-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.6; z-index: 0; }
+        .bento-content { position: relative; z-index: 1; }
+
+        /* ============================
+           5. GAME SECTION: CAMPUS RUSH
+           ============================ */
+        .game-wrapper {
+            background: #111; color: white; padding: 60px 0; text-align: center;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            /* Night Drive Background */
+            background-image: url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=2864&auto=format&fit=crop');
+            background-size: cover; background-position: center;
+        }
+        .game-wrapper::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 0;
+        }
+        
+        .game-header { position: relative; z-index: 2; margin-bottom: 40px; }
+        .game-title { 
+            font-size: 4rem; font-weight: 900; color: var(--brand-gold); 
+            text-transform: uppercase; letter-spacing: -2px; 
+            text-shadow: 0 4px 20px rgba(0,0,0,0.8); margin-bottom: 10px;
+        }
+        .game-desc { font-size: 1.3rem; color: #fff; font-weight: 600; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }
+
+        /* 3D Road Container */
+        .game-road {
+            width: 100%; max-width: 900px; height: 450px; background: #333; 
+            position: relative; overflow: hidden; 
+            border-top: 5px solid var(--brand-red); border-bottom: 5px solid var(--brand-red);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); border-radius: 20px; z-index: 2;
+            perspective: 500px; /* 3D Depth */
+            cursor: auto; /* Default cursor before start */
+        }
+        
+        /* Cursor Hidden only when playing */
+        .game-road.playing { cursor: none; }
+
+        .road-surface {
+            position: absolute; width: 100%; height: 200%; top: -100%; left: 0;
+            background: 
+                linear-gradient(90deg, transparent 48%, white 48%, white 52%, transparent 52%),
+                linear-gradient(#444, #222);
+            background-size: 100% 100px, 100% 100%;
+            transform: rotateX(20deg);
+            animation: roadMove 0.5s linear infinite;
+        }
+        @keyframes roadMove { from {top: -100%;} to {top: 0%;} }
+
+        .player-car {
+            position: absolute; bottom: 30px; width: 60px; height: 100px;
+            background: var(--brand-red); border-radius: 10px 10px 5px 5px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            font-size: 2rem; color: white; z-index: 5; 
+            transform: translateX(-50%); transition: left 0.05s linear;
+        }
+        .player-car::before {
+            content: ''; position: absolute; top: 5px; width: 100%; height: 5px;
+            background: linear-gradient(90deg, yellow 20%, transparent 20%, transparent 80%, yellow 80%);
+        }
+        
+        .falling-item {
+            position: absolute; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+            z-index: 4; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .item-student { background: var(--brand-green); color: white; border: 2px solid white; }
+        .item-cone { background: #ff5722; color: white; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+
+        .score-box {
+            position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.8);
+            padding: 10px 25px; border-radius: 30px; font-size: 1.5rem; font-weight: 800; 
+            border: 2px solid var(--brand-gold); color: white; z-index: 20;
+        }
+        
+        .start-overlay, .win-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 30; backdrop-filter: blur(5px);
+        }
+        .win-overlay { display: none; }
+        
+        .btn-game {
+            padding: 15px 50px; font-size: 1.5rem; font-weight: 900; color: black; background: var(--brand-gold);
+            border: none; border-radius: 50px; cursor: pointer; transition: transform 0.2s; box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+            text-transform: uppercase;
+        }
+        .btn-game:hover { transform: scale(1.1); box-shadow: 0 0 50px rgba(255, 215, 0, 0.6); }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 1000px) {
+            h1 { font-size: 3.5rem; }
+            .bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+            .bento-large, .bento-tall { grid-column: auto; grid-row: auto; min-height: 250px; }
+            .navbar { padding: 15px 20px; }
+            .nav-center { display: none; }
+            .game-title { font-size: 2.5rem; }
+        }

@@ -8,19 +8,17 @@
 }
 
 /* login.css */
-
 body {
-    /* Updated path: looks into the 'images' folder next to this css file */
-    background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), 
-                url('images/trafficjam.g');
-    
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	/* Updated path: looks into the 'images' folder next to this css file */
+	background: linear-gradient(rgba(255, 255, 255, 0.4),
+		rgba(255, 255, 255, 0.4)), url('images/trafficjam.g');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 /* Main Card Container */
@@ -171,6 +169,3 @@ body {
 		margin-left: 0;
 	}
 }
-
-
-

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>SapuJerr Login</title>
- <link rel="stylesheet" href="global.css">
+ <link rel="stylesheet" href="css/global.css">
 
 </head>
 <body>
