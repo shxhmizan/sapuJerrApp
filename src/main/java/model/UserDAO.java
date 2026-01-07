@@ -15,14 +15,10 @@ import java.util.List;
 public class UserDAO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public enum UserType{
-		student,
-		driver
-	};
-	
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="user_id")
-	private String userId;
+	private int userId;
 
 	@Column(name="account_status")
 	private String accountStatus;
@@ -36,8 +32,7 @@ public class UserDAO implements Serializable {
 	private String phone;
 
 	@Column(name="user_types")
-	@Enumerated(EnumType.STRING)
-	private UserType userTypes;
+	private String userTypes;
 
 	//bi-directional one-to-one association to DriverDAO
 	@OneToOne(mappedBy="user")
@@ -58,11 +53,11 @@ public class UserDAO implements Serializable {
 	public UserDAO() {
 	}
 
-	public String getUserId() {
+	public int getUserId() {
 		return this.userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
@@ -106,12 +101,12 @@ public class UserDAO implements Serializable {
 		this.phone = phone;
 	}
 
-	public UserType getUserTypes() {
+	public String getUserTypes() {
 		return this.userTypes;
 	}
 
-	public void setUserTypes(UserType userType) {
-		this.userTypes = userType;
+	public void setUserTypes(String userTypes) {
+		this.userTypes = userTypes;
 	}
 
 	public DriverDAO getDriver() {

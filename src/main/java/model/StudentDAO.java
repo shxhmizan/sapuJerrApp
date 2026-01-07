@@ -18,9 +18,12 @@ public class StudentDAO implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="student_id")
-	private String studentId;
+	private int studentId;
 
 	private String faculty;
+
+	@Column(name="matric_number")
+	private String matricNumber;
 
 	//bi-directional many-to-one association to BookingDAO
 	@OneToMany(mappedBy="student")
@@ -34,11 +37,11 @@ public class StudentDAO implements Serializable {
 	public StudentDAO() {
 	}
 
-	public String getStudentId() {
+	public int getStudentId() {
 		return this.studentId;
 	}
 
-	public void setStudentId(String studentId) {
+	public void setStudentId(int studentId) {
 		this.studentId = studentId;
 	}
 
@@ -48,6 +51,14 @@ public class StudentDAO implements Serializable {
 
 	public void setFaculty(String faculty) {
 		this.faculty = faculty;
+	}
+
+	public String getMatricNumber() {
+		return this.matricNumber;
+	}
+
+	public void setMatricNumber(String matricNumber) {
+		this.matricNumber = matricNumber;
 	}
 
 	public List<BookingDAO> getBookings() {

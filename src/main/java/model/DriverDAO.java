@@ -19,7 +19,7 @@ public class DriverDAO implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="driver_id")
-	private String driverId;
+	private int driverId;
 
 	@Column(name="licence_number")
 	private String licenceNumber;
@@ -29,6 +29,8 @@ public class DriverDAO implements Serializable {
 
 	@Column(name="status_verified")
 	private byte statusVerified;
+
+	private String username;
 
 	//bi-directional many-to-one association to BookingDAO
 	@OneToMany(mappedBy="driver")
@@ -54,11 +56,11 @@ public class DriverDAO implements Serializable {
 	public DriverDAO() {
 	}
 
-	public String getDriverId() {
+	public int getDriverId() {
 		return this.driverId;
 	}
 
-	public void setDriverId(String driverId) {
+	public void setDriverId(int driverId) {
 		this.driverId = driverId;
 	}
 
@@ -84,6 +86,14 @@ public class DriverDAO implements Serializable {
 
 	public void setStatusVerified(byte statusVerified) {
 		this.statusVerified = statusVerified;
+	}
+
+	public String getUsername() {
+		return this.username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public List<BookingDAO> getBookings() {
