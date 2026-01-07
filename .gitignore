@@ -1,2 +1,5 @@
 /build/
 resources.xml
+.classpath
+.project
+.settings
