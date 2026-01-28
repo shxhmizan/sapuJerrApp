@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import model.UserDAO;
 
 /**
  * Servlet implementation class RegistrationServlet
@@ -17,7 +18,7 @@ public class RegistrationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
     @EJB
-	UserManagerBean umb; 
+	UserDAO dao; 
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -29,14 +30,13 @@ public class RegistrationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect("index.jsp");
+		response.sendRedirect("index.html");
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
@@ -48,7 +48,7 @@ public class RegistrationServlet extends HttpServlet {
 		
 		boolean success = false;
 		try {
-			success = umb.registerUser(name, password, email, phone);
+			success = dao.registerUser(name, password, email, phone);
 		}
 		catch(Exception e) {
 			success = false;
@@ -58,11 +58,11 @@ public class RegistrationServlet extends HttpServlet {
 		}
 		else {
 			out.write("<h1>Failed to register your account.<h1>");
-			out.write("<a href='login.jsp'>Click here to try again.</a>");
+			out.write("<p>HELLO</p>");			
+			out.write("<a href='signup.jsp'>Click here to try again.</a>");
 		}
 		out.write("</body></html>");
 		out.close();
-		
 	}
 
 }

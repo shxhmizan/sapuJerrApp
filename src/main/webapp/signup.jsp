@@ -15,7 +15,7 @@
             </div>
 
             <div class="card-body">
-                <form>
+                <form action="RegistrationServlet" method="post">
                     <div class="form-grid">
                         <div class="form-group">
                             <label class="form-label">Full Name</label>
@@ -29,22 +29,20 @@
                             <label class="form-label">Phone Number</label>
                             <input type="tel" class="form-input">
                         </div>
-
-                        <div class="form-group">
-                            <label class="form-label">NRIC</label>
-                            <input type="text" class="form-input">
-                        </div>
+                        
                         <div class="form-group">
                             <label class="form-label">Password</label>
                             <input type="password" class="form-input">
                         </div>
                         <div class="form-group">
-                            <label class="form-label" style="visibility: hidden;">Toggle</label> <div class="toggle-container">
-                                <button type="button" class="toggle-btn active">Driver</button>
-                                <button type="button" class="toggle-btn">Student</button>
+                            <label class="form-label">User Type</label>
+                            <div>
+	                          	<input type="radio" name="type" value="D">
+	                          	<label class="form-label">Driver</label>
+	                            <input type="radio" name="type" value="S">
+	                            <label class="form-label">Student</label>
                             </div>
                         </div>
-                        
                         <div class="form-group full-width">
                             <button type="submit" class="submit-btn">submit</button>
                         </div>

@@ -1,4 +1,4 @@
-package sapujerrapp;
+package model;
 
 import java.util.List;
 
@@ -7,28 +7,27 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
-import model.UserDAO;
+import model.UserEntity;
 
 @Stateless
-public class UserManagerBean {
+public class UserDAO {
 	@PersistenceContext
 	private EntityManager em;
 	
-	private List<UserDAO> getUsers(){
-		return em.createNamedQuery("User.findAll", UserDAO.class).getResultList();
+	private List<UserEntity> getUsers(){
+		return em.createNamedQuery("User.findAll", UserEntity.class).getResultList();
 	}
 	
 	@Transactional
 	public boolean registerUser(String name, String password, String email, String phone) {
 		try {
-			UserDAO user = new UserDAO();
+			UserEntity user = new UserEntity();
 			user.setName(name);
 			user.setPassword(password);
 			user.setEmail(email);
 			user.setPhone(phone);
 			user.setAccountStatus("Active");
-			user.setUserTypes(UserDAO.UserType.student);
-			user.setUserId("U" + user.hashCode());
+			user.setUserTypes("S");
 			em.persist(user);
 			return true;
 		}
@@ -39,7 +38,7 @@ public class UserManagerBean {
 	}
 	
 	public boolean test() {
-		Query q = em.createQuery("SELECT u FROM UserDAO u");
+		Query q = em.createQuery("SELECT u FROM UserEntity u");
 		q.getResultList();
 		return true;
 	}
