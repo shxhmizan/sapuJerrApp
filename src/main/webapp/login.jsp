@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <title>SapuJerr Login</title>
  <link rel="stylesheet" href="css/global.css">
-
 </head>
 <body>
 
@@ -19,7 +18,16 @@
 		<div class="right-panel">
 			<h1 class="login-header">Log In</h1>
 
-			<form id="loginForm" onsubmit="return validateForm()">
+			<%
+				String errMsg = (String) request.getAttribute("errmsg");
+				if(errMsg != null){
+			%>
+			<p><%=errMsg%></p>
+			<% 
+				}
+			%>
+
+			<form id="loginForm" onsubmit="return validateForm()" action="LoginServlet" method="post">
 				<div class="form-group">
 					<label for="username" class="form-label">username</label> <input
 						type="text" id="username" name="username" class="form-input"
@@ -56,7 +64,7 @@
 				return false;
 			}
 			alert("Logging in...");
-			return false;
+			return true;
 		}
 	</script>
 </body>
