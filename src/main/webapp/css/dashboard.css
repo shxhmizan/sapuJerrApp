@@ -35,12 +35,12 @@
 
         .sidebar {
             position: fixed; top: 0; left: calc(var(--sidebar-width) * -1);
-            width: var(--sidebar-width); height: 100vh; background: white;
+            width: 0; height: 100vh; background: white;
             z-index: 1000; box-shadow: 5px 0 30px rgba(0,0,0,0.15);
             transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex; flex-direction: column;
         }
-        .sidebar.active { left: 0; }
+        .sidebar.active { left: 0; width: var(--sidebar-width);}
 
         .sidebar-header { background-color: var(--brand-red); padding: 40px 30px 30px; color: white; }
         .user-profile-row { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
@@ -283,7 +283,7 @@
             .suggestions-grid { grid-template-columns: 1fr; }
             .header { padding: 0 20px; }
             .suggestions-section { padding: 0 20px 40px; }
-            .sidebar { width: 85%; }
+            .sidebar { width: 0; }
             .btn-swap { top: 50%; transform: translateY(-50%); } /* Adjust swap button for mobile if stacks differently */
         }
     
