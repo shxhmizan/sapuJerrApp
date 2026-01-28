@@ -48,18 +48,15 @@ public class RegistrationServlet extends HttpServlet {
 		String type = request.getParameter("type");
 		
 		PrintWriter out = response.getWriter();
-		RequestDispatcher rd;
 		
 		try {
 			UserEntity user = dao.registerUser(name, password, email, phone,type);
-			rd = request.getRequestDispatcher("login.jsp");
-			HttpSession session = request.getSession();
-			session.setAttribute("user", user);
-			rd.forward(request, response);
+			if(user != null) response.sendRedirect("login.jsp");
+			else response.sendRedirect("signup.jsp");
 		}
 		catch(Exception e) {
-			rd = request.getRequestDispatcher("signup.jsp");
-			rd.forward(request, response);
+			System.out.println(e);
+			response.sendRedirect("signup.jsp");
 		}
 	}
 
