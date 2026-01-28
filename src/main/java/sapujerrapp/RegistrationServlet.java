@@ -22,7 +22,7 @@ public class RegistrationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
     @EJB
-	UserDAO dao; 
+	private UserDAO dao; 
     /**
      * @see HttpServlet#HttpServlet()
      */
