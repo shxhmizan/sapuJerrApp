@@ -19,32 +19,32 @@
                     <div class="form-grid">
                         <div class="form-group">
                             <label class="form-label">Full Name</label>
-                            <input type="text" class="form-input">
+                            <input type="text" name="name" class="form-input">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Email</label>
-                            <input type="email" class="form-input">
+                            <input type="email" name="email" class="form-input">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Phone Number</label>
-                            <input type="tel" class="form-input">
+                            <input type="tel" name="phone" class="form-input">
                         </div>
                         
                         <div class="form-group">
                             <label class="form-label">Password</label>
-                            <input type="password" class="form-input">
+                            <input type="password" name="password" class="form-input">
                         </div>
                         <div class="form-group">
-                            <label class="form-label">User Type</label>
+                            <label class="form-label">Select User Type</label>
                             <div>
-	                          	<input type="radio" name="type" value="D">
+	                          	<input type="radio" name="type" value="driver">
 	                          	<label class="form-label">Driver</label>
-	                            <input type="radio" name="type" value="S">
+	                            <input type="radio" name="type" value="student">
 	                            <label class="form-label">Student</label>
                             </div>
                         </div>
                         <div class="form-group full-width">
-                            <button type="submit" class="submit-btn">submit</button>
+                            <button type="submit" name="submit" class="submit-btn">submit</button>
                         </div>
                     </div>
                 </form>

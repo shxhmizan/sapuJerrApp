@@ -1,14 +1,18 @@
 package sapujerrapp;
 
 import jakarta.ejb.EJB;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import model.UserDAO;
+import model.UserEntity;
 
 /**
  * Servlet implementation class RegistrationServlet
@@ -41,28 +45,22 @@ public class RegistrationServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");
+		String type = request.getParameter("type");
 		
 		PrintWriter out = response.getWriter();
+		RequestDispatcher rd;
 		
-		out.write("<html><head><title>Registration</title></head><body>");
-		
-		boolean success = false;
 		try {
-			success = dao.registerUser(name, password, email, phone);
+			UserEntity user = dao.registerUser(name, password, email, phone,type);
+			rd = request.getRequestDispatcher("login.jsp");
+			HttpSession session = request.getSession();
+			session.setAttribute("user", user);
+			rd.forward(request, response);
 		}
 		catch(Exception e) {
-			success = false;
+			rd = request.getRequestDispatcher("signup.jsp");
+			rd.forward(request, response);
 		}
-		if(success) {
-			out.write("<h1>Successfully registered your account!<h1>");
-		}
-		else {
-			out.write("<h1>Failed to register your account.<h1>");
-			out.write("<p>HELLO</p>");			
-			out.write("<a href='signup.jsp'>Click here to try again.</a>");
-		}
-		out.write("</body></html>");
-		out.close();
 	}
 
 }

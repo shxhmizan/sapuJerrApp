@@ -11,15 +11,14 @@ import model.UserEntity;
 
 @Stateless
 public class UserDAO {
+	/**
+	 * Entity manager for managing and performing operations on database entities
+	 */
 	@PersistenceContext
 	private EntityManager em;
 	
-	private List<UserEntity> getUsers(){
-		return em.createNamedQuery("User.findAll", UserEntity.class).getResultList();
-	}
-	
 	@Transactional
-	public boolean registerUser(String name, String password, String email, String phone) {
+	public UserEntity registerUser(String name, String password, String email, String phone,String type) {
 		try {
 			UserEntity user = new UserEntity();
 			user.setName(name);
@@ -27,19 +26,13 @@ public class UserDAO {
 			user.setEmail(email);
 			user.setPhone(phone);
 			user.setAccountStatus("Active");
-			user.setUserTypes("S");
+			user.setUserTypes(type);
 			em.persist(user);
-			return true;
+			return user;
 		}
 		catch(Exception e) {
 			System.out.println(e);
-			return false;
+			return null;
 		}
-	}
-	
-	public boolean test() {
-		Query q = em.createQuery("SELECT u FROM UserEntity u");
-		q.getResultList();
-		return true;
 	}
 }
