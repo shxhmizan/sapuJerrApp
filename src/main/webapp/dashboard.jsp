@@ -1,3 +1,8 @@
+<%@page import="model.UserEntity" %>
+<%
+	if(session.getAttribute("user") == null) response.sendRedirect("login.jsp");
+%>
+<jsp:useBean id="user" class="model.UserEntity" scope="session"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,14 +14,13 @@
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
-
     <div class="backdrop" id="backdrop" onclick="toggleSidebar()"></div>
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <div class="user-profile-row">
                 <div class="profile-avatar-large"><i class="fa-solid fa-user"></i></div>
                 <div class="profile-info">
-                    <h2>Mamat</h2>
+                    <h2><jsp:getProperty property="name" name="user"/></h2>
                     <div class="plan-badge"><i class="fa-solid fa-crown"></i> &nbsp;Dewa</div>
                 </div>
             </div>
@@ -52,7 +56,7 @@
     <header class="header">
         <div class="header-left">
             <button class="btn-profile" onclick="toggleSidebar()">
-                <i class="fa-regular fa-user"></i> Mamat
+                <i class="fa-regular fa-user"></i><jsp:getProperty property="name" name="user"/>
             </button>
         </div>
         <div class="header-right">
@@ -65,7 +69,7 @@
     <div class="hero-container">
         
         <div class="hero-left">
-            <h1 id="greetingText">Go anywhere with <br> SapuJerr</h1>
+            <h1 id="greetingText"><span id="dynamicGreeting"></span><jsp:getProperty property="name" name="user"/></h1>
             <p class="greeting-sub">Where would you like to go today?</p>
 
             <div class="input-block">
@@ -123,8 +127,8 @@
 
         <div class="hero-right">
             <div class="map-container">
-                <img class="map-img" alt="Map View">
-                
+                <%@include file="gmap.jsp"%>
+                <!--
                 <div class="map-overlay">
                     <div class="driver-avatar-wrapper">
                         <div class="radar-pulse"></div>
@@ -135,6 +139,7 @@
                         <div style="font-size:0.8rem; color:#666;">High demand nearby</div>
                     </div>
                 </div>
+                -->
             </div>
         </div>
     </div>
@@ -184,10 +189,10 @@
         // 2. Dynamic Greeting based on Time
         window.onload = function() {
             const hour = new Date().getHours();
-            const title = document.getElementById('greetingText');
-            if (hour < 12) title.innerHTML = "Good Morning, <br> Mamat";
-            else if (hour < 18) title.innerHTML = "Good Afternoon, <br> Mamat";
-            else title.innerHTML = "Good Evening, <br> Mamat";
+            const title = document.getElementById('dynamicGreeting');
+            if (hour < 12) title.innerHTML = "Good Morning,";
+            else if (hour < 18) title.innerHTML = "Good Afternoon,";
+            else title.innerHTML = "Good Evening,";
         };
 
         // 3. Swap Locations Logic
