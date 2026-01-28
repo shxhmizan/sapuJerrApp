@@ -14,8 +14,8 @@ import java.util.List;
  */
 @Entity
 @Table(name="booking")
-@NamedQuery(name="BookingDAO.findAll", query="SELECT b FROM BookingDAO b")
-public class BookingDAO implements Serializable {
+@NamedQuery(name="BookingEntity.findAll", query="SELECT b FROM BookingEntity b")
+public class BookingEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -43,34 +43,34 @@ public class BookingDAO implements Serializable {
 	@Column(name="status_booking")
 	private String statusBooking;
 
-	//bi-directional many-to-one association to DriverDAO
+	//bi-directional many-to-one association to DriverEntity
 	@ManyToOne
 	@JoinColumn(name="driver_id")
-	private DriverDAO driver;
+	private DriverEntity driver;
 
-	//bi-directional many-to-one association to PricingRateDAO
+	//bi-directional many-to-one association to PricingRateEntity
 	@ManyToOne
 	@JoinColumn(name="rate_id")
-	private PricingRateDAO pricingRate;
+	private PricingRateEntity pricingRate;
 
-	//bi-directional many-to-one association to StudentDAO
+	//bi-directional many-to-one association to StudentEntity
 	@ManyToOne
 	@JoinColumn(name="student_id")
-	private StudentDAO student;
+	private StudentEntity student;
 
-	//bi-directional many-to-one association to NotificationDAO
+	//bi-directional many-to-one association to NotificationEntity
 	@OneToMany(mappedBy="booking")
-	private List<NotificationDAO> notifications;
+	private List<NotificationEntity> notifications;
 
-	//bi-directional many-to-one association to PaymentDAO
+	//bi-directional many-to-one association to PaymentEntity
 	@OneToMany(mappedBy="booking")
-	private List<PaymentDAO> payments;
+	private List<PaymentEntity> payments;
 
-	//bi-directional many-to-one association to ReviewDAO
+	//bi-directional many-to-one association to ReviewEntity
 	@OneToMany(mappedBy="booking")
-	private List<ReviewDAO> reviews;
+	private List<ReviewEntity> reviews;
 
-	public BookingDAO() {
+	public BookingEntity() {
 	}
 
 	public int getBookingId() {
@@ -137,90 +137,90 @@ public class BookingDAO implements Serializable {
 		this.statusBooking = statusBooking;
 	}
 
-	public DriverDAO getDriver() {
+	public DriverEntity getDriver() {
 		return this.driver;
 	}
 
-	public void setDriver(DriverDAO driver) {
+	public void setDriver(DriverEntity driver) {
 		this.driver = driver;
 	}
 
-	public PricingRateDAO getPricingRate() {
+	public PricingRateEntity getPricingRate() {
 		return this.pricingRate;
 	}
 
-	public void setPricingRate(PricingRateDAO pricingRate) {
+	public void setPricingRate(PricingRateEntity pricingRate) {
 		this.pricingRate = pricingRate;
 	}
 
-	public StudentDAO getStudent() {
+	public StudentEntity getStudent() {
 		return this.student;
 	}
 
-	public void setStudent(StudentDAO student) {
+	public void setStudent(StudentEntity student) {
 		this.student = student;
 	}
 
-	public List<NotificationDAO> getNotifications() {
+	public List<NotificationEntity> getNotifications() {
 		return this.notifications;
 	}
 
-	public void setNotifications(List<NotificationDAO> notifications) {
+	public void setNotifications(List<NotificationEntity> notifications) {
 		this.notifications = notifications;
 	}
 
-	public NotificationDAO addNotification(NotificationDAO notification) {
+	public NotificationEntity addNotification(NotificationEntity notification) {
 		getNotifications().add(notification);
 		notification.setBooking(this);
 
 		return notification;
 	}
 
-	public NotificationDAO removeNotification(NotificationDAO notification) {
+	public NotificationEntity removeNotification(NotificationEntity notification) {
 		getNotifications().remove(notification);
 		notification.setBooking(null);
 
 		return notification;
 	}
 
-	public List<PaymentDAO> getPayments() {
+	public List<PaymentEntity> getPayments() {
 		return this.payments;
 	}
 
-	public void setPayments(List<PaymentDAO> payments) {
+	public void setPayments(List<PaymentEntity> payments) {
 		this.payments = payments;
 	}
 
-	public PaymentDAO addPayment(PaymentDAO payment) {
+	public PaymentEntity addPayment(PaymentEntity payment) {
 		getPayments().add(payment);
 		payment.setBooking(this);
 
 		return payment;
 	}
 
-	public PaymentDAO removePayment(PaymentDAO payment) {
+	public PaymentEntity removePayment(PaymentEntity payment) {
 		getPayments().remove(payment);
 		payment.setBooking(null);
 
 		return payment;
 	}
 
-	public List<ReviewDAO> getReviews() {
+	public List<ReviewEntity> getReviews() {
 		return this.reviews;
 	}
 
-	public void setReviews(List<ReviewDAO> reviews) {
+	public void setReviews(List<ReviewEntity> reviews) {
 		this.reviews = reviews;
 	}
 
-	public ReviewDAO addReview(ReviewDAO review) {
+	public ReviewEntity addReview(ReviewEntity review) {
 		getReviews().add(review);
 		review.setBooking(this);
 
 		return review;
 	}
 
-	public ReviewDAO removeReview(ReviewDAO review) {
+	public ReviewEntity removeReview(ReviewEntity review) {
 		getReviews().remove(review);
 		review.setBooking(null);
 

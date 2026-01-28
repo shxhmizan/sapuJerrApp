@@ -10,8 +10,8 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name="notification")
-@NamedQuery(name="NotificationDAO.findAll", query="SELECT n FROM NotificationDAO n")
-public class NotificationDAO implements Serializable {
+@NamedQuery(name="NotificationEntity.findAll", query="SELECT n FROM NotificationEntity n")
+public class NotificationEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -22,17 +22,17 @@ public class NotificationDAO implements Serializable {
 	@Lob
 	private String message;
 
-	//bi-directional many-to-one association to BookingDAO
+	//bi-directional many-to-one association to BookingEntity
 	@ManyToOne
 	@JoinColumn(name="booking_id")
-	private BookingDAO booking;
+	private BookingEntity booking;
 
-	//bi-directional many-to-one association to UserDAO
+	//bi-directional many-to-one association to UserEntity
 	@ManyToOne
 	@JoinColumn(name="user_id")
-	private UserDAO user;
+	private UserEntity user;
 
-	public NotificationDAO() {
+	public NotificationEntity() {
 	}
 
 	public int getNotificationId() {
@@ -51,19 +51,19 @@ public class NotificationDAO implements Serializable {
 		this.message = message;
 	}
 
-	public BookingDAO getBooking() {
+	public BookingEntity getBooking() {
 		return this.booking;
 	}
 
-	public void setBooking(BookingDAO booking) {
+	public void setBooking(BookingEntity booking) {
 		this.booking = booking;
 	}
 
-	public UserDAO getUser() {
+	public UserEntity getUser() {
 		return this.user;
 	}
 
-	public void setUser(UserDAO user) {
+	public void setUser(UserEntity user) {
 		this.user = user;
 	}
 

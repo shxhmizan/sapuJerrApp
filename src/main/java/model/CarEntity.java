@@ -10,8 +10,8 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name="car")
-@NamedQuery(name="CarDAO.findAll", query="SELECT c FROM CarDAO c")
-public class CarDAO implements Serializable {
+@NamedQuery(name="CarEntity.findAll", query="SELECT c FROM CarEntity c")
+public class CarEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -50,12 +50,12 @@ public class CarDAO implements Serializable {
 	@Column(name="vehicle_type")
 	private String vehicleType;
 
-	//bi-directional many-to-one association to DriverDAO
+	//bi-directional many-to-one association to DriverEntity
 	@ManyToOne
 	@JoinColumn(name="driver_id")
-	private DriverDAO driver;
+	private DriverEntity driver;
 
-	public CarDAO() {
+	public CarEntity() {
 	}
 
 	public int getVehicleId() {
@@ -154,11 +154,11 @@ public class CarDAO implements Serializable {
 		this.vehicleType = vehicleType;
 	}
 
-	public DriverDAO getDriver() {
+	public DriverEntity getDriver() {
 		return this.driver;
 	}
 
-	public void setDriver(DriverDAO driver) {
+	public void setDriver(DriverEntity driver) {
 		this.driver = driver;
 	}
 

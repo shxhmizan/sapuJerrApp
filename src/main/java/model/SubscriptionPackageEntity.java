@@ -12,8 +12,8 @@ import java.util.List;
  */
 @Entity
 @Table(name="package")
-@NamedQuery(name="SubscriptionPackageDAO.findAll", query="SELECT s FROM SubscriptionPackageDAO s")
-public class SubscriptionPackageDAO implements Serializable {
+@NamedQuery(name="SubscriptionPackageEntity.findAll", query="SELECT s FROM SubscriptionPackageEntity s")
+public class SubscriptionPackageEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -33,11 +33,11 @@ public class SubscriptionPackageDAO implements Serializable {
 	@Column(name="package_tier")
 	private String packageTier;
 
-	//bi-directional many-to-one association to SubscriptionDAO
+	//bi-directional many-to-one association to SubscriptionEntity
 	@OneToMany(mappedBy="subcriptionPackage")
-	private List<SubscriptionDAO> subscriptions;
+	private List<SubscriptionEntity> subscriptions;
 
-	public SubscriptionPackageDAO() {
+	public SubscriptionPackageEntity() {
 	}
 
 	public int getPackageId() {
@@ -80,22 +80,22 @@ public class SubscriptionPackageDAO implements Serializable {
 		this.packageTier = packageTier;
 	}
 
-	public List<SubscriptionDAO> getSubscriptions() {
+	public List<SubscriptionEntity> getSubscriptions() {
 		return this.subscriptions;
 	}
 
-	public void setSubscriptions(List<SubscriptionDAO> subscriptions) {
+	public void setSubscriptions(List<SubscriptionEntity> subscriptions) {
 		this.subscriptions = subscriptions;
 	}
 
-	public SubscriptionDAO addSubscription(SubscriptionDAO subscription) {
+	public SubscriptionEntity addSubscription(SubscriptionEntity subscription) {
 		getSubscriptions().add(subscription);
 		subscription.setSubcriptionPackage(this);
 
 		return subscription;
 	}
 
-	public SubscriptionDAO removeSubscription(SubscriptionDAO subscription) {
+	public SubscriptionEntity removeSubscription(SubscriptionEntity subscription) {
 		getSubscriptions().remove(subscription);
 		subscription.setSubcriptionPackage(null);
 

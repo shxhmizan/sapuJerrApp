@@ -14,5 +14,16 @@
 		<class>model.StudentDAO</class>
 		<class>model.SubscriptionDAO</class>
 		<class>model.UserDAO</class>
+		<class>model.BookingEntity</class>
+		<class>model.CarEntity</class>
+		<class>model.DriverEntity</class>
+		<class>model.NotificationEntity</class>
+		<class>model.SubscriptionPackageEntity</class>
+		<class>model.PaymentEntity</class>
+		<class>model.PricingRateEntity</class>
+		<class>model.ReviewEntity</class>
+		<class>model.StudentEntity</class>
+		<class>model.SubscriptionEntity</class>
+		<class>model.UserEntity</class>
 	</persistence-unit>
 </persistence>

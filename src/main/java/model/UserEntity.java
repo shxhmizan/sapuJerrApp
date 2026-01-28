@@ -11,8 +11,8 @@ import java.util.List;
  */
 @Entity
 @Table(name="users")
-@NamedQuery(name="UserDAO.findAll", query="SELECT u FROM UserDAO u")
-public class UserDAO implements Serializable {
+@NamedQuery(name="UserEntity.findAll", query="SELECT u FROM UserEntity u")
+public class UserEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -34,23 +34,23 @@ public class UserDAO implements Serializable {
 	@Column(name="user_types")
 	private String userTypes;
 
-	//bi-directional one-to-one association to DriverDAO
+	//bi-directional one-to-one association to DriverEntity
 	@OneToOne(mappedBy="user")
-	private DriverDAO driver;
+	private DriverEntity driver;
 
-	//bi-directional many-to-one association to NotificationDAO
+	//bi-directional many-to-one association to NotificationEntity
 	@OneToMany(mappedBy="user")
-	private List<NotificationDAO> notifications;
+	private List<NotificationEntity> notifications;
 
-	//bi-directional many-to-one association to ReviewDAO
+	//bi-directional many-to-one association to ReviewEntity
 	@OneToMany(mappedBy="user")
-	private List<ReviewDAO> reviews;
+	private List<ReviewEntity> reviews;
 
-	//bi-directional one-to-one association to StudentDAO
+	//bi-directional one-to-one association to StudentEntity
 	@OneToOne(mappedBy="user")
-	private StudentDAO student;
+	private StudentEntity student;
 
-	public UserDAO() {
+	public UserEntity() {
 	}
 
 	public int getUserId() {
@@ -109,63 +109,63 @@ public class UserDAO implements Serializable {
 		this.userTypes = userTypes;
 	}
 
-	public DriverDAO getDriver() {
+	public DriverEntity getDriver() {
 		return this.driver;
 	}
 
-	public void setDriver(DriverDAO driver) {
+	public void setDriver(DriverEntity driver) {
 		this.driver = driver;
 	}
 
-	public List<NotificationDAO> getNotifications() {
+	public List<NotificationEntity> getNotifications() {
 		return this.notifications;
 	}
 
-	public void setNotifications(List<NotificationDAO> notifications) {
+	public void setNotifications(List<NotificationEntity> notifications) {
 		this.notifications = notifications;
 	}
 
-	public NotificationDAO addNotification(NotificationDAO notification) {
+	public NotificationEntity addNotification(NotificationEntity notification) {
 		getNotifications().add(notification);
 		notification.setUser(this);
 
 		return notification;
 	}
 
-	public NotificationDAO removeNotification(NotificationDAO notification) {
+	public NotificationEntity removeNotification(NotificationEntity notification) {
 		getNotifications().remove(notification);
 		notification.setUser(null);
 
 		return notification;
 	}
 
-	public List<ReviewDAO> getReviews() {
+	public List<ReviewEntity> getReviews() {
 		return this.reviews;
 	}
 
-	public void setReviews(List<ReviewDAO> reviews) {
+	public void setReviews(List<ReviewEntity> reviews) {
 		this.reviews = reviews;
 	}
 
-	public ReviewDAO addReview(ReviewDAO review) {
+	public ReviewEntity addReview(ReviewEntity review) {
 		getReviews().add(review);
 		review.setUser(this);
 
 		return review;
 	}
 
-	public ReviewDAO removeReview(ReviewDAO review) {
+	public ReviewEntity removeReview(ReviewEntity review) {
 		getReviews().remove(review);
 		review.setUser(null);
 
 		return review;
 	}
 
-	public StudentDAO getStudent() {
+	public StudentEntity getStudent() {
 		return this.student;
 	}
 
-	public void setStudent(StudentDAO student) {
+	public void setStudent(StudentEntity student) {
 		this.student = student;
 	}
 

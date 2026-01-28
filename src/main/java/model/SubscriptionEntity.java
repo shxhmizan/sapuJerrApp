@@ -12,8 +12,8 @@ import java.util.List;
  */
 @Entity
 @Table(name="subscription")
-@NamedQuery(name="SubscriptionDAO.findAll", query="SELECT s FROM SubscriptionDAO s")
-public class SubscriptionDAO implements Serializable {
+@NamedQuery(name="SubscriptionEntity.findAll", query="SELECT s FROM SubscriptionEntity s")
+public class SubscriptionEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -32,21 +32,21 @@ public class SubscriptionDAO implements Serializable {
 	@Column(name="status_sub")
 	private String statusSub;
 
-	//bi-directional many-to-one association to PaymentDAO
+	//bi-directional many-to-one association to PaymentEntity
 	@OneToMany(mappedBy="subscription")
-	private List<PaymentDAO> payments;
+	private List<PaymentEntity> payments;
 
-	//bi-directional many-to-one association to DriverDAO
+	//bi-directional many-to-one association to DriverEntity
 	@ManyToOne
 	@JoinColumn(name="driver_id")
-	private DriverDAO driver;
+	private DriverEntity driver;
 
-	//bi-directional many-to-one association to SubscriptionPackageDAO
+	//bi-directional many-to-one association to SubscriptionPackageEntity
 	@ManyToOne
 	@JoinColumn(name="package_id")
-	private SubscriptionPackageDAO subcriptionPackage;
+	private SubscriptionPackageEntity subcriptionPackage;
 
-	public SubscriptionDAO() {
+	public SubscriptionEntity() {
 	}
 
 	public int getSubsId() {
@@ -81,41 +81,41 @@ public class SubscriptionDAO implements Serializable {
 		this.statusSub = statusSub;
 	}
 
-	public List<PaymentDAO> getPayments() {
+	public List<PaymentEntity> getPayments() {
 		return this.payments;
 	}
 
-	public void setPayments(List<PaymentDAO> payments) {
+	public void setPayments(List<PaymentEntity> payments) {
 		this.payments = payments;
 	}
 
-	public PaymentDAO addPayment(PaymentDAO payment) {
+	public PaymentEntity addPayment(PaymentEntity payment) {
 		getPayments().add(payment);
 		payment.setSubscription(this);
 
 		return payment;
 	}
 
-	public PaymentDAO removePayment(PaymentDAO payment) {
+	public PaymentEntity removePayment(PaymentEntity payment) {
 		getPayments().remove(payment);
 		payment.setSubscription(null);
 
 		return payment;
 	}
 
-	public DriverDAO getDriver() {
+	public DriverEntity getDriver() {
 		return this.driver;
 	}
 
-	public void setDriver(DriverDAO driver) {
+	public void setDriver(DriverEntity driver) {
 		this.driver = driver;
 	}
 
-	public SubscriptionPackageDAO getSubcriptionPackage() {
+	public SubscriptionPackageEntity getSubcriptionPackage() {
 		return this.subcriptionPackage;
 	}
 
-	public void setSubcriptionPackage(SubscriptionPackageDAO subcriptionPackage) {
+	public void setSubcriptionPackage(SubscriptionPackageEntity subcriptionPackage) {
 		this.subcriptionPackage = subcriptionPackage;
 	}
 

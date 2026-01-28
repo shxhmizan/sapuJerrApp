@@ -10,8 +10,8 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name="review")
-@NamedQuery(name="ReviewDAO.findAll", query="SELECT r FROM ReviewDAO r")
-public class ReviewDAO implements Serializable {
+@NamedQuery(name="ReviewEntity.findAll", query="SELECT r FROM ReviewEntity r")
+public class ReviewEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -24,22 +24,22 @@ public class ReviewDAO implements Serializable {
 
 	private int rating;
 
-	//bi-directional many-to-one association to BookingDAO
+	//bi-directional many-to-one association to BookingEntity
 	@ManyToOne
 	@JoinColumn(name="booking_id")
-	private BookingDAO booking;
+	private BookingEntity booking;
 
-	//bi-directional many-to-one association to DriverDAO
+	//bi-directional many-to-one association to DriverEntity
 	@ManyToOne
 	@JoinColumn(name="rated_id")
-	private DriverDAO driver;
+	private DriverEntity driver;
 
-	//bi-directional many-to-one association to UserDAO
+	//bi-directional many-to-one association to UserEntity
 	@ManyToOne
 	@JoinColumn(name="reviewer_id")
-	private UserDAO user;
+	private UserEntity user;
 
-	public ReviewDAO() {
+	public ReviewEntity() {
 	}
 
 	public int getReviewId() {
@@ -66,27 +66,27 @@ public class ReviewDAO implements Serializable {
 		this.rating = rating;
 	}
 
-	public BookingDAO getBooking() {
+	public BookingEntity getBooking() {
 		return this.booking;
 	}
 
-	public void setBooking(BookingDAO booking) {
+	public void setBooking(BookingEntity booking) {
 		this.booking = booking;
 	}
 
-	public DriverDAO getDriver() {
+	public DriverEntity getDriver() {
 		return this.driver;
 	}
 
-	public void setDriver(DriverDAO driver) {
+	public void setDriver(DriverEntity driver) {
 		this.driver = driver;
 	}
 
-	public UserDAO getUser() {
+	public UserEntity getUser() {
 		return this.user;
 	}
 
-	public void setUser(UserDAO user) {
+	public void setUser(UserEntity user) {
 		this.user = user;
 	}
 

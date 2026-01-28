@@ -12,8 +12,8 @@ import java.util.List;
  */
 @Entity
 @Table(name="driver")
-@NamedQuery(name="DriverDAO.findAll", query="SELECT d FROM DriverDAO d")
-public class DriverDAO implements Serializable {
+@NamedQuery(name="DriverEntity.findAll", query="SELECT d FROM DriverEntity d")
+public class DriverEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -32,28 +32,28 @@ public class DriverDAO implements Serializable {
 
 	private String username;
 
-	//bi-directional many-to-one association to BookingDAO
+	//bi-directional many-to-one association to BookingEntity
 	@OneToMany(mappedBy="driver")
-	private List<BookingDAO> bookings;
+	private List<BookingEntity> bookings;
 
-	//bi-directional many-to-one association to CarDAO
+	//bi-directional many-to-one association to CarEntity
 	@OneToMany(mappedBy="driver")
-	private List<CarDAO> cars;
+	private List<CarEntity> cars;
 
-	//bi-directional one-to-one association to UserDAO
+	//bi-directional one-to-one association to UserEntity
 	@OneToOne
 	@JoinColumn(name="driver_id")
-	private UserDAO user;
+	private UserEntity user;
 
-	//bi-directional many-to-one association to ReviewDAO
+	//bi-directional many-to-one association to ReviewEntity
 	@OneToMany(mappedBy="driver")
-	private List<ReviewDAO> reviews;
+	private List<ReviewEntity> reviews;
 
-	//bi-directional many-to-one association to SubscriptionDAO
+	//bi-directional many-to-one association to SubscriptionEntity
 	@OneToMany(mappedBy="driver")
-	private List<SubscriptionDAO> subscriptions;
+	private List<SubscriptionEntity> subscriptions;
 
-	public DriverDAO() {
+	public DriverEntity() {
 	}
 
 	public int getDriverId() {
@@ -96,96 +96,96 @@ public class DriverDAO implements Serializable {
 		this.username = username;
 	}
 
-	public List<BookingDAO> getBookings() {
+	public List<BookingEntity> getBookings() {
 		return this.bookings;
 	}
 
-	public void setBookings(List<BookingDAO> bookings) {
+	public void setBookings(List<BookingEntity> bookings) {
 		this.bookings = bookings;
 	}
 
-	public BookingDAO addBooking(BookingDAO booking) {
+	public BookingEntity addBooking(BookingEntity booking) {
 		getBookings().add(booking);
 		booking.setDriver(this);
 
 		return booking;
 	}
 
-	public BookingDAO removeBooking(BookingDAO booking) {
+	public BookingEntity removeBooking(BookingEntity booking) {
 		getBookings().remove(booking);
 		booking.setDriver(null);
 
 		return booking;
 	}
 
-	public List<CarDAO> getCars() {
+	public List<CarEntity> getCars() {
 		return this.cars;
 	}
 
-	public void setCars(List<CarDAO> cars) {
+	public void setCars(List<CarEntity> cars) {
 		this.cars = cars;
 	}
 
-	public CarDAO addCar(CarDAO car) {
+	public CarEntity addCar(CarEntity car) {
 		getCars().add(car);
 		car.setDriver(this);
 
 		return car;
 	}
 
-	public CarDAO removeCar(CarDAO car) {
+	public CarEntity removeCar(CarEntity car) {
 		getCars().remove(car);
 		car.setDriver(null);
 
 		return car;
 	}
 
-	public UserDAO getUser() {
+	public UserEntity getUser() {
 		return this.user;
 	}
 
-	public void setUser(UserDAO user) {
+	public void setUser(UserEntity user) {
 		this.user = user;
 	}
 
-	public List<ReviewDAO> getReviews() {
+	public List<ReviewEntity> getReviews() {
 		return this.reviews;
 	}
 
-	public void setReviews(List<ReviewDAO> reviews) {
+	public void setReviews(List<ReviewEntity> reviews) {
 		this.reviews = reviews;
 	}
 
-	public ReviewDAO addReview(ReviewDAO review) {
+	public ReviewEntity addReview(ReviewEntity review) {
 		getReviews().add(review);
 		review.setDriver(this);
 
 		return review;
 	}
 
-	public ReviewDAO removeReview(ReviewDAO review) {
+	public ReviewEntity removeReview(ReviewEntity review) {
 		getReviews().remove(review);
 		review.setDriver(null);
 
 		return review;
 	}
 
-	public List<SubscriptionDAO> getSubscriptions() {
+	public List<SubscriptionEntity> getSubscriptions() {
 		return this.subscriptions;
 	}
 
-	public void setSubscriptions(List<SubscriptionDAO> subscriptions) {
+	public void setSubscriptions(List<SubscriptionEntity> subscriptions) {
 		this.subscriptions = subscriptions;
 	}
 
-	public SubscriptionDAO addSubscription(SubscriptionDAO subscription) {
+	public SubscriptionEntity addSubscription(SubscriptionEntity subscription) {
 		getSubscriptions().add(subscription);
 		subscription.setDriver(this);
 
 		return subscription;
 	}
 
-	public SubscriptionDAO removeSubscription(SubscriptionDAO subscription) {
+	public SubscriptionEntity removeSubscription(SubscriptionEntity subscription) {
 		getSubscriptions().remove(subscription);
 		subscription.setDriver(null);
 

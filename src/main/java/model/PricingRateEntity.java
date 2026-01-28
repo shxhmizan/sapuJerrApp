@@ -13,8 +13,8 @@ import java.util.List;
  */
 @Entity
 @Table(name="pricing_rate")
-@NamedQuery(name="PricingRateDAO.findAll", query="SELECT p FROM PricingRateDAO p")
-public class PricingRateDAO implements Serializable {
+@NamedQuery(name="PricingRateEntity.findAll", query="SELECT p FROM PricingRateEntity p")
+public class PricingRateEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -35,11 +35,11 @@ public class PricingRateDAO implements Serializable {
 	@Column(name="price_per_min")
 	private BigDecimal pricePerMin;
 
-	//bi-directional many-to-one association to BookingDAO
+	//bi-directional many-to-one association to BookingEntity
 	@OneToMany(mappedBy="pricingRate")
-	private List<BookingDAO> bookings;
+	private List<BookingEntity> bookings;
 
-	public PricingRateDAO() {
+	public PricingRateEntity() {
 	}
 
 	public int getRateId() {
@@ -82,22 +82,22 @@ public class PricingRateDAO implements Serializable {
 		this.pricePerMin = pricePerMin;
 	}
 
-	public List<BookingDAO> getBookings() {
+	public List<BookingEntity> getBookings() {
 		return this.bookings;
 	}
 
-	public void setBookings(List<BookingDAO> bookings) {
+	public void setBookings(List<BookingEntity> bookings) {
 		this.bookings = bookings;
 	}
 
-	public BookingDAO addBooking(BookingDAO booking) {
+	public BookingEntity addBooking(BookingEntity booking) {
 		getBookings().add(booking);
 		booking.setPricingRate(this);
 
 		return booking;
 	}
 
-	public BookingDAO removeBooking(BookingDAO booking) {
+	public BookingEntity removeBooking(BookingEntity booking) {
 		getBookings().remove(booking);
 		booking.setPricingRate(null);
 

@@ -12,8 +12,8 @@ import java.util.Date;
  */
 @Entity
 @Table(name="payment")
-@NamedQuery(name="PaymentDAO.findAll", query="SELECT p FROM PaymentDAO p")
-public class PaymentDAO implements Serializable {
+@NamedQuery(name="PaymentEntity.findAll", query="SELECT p FROM PaymentEntity p")
+public class PaymentEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -33,17 +33,17 @@ public class PaymentDAO implements Serializable {
 	@Column(name="transaction_date")
 	private Date transactionDate;
 
-	//bi-directional many-to-one association to BookingDAO
+	//bi-directional many-to-one association to BookingEntity
 	@ManyToOne
 	@JoinColumn(name="booking_id")
-	private BookingDAO booking;
+	private BookingEntity booking;
 
-	//bi-directional many-to-one association to SubscriptionDAO
+	//bi-directional many-to-one association to SubscriptionEntity
 	@ManyToOne
 	@JoinColumn(name="subs_id")
-	private SubscriptionDAO subscription;
+	private SubscriptionEntity subscription;
 
-	public PaymentDAO() {
+	public PaymentEntity() {
 	}
 
 	public int getPaymentId() {
@@ -86,19 +86,19 @@ public class PaymentDAO implements Serializable {
 		this.transactionDate = transactionDate;
 	}
 
-	public BookingDAO getBooking() {
+	public BookingEntity getBooking() {
 		return this.booking;
 	}
 
-	public void setBooking(BookingDAO booking) {
+	public void setBooking(BookingEntity booking) {
 		this.booking = booking;
 	}
 
-	public SubscriptionDAO getSubscription() {
+	public SubscriptionEntity getSubscription() {
 		return this.subscription;
 	}
 
-	public void setSubscription(SubscriptionDAO subscription) {
+	public void setSubscription(SubscriptionEntity subscription) {
 		this.subscription = subscription;
 	}
 

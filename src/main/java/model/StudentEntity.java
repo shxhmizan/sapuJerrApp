@@ -11,8 +11,8 @@ import java.util.List;
  */
 @Entity
 @Table(name="student")
-@NamedQuery(name="StudentDAO.findAll", query="SELECT s FROM StudentDAO s")
-public class StudentDAO implements Serializable {
+@NamedQuery(name="StudentEntity.findAll", query="SELECT s FROM StudentEntity s")
+public class StudentEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -25,16 +25,16 @@ public class StudentDAO implements Serializable {
 	@Column(name="matric_number")
 	private String matricNumber;
 
-	//bi-directional many-to-one association to BookingDAO
+	//bi-directional many-to-one association to BookingEntity
 	@OneToMany(mappedBy="student")
-	private List<BookingDAO> bookings;
+	private List<BookingEntity> bookings;
 
-	//bi-directional one-to-one association to UserDAO
+	//bi-directional one-to-one association to UserEntity
 	@OneToOne
 	@JoinColumn(name="student_id")
-	private UserDAO user;
+	private UserEntity user;
 
-	public StudentDAO() {
+	public StudentEntity() {
 	}
 
 	public int getStudentId() {
@@ -61,33 +61,33 @@ public class StudentDAO implements Serializable {
 		this.matricNumber = matricNumber;
 	}
 
-	public List<BookingDAO> getBookings() {
+	public List<BookingEntity> getBookings() {
 		return this.bookings;
 	}
 
-	public void setBookings(List<BookingDAO> bookings) {
+	public void setBookings(List<BookingEntity> bookings) {
 		this.bookings = bookings;
 	}
 
-	public BookingDAO addBooking(BookingDAO booking) {
+	public BookingEntity addBooking(BookingEntity booking) {
 		getBookings().add(booking);
 		booking.setStudent(this);
 
 		return booking;
 	}
 
-	public BookingDAO removeBooking(BookingDAO booking) {
+	public BookingEntity removeBooking(BookingEntity booking) {
 		getBookings().remove(booking);
 		booking.setStudent(null);
 
 		return booking;
 	}
 
-	public UserDAO getUser() {
+	public UserEntity getUser() {
 		return this.user;
 	}
 
-	public void setUser(UserDAO user) {
+	public void setUser(UserEntity user) {
 		this.user = user;
 	}
 
