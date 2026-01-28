@@ -1,0 +1,7 @@
+<Context>
+	<Parameter 
+	name="mapsAPIKey" 
+	value="your-api-key-here" 
+	override="true" 
+	description="The API key for Google MAPS API"/>
+</Context>
