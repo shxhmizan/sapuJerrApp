@@ -13,6 +13,14 @@
         <div class="card">
             <div class="card-header">
                 <h1>SignUp</h1>
+               <%
+				String errMsg = (String) request.getAttribute("errmsg");
+				if(errMsg != null){
+				%>
+				<p><%=errMsg%></p>
+				<% 
+					}
+				%>
             </div>
 
             <div class="card-body">

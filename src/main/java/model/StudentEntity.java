@@ -16,7 +16,6 @@ public class StudentEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="student_id")
 	private int studentId;
 

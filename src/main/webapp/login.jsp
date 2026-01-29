@@ -43,7 +43,7 @@
 			</form>
 
 			<div class="signup-link">
-				Don't have an account? <a>SignUp</a>
+				Don't have an account? <a href="signup.jsp">SignUp</a>
 			</div>
 		</div>
 	</div>

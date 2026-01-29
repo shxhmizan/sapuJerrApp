@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import model.UserDAO;
 import model.UserEntity;
+import model.DriverEntity;
+import model.StudentEntity;
 
 /**
  * Servlet implementation class RegistrationServlet
@@ -49,14 +51,37 @@ public class RegistrationServlet extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		
+		RequestDispatcher rd = request.getRequestDispatcher("signup.jsp");
+		
 		try {
 			UserEntity user = dao.registerUser(name, password, email, phone,type);
-			if(user != null) response.sendRedirect("login.jsp");
-			else response.sendRedirect("signup.jsp");
+			if(user != null) {
+				if(type.equals("driver")) {
+					String licenseNo = request.getParameter("licence_number");
+					DriverEntity driver = dao.registerDriver(user, licenseNo);
+					
+					if(driver != null) {
+						response.sendRedirect("login.jsp"); return;
+					}
+				}
+				else {
+					String matricNo = request.getParameter("matric_number");
+					String faculty = request.getParameter("faculty");
+					
+					StudentEntity student = dao.registerStudent(user, matricNo, faculty);
+					
+					if(student != null) {
+						response.sendRedirect("login.jsp"); return;
+					}
+				}
+			}
+			request.setAttribute("errmsg", "Unable to register user");
+			rd.forward(request, response);
 		}
 		catch(Exception e) {
 			System.out.println(e);
-			response.sendRedirect("signup.jsp");
+			request.setAttribute("errmsg", e + "<br>" + e.getMessage());
+			rd.forward(request, response);
 		}
 	}
 

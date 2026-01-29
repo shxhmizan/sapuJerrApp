@@ -1,5 +1,6 @@
 package model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import jakarta.ejb.Stateless;
@@ -55,6 +56,39 @@ public class UserDAO {
 		catch(NoResultException ne) {
 			System.out.println("User not found");
 			return null;
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+	
+	public DriverEntity registerDriver(UserEntity user, String licenseNo) {
+		try {
+			DriverEntity driver = new DriverEntity();
+			//driver.setUser(user);
+			driver.setDriverId(user.getUserId());
+			driver.setLicenceNumber(licenseNo);
+			driver.setRatingAverage(new BigDecimal(0));
+			driver.setUsername(user.getName());
+			driver.setStatusVerified( (byte) 0);
+			em.persist(driver);
+			return driver;
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+	
+	public StudentEntity registerStudent(UserEntity user, String matricNo, String faculty) {
+		try {
+			StudentEntity student = new StudentEntity();
+			student.setStudentId(user.getUserId());
+			student.setMatricNumber(matricNo);
+			student.setFaculty(faculty);
+			em.persist(student);
+			return student;
 		}
 		catch(Exception e) {
 			System.out.println(e);
