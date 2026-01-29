@@ -22,7 +22,6 @@ public class UserDAO {
 	@PersistenceContext
 	private EntityManager em;
 	
-	@Transactional
 	public UserEntity registerUser(String name, String password, String email, String phone,String type) {
 		try {
 			UserEntity user = new UserEntity();
