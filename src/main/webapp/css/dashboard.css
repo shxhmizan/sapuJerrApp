@@ -117,8 +117,15 @@
            4. HERO SECTION
            ============================ */
         .hero-container {
-            max-width: 1400px; width: 100%; margin: 0 auto; padding: 60px;
-            display: flex; justify-content: space-between; align-items: center; gap: 80px; flex: 1;
+            /* max-width: 1400px; */
+            width: 100%;
+            margin: 0 auto;
+            padding: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 80px;
+            flex: 1;
         }
 
         .hero-left { flex: 1; max-width: 550px; display: flex; flex-direction: column; justify-content: center; }
@@ -214,10 +221,15 @@
         .btn-action:hover { background-color: var(--brand-red-hover); transform: translateY(-2px); }
 
         /* Hero Right (Map) */
-        .hero-right { flex: 1.1; height: 550px; position: relative; }
+        .hero-right {flex: 1.1;/* height: 550px; */position: relative;}
         .map-container {
-            width: 100%; height: 100%; border-radius: 30px; overflow: hidden;
-            box-shadow: var(--shadow-soft); position: relative; background: #eee;
+            width: 100%;
+            /* height: 100%; */
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            background: #eee;
         }
         .map-img {
             width: 100%; height: 100%; object-fit: cover;

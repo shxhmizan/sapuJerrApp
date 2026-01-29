@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	String key = this.getServletContext().getInitParameter("mapsAPIKey");
-%>
 <script async
-    src="https://maps.googleapis.com/maps/api/js?key=<%=key%>&loading=async&callback=initMap&libraries=routes,marker">
+    src="/SapuJerr/MapsServlet/mapview?loading=async&callback=initMap&libraries=routes,marker,places">
 </script>
 <gmp-map
 	center="4.178077894908865, 101.21876889817179"
@@ -13,20 +10,16 @@
 	style="height: 50vh"
 >
 </gmp-map>
-<script async>
-	async function initMap(){
-		const {AdvancedMarkerElement} = await google.maps.importLibrary("marker");
-		
-		const mapElem = document.querySelector("gmp-map");
-		const map = mapElem.innerMap;
-		if(!map) return;
-		map.addListener('click',(e) => {
-			console.log(e);
-			const marker = new AdvancedMarkerElement({
-				position: e.latLng
-			});
-			mapElem.append(marker);
-		});
-	}
-	
-</script>
+<script defer src="map_routing.js"></script>
+<!-- Confirmation dialog for location -->
+<dialog style="margin:auto;" id="route_dialog">
+	<form method="dialog" id="route_form" onsubmit="processRoute(event)">
+		<p>Selected Location:
+		<br><span id="location_name"></span>
+		<br><span id="location_addr"></span>
+		</p>
+		<button type="submit" name="start" value="start">Set As Starting Location</button>
+		<button type="submit" name="dest" value="dest">Set As End Location</button>
+		<button type="submit" name="cancel" value="cancel">Cancel</button>
+	</form>
+</dialog>

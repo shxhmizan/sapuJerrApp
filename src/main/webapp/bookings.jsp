@@ -19,7 +19,7 @@
             </div>
         </div>
         <nav class="sidebar-menu">
-            <a href="dashboard.html" class="menu-item"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+            <a href="dashboard.jsp" class="menu-item"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
             <a href="#" class="menu-item" style="background:#f5f5f5; color:var(--brand-red);"><i class="fa-solid fa-clock-rotate-left"></i> Your Trips</a>
             <a href="#" class="menu-item"><i class="fa-solid fa-wallet"></i> Wallet</a>
         </nav>

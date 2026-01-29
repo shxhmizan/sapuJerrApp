@@ -96,8 +96,9 @@
 
                 <div class="input-wrapper" style="position:relative;">
                     <input type="text" class="clean-input" id="inputDropoff" placeholder="Where to?" onfocus="showRecent()" onblur="hideRecent()">
-                    
+                     <!-- 
                     <div class="recent-dropdown" id="recentDropdown">
+                   
                         <div class="recent-item" onmousedown="selectRecent('Tapah Road KTM')">
                             <div class="recent-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
                             <div class="recent-info">
@@ -113,6 +114,7 @@
                             </div>
                         </div>
                     </div>
+                     -->
                 </div>
 
                 <div class="actions-row">
@@ -140,9 +142,14 @@
                     </div>
                 </div>
                 -->
+                <div class="block-tabs">
+                	<h3>Trip Distance</h3><p id="route_distance"></p>
+                	<h3>Expected Duration</h3><p id="route_duration"></p>
+                	<h3>Notes</h3><p id="route_info"></p>
+            	</div>
             </div>
         </div>
-    </div>
+   </div>
 
     <div class="suggestions-section">
         <div class="section-header">
