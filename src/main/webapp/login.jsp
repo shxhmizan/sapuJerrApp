@@ -63,7 +63,6 @@
 				passwordInput.focus();
 				return false;
 			}
-			alert("Logging in...");
 			return true;
 		}
 	</script>
