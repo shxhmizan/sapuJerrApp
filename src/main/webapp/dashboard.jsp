@@ -121,7 +121,7 @@
                     <button class="btn-schedule">
                         <i class="fa-solid fa-clock"></i> Now <i class="fa-solid fa-chevron-down" style="font-size:0.8rem; margin-left:5px;"></i>
                     </button>
-                    <button class="btn-action">See Prices</button>
+                    <button class="btn-action" onclick="displayPrices()">See Prices</button>
                 </div>
 
             </div>
@@ -259,6 +259,31 @@
             if (event.key === 'Enter') {
                 sendChatMessage();
             }
+        }
+        
+        async function displayPrices(){
+        	const url = "/SapuJerr/BookingServlet?latestPrice";
+        	
+        	try{
+        		const response = await fetch(url);
+        		if(response.ok){
+        			const json = await response.json();
+        			console.log(json);
+        			const basePrice = json.base_price;
+        			const pricePerKm = json.price_per_km;
+        			const pricePerMin = json.price_per_min;
+        			const effectiveDate = json.effective_date;
+        			
+        			alert("Prices :\nBase Price : RM" + basePrice + "\n"
+        				+ "Price Per KM : RM" + pricePerKm + "\n"
+        				+ "Price Per Minute : RM" + pricePerMin + "\n"
+        				+ "Prices Effective Since : " + effectiveDate + "\n"
+        			);
+        		}
+        	}
+        	catch(error){
+        		console.log(error);
+        	}
         }
     </script>
 

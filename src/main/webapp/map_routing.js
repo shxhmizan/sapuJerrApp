@@ -1,17 +1,22 @@
 /**
  * Script for map routing
  */
-var selectLoc;
-var startLoc;
-var destLoc;
-var curRoute;
-	
+var selectLoc,startLoc,destLoc,curRoute;
+
+/**
+ * Initializes
+ */
 async function initMap(){
 	const {AdvancedMarkerElement} = await google.maps.importLibrary("marker");
 	const {Route} = await google.maps.importLibrary("routes");
 	const {Place} = await google.maps.importLibrary("places");
 	const {encoding} = await google.maps.importLibrary("geometry");
-	
+}
+
+/**
+ * 
+ */
+function registerMapEventListeners(){
 	const mapElem = document.querySelector("gmp-map");
 	const map = mapElem.innerMap;
 	if(!map) return;
@@ -21,7 +26,10 @@ async function initMap(){
 		}
 	});
 }
-	
+
+/**
+ * 
+ */
 async function getPlace(id){
 	const url = `/SapuJerr/MapsServlet/places?id=${id}`;
 	try{
