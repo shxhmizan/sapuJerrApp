@@ -21,7 +21,7 @@ import model.PricingRateEntity;
  * Servlet implementation class BookingServlet
  */
 @WebServlet("/BookingServlet")
-public class BookingServlet extends HttpServlet {
+public class PricingRateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
@@ -30,7 +30,7 @@ public class BookingServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BookingServlet() {
+    public PricingRateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -71,7 +71,7 @@ public class BookingServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		//Form processing should go here
 	}
 
 }

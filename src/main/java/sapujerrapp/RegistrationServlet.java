@@ -1,6 +1,7 @@
 package sapujerrapp;
 
 import jakarta.ejb.EJB;
+import jakarta.persistence.EntityExistsException;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -49,39 +50,71 @@ public class RegistrationServlet extends HttpServlet {
 		String phone = request.getParameter("phone");
 		String type = request.getParameter("type");
 		
-		PrintWriter out = response.getWriter();
+		String licenseNo = request.getParameter("licence_number");
 		
-		RequestDispatcher rd = request.getRequestDispatcher("signup.jsp");
+		String matricNo = request.getParameter("matric_number");
+		String faculty = request.getParameter("faculty");
 		
+		FormValidator formValidator = new FormValidator();
+		
+		formValidator.require(name, "User Name")
+		.require(password, "Password")
+		.require(email,"Email")
+		.require(phone,"Phone Number")
+		.numericField(phone, "Phone Number")
+		.require(type,"User Type");
+		
+		if(type.equals("driver")) {
+			formValidator.require(licenseNo, "License Number");
+		}
+		
+		else if(type.equals("student")) {
+			formValidator.require(matricNo, "Matric Number")
+			.require(faculty, "Faculty");
+		}
+		else {
+			formValidator.addErrorMessage("User type is invalid.");
+			return;
+		}
+		
+		if(!formValidator.validate()) {
+			formValidator.redirectWithErrors(request, response, "signup.jsp");
+			return;
+		}
+		HttpSession session = request.getSession();
+
 		try {
 			UserEntity user = dao.registerUser(name, password, email, phone,type);
 			if(user != null) {
 				if(type.equals("driver")) {
-					String licenseNo = request.getParameter("licence_number");
 					DriverEntity driver = dao.registerDriver(user, licenseNo);
 					
 					if(driver != null) {
+						App.setFlashMessage(session, "Registration successful, please login.");
 						response.sendRedirect("login.jsp"); return;
 					}
 				}
 				else {
-					String matricNo = request.getParameter("matric_number");
-					String faculty = request.getParameter("faculty");
-					
 					StudentEntity student = dao.registerStudent(user, matricNo, faculty);
 					
 					if(student != null) {
+						App.setFlashMessage(session, "Registration successful, please login.");
 						response.sendRedirect("login.jsp"); return;
 					}
 				}
 			}
-			request.setAttribute("errmsg", "Unable to register user");
-			rd.forward(request, response);
+			App.setFlashMessage(session, "System failed to register user, registration aborted.");
+			response.sendRedirect("signup.jsp"); 
+			return;
+		}
+		catch(EntityExistsException ee) {
+			App.setFlashMessage(session, "Duplicate credentials found, please try a different username or email address.");
+			response.sendRedirect("signup.jsp"); 
 		}
 		catch(Exception e) {
 			System.out.println(e);
-			request.setAttribute("errmsg", e + "<br>" + e.getMessage());
-			rd.forward(request, response);
+			App.setFlashMessage(session, "System encountered exception while registering user, registration aborted.");
+			response.sendRedirect("signup.jsp"); 
 		}
 	}
 
