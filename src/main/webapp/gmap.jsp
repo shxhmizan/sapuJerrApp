@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <script async
-    src="/SapuJerr/MapsServlet/mapview?loading=async&callback=initMap&libraries=routes,marker,places">
+    src="./MapsServlet/mapview?loading=async&callback=initMap&libraries=routes,marker,places">
 </script>
 <gmp-map
 	center="4.178077894908865, 101.21876889817179"
