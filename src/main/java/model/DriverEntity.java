@@ -29,6 +29,7 @@ public class DriverEntity implements Serializable {
 	@Column(name="status_verified")
 	private byte statusVerified;
 
+	@Column(name="username")
 	private String username;
 
 	//bi-directional many-to-one association to BookingEntity
