@@ -15,7 +15,6 @@
         <div class="sidebar-header">
             <div class="user-profile-row">
                 <div class="profile-avatar-large"><i class="fa-solid fa-user"></i></div>
-                <div class="profile-info"><h2>Mamat</h2><div class="plan-badge">Dewa</div></div>
             </div>
         </div>
         <nav class="sidebar-menu">

@@ -21,7 +21,6 @@
                 <div class="profile-avatar-large"><i class="fa-solid fa-user"></i></div>
                 <div class="profile-info">
                     <h2><jsp:getProperty property="name" name="user"/></h2>
-                    <div class="plan-badge"><i class="fa-solid fa-crown"></i> &nbsp;Dewa</div>
                 </div>
             </div>
             <div class="wallet-widget">
