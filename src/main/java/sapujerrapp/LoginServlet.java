@@ -45,23 +45,33 @@ public class LoginServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
-		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+		FormValidator formValidator = new FormValidator();
 		
+		boolean formValid = formValidator.require(username, "User Name")
+		.require(password, "Password")
+		.validate();
+		
+		if(!formValid) {
+			formValidator.redirectWithErrors(request, response, "login.jsp");
+			return;
+		}
+		
+		HttpSession session = request.getSession();
 		try {
 			UserEntity user = dao.loginUser(username, password);
 			if(user != null) {
-				HttpSession session = request.getSession();
-				session.setAttribute("user", user);
+				App.setUser(session, user);
 				response.sendRedirect("dashboard.jsp");
 			}
 			else {
-				request.setAttribute("errmsg", "Invalid username or password.");
-				rd.forward(request, response);
+				App.setFlashMessage(session, "Invalid username or password.");
+				response.sendRedirect("login.jsp");
 			}
 		}
 		catch(Exception e) {
-			request.setAttribute("errmsg", "Internal server error. Please try again.");
-			rd.forward(request, response);
+			System.out.print(e);
+			App.setFlashMessage(session, "Sorry, an error occured. please try again.");
+			response.sendRedirect("login.jsp");
 		}
 	}
 
