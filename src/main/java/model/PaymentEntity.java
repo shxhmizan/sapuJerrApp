@@ -24,6 +24,7 @@ public class PaymentEntity implements Serializable {
 	@Column(name="amount_paid")
 	private BigDecimal amountPaid;
 
+	@Column(name="method")
 	private String method;
 
 	@Column(name="payment_status")

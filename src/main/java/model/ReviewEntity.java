@@ -22,6 +22,7 @@ public class ReviewEntity implements Serializable {
 	@Lob
 	private String comment;
 
+	@Column(name="rating")
 	private int rating;
 
 	//bi-directional many-to-one association to BookingEntity
