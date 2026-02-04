@@ -14,14 +14,7 @@
         <div class="card">
             <div class="card-header">
                 <h1>SignUp</h1>
-               <%
-               String errMsg = App.getFlashMessage(session);
-               		if(errMsg != null){
-               %>
-				<p><%=errMsg%></p>
-				<% 
-					}
-				%>
+               	<%@include file="component_flash_message.jsp" %>
             </div>
 
             <div class="card-body">

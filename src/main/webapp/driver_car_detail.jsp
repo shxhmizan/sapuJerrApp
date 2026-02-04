@@ -54,14 +54,7 @@
 				<h3 class="section-title">
 					<i class="fa-solid fa-camera"></i> Car Photos
 				</h3>
-				<%
-				String errMsg = (String) App.getFlashMessage(session);
-						if(errMsg != null){
-				%>
-				<p><%=errMsg%></p>
-				<% 
-					}
-				%>
+				<%@include file="component_flash_message.jsp" %>
 			</div>
 
 			<input type="file" id="pic-main" class="hidden-file-input"

@@ -17,16 +17,7 @@
 
 		<div class="right-panel">
 			<h1 class="login-header">Log In</h1>
-
-			<%
-			String errMsg = App.getFlashMessage(session);
-					if(errMsg != null){
-			%>
-			<p><%=errMsg%></p>
-			<% 
-				}
-			%>
-
+			<%@include file="component_flash_message.jsp" %>	
 			<form id="loginForm" onsubmit="return validateForm()" action="LoginServlet" method="post">
 				<div class="form-group">
 					<label for="username" class="form-label">username</label> <input
