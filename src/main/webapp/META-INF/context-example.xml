@@ -1,7 +1,15 @@
 <Context>
+	<!-- Google Maps API key config -->
 	<Parameter 
-	name="mapsAPIKey" 
+	name="mapsAPIKey"
 	value="your-api-key-here" 
 	override="true" 
 	description="The API key for Google MAPS API"/>
+	
+	<!--  Uploaded file directory config -->
+	<Parameter
+	name="uploadRoot"
+	value="C:\apache-tomee-webprofile-10.1.3\uploads"
+	override="true"
+	description="Location to save uploaded files"/>
 </Context>
