@@ -1,7 +1,11 @@
 package sapujerrapp;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import jakarta.servlet.http.HttpSession;
 import model.UserDAO;
@@ -28,6 +32,7 @@ public class App {
 		Splash("splash.jsp"),
 		Registration("signup.jsp"),
 		StudentDashboard("student_dashboard.jsp"),
+		StudentBooking("student_bookings.jsp"),
 		StudentBookingHistory("student_booking_history.jsp"),
 		StudentAdvanceBooking("student_advance_booking.jsp"),
 		DriverDashboard("driver_dashboard.jsp"),
@@ -50,10 +55,18 @@ public class App {
 		}
 	}
 	
-	public static final SimpleDateFormat globalDateFormat = new SimpleDateFormat("dd MMM y");
+	private static final GregorianCalendar appCalendar = new GregorianCalendar();
 	
-	public static String formatDate(Date d) {
-		return globalDateFormat.format(d);
+	public static final DateTimeFormatter dateDisplayFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM);;
+	public static final DateTimeFormatter htmlInputDateFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
+	public static final DateTimeFormatter htmlInputTimeFormatter = DateTimeFormatter.ISO_LOCAL_TIME;
+	
+	public static GregorianCalendar getCalendar() {
+		return appCalendar;
+	}
+	
+	public static LocalDate getCurrentDate() {
+		return appCalendar.toInstant().atZone(appCalendar.getTimeZone().toZoneId()).toLocalDate();
 	}
 	
 	/**
