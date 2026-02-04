@@ -11,6 +11,10 @@ async function initMap(){
 	const {Route} = await google.maps.importLibrary("routes");
 	const {Place} = await google.maps.importLibrary("places");
 	const {encoding} = await google.maps.importLibrary("geometry");
+	
+	window.addEventListener('load', (_event) => {
+		registerMapEventListeners();
+	})
 }
 
 /**
@@ -31,7 +35,7 @@ function registerMapEventListeners(){
  * 
  */
 async function getPlace(id){
-	const url = `/SapuJerr/MapsServlet/places?id=${id}`;
+	const url = `./MapsServlet/places?id=${id}`;
 	try{
 		const response = await fetch(url);
 		if(response.ok){
@@ -50,7 +54,7 @@ async function getPlace(id){
 	
 async function getRoute(){
 	if(! startLoc || ! destLoc) return undefined;
-	const url = `/SapuJerr/MapsServlet/route?startPlace=${startLoc.id}&destPlace=${destLoc.id}`;
+	const url = `./MapsServlet/route?startPlace=${startLoc.id}&destPlace=${destLoc.id}`;
 	
 	try {
 		const response = await fetch(url);
