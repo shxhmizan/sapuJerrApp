@@ -10,7 +10,7 @@
 	style="height: 50vh"
 >
 </gmp-map>
-<script defer src="map_routing.js"></script>
+<script defer src="component_gmap.js"></script>
 <!-- Confirmation dialog for location -->
 <dialog style="margin:auto;" id="route_dialog">
 	<form method="dialog" id="route_form" onsubmit="processRoute(event)">

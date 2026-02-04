@@ -129,7 +129,7 @@
 
         <div class="hero-right">
             <div class="map-container">
-                <%@include file="gmap.jsp"%>
+                <%@include file="component_gmap.jsp"%>
                 <!--
                 <div class="map-overlay">
                     <div class="driver-avatar-wrapper">
