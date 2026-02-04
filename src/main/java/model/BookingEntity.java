@@ -17,6 +17,10 @@ import java.util.List;
 @NamedQuery(name="BookingEntity.findAll", query="SELECT b FROM BookingEntity b")
 public class BookingEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public static final String BOOKING_PENDING = "PENDING";
+	public static final String BOOKING_CANCELLED = "CANCEL";
+	public static final String BOOKING_ACCEPTED = "ACCEPTED";
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -27,6 +31,7 @@ public class BookingEntity implements Serializable {
 	@Column(name="booking_date")
 	private Date bookingDate;
 
+	@Column(name="distance")
 	private BigDecimal distance;
 
 	@Column(name="dropoff_location")
@@ -38,23 +43,30 @@ public class BookingEntity implements Serializable {
 	@Column(name="pickup_time")
 	private Time pickupTime;
 
+	@Column(name="price")
 	private BigDecimal price;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name="status_booking")
-	private String statusBooking;
+	private BookingStatus statusBooking;
+	
+	public static enum BookingStatus {
+		UPCOMING,
+		COMPLETED;
+	}
 
 	//bi-directional many-to-one association to DriverEntity
 	@ManyToOne
 	@JoinColumn(name="driver_id")
 	private DriverEntity driver;
 
-	//bi-directional many-to-one association to PricingRateEntity
-	@ManyToOne
+	//bi-directional one-to-one association to PricingRateEntity
+	@OneToOne
 	@JoinColumn(name="rate_id")
 	private PricingRateEntity pricingRate;
 
-	//bi-directional many-to-one association to StudentEntity
-	@ManyToOne
+	//bi-directional one-to-one association to StudentEntity
+	@OneToOne
 	@JoinColumn(name="student_id")
 	private StudentEntity student;
 
@@ -129,11 +141,11 @@ public class BookingEntity implements Serializable {
 		this.price = price;
 	}
 
-	public String getStatusBooking() {
+	public BookingStatus getStatus() {
 		return this.statusBooking;
 	}
 
-	public void setStatusBooking(String statusBooking) {
+	public void setStatus(BookingStatus statusBooking) {
 		this.statusBooking = statusBooking;
 	}
 
