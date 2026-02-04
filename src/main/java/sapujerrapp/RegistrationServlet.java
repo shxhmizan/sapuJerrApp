@@ -37,7 +37,7 @@ public class RegistrationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect("index.html");
+		response.sendRedirect(App.Pages.Index.link);
 	}
 
 	/**
@@ -74,11 +74,10 @@ public class RegistrationServlet extends HttpServlet {
 		}
 		else {
 			formValidator.addErrorMessage("User type is invalid.");
-			return;
 		}
 		
 		if(!formValidator.validate()) {
-			formValidator.redirectWithErrors(request, response, "signup.jsp");
+			formValidator.redirectWithErrors(request, response, App.Pages.Registration.link);
 			return;
 		}
 		HttpSession session = request.getSession();
@@ -91,7 +90,7 @@ public class RegistrationServlet extends HttpServlet {
 					
 					if(driver != null) {
 						App.setFlashMessage(session, "Registration successful, please login.");
-						response.sendRedirect("login.jsp"); return;
+						response.sendRedirect(App.Pages.Login.link); return;
 					}
 				}
 				else {
@@ -99,23 +98,20 @@ public class RegistrationServlet extends HttpServlet {
 					
 					if(student != null) {
 						App.setFlashMessage(session, "Registration successful, please login.");
-						response.sendRedirect("login.jsp"); return;
+						response.sendRedirect(App.Pages.Login.link); return;
 					}
 				}
 			}
 			App.setFlashMessage(session, "System failed to register user, registration aborted.");
-			response.sendRedirect("signup.jsp"); 
-			return;
 		}
 		catch(EntityExistsException ee) {
 			App.setFlashMessage(session, "Duplicate credentials found, please try a different username or email address.");
-			response.sendRedirect("signup.jsp"); 
 		}
 		catch(Exception e) {
 			System.out.println(e);
 			App.setFlashMessage(session, "System encountered exception while registering user, registration aborted.");
-			response.sendRedirect("signup.jsp"); 
 		}
+		response.sendRedirect(App.Pages.Registration.link);
 	}
 
 }

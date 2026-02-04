@@ -27,15 +27,13 @@ public class LoginServlet extends HttpServlet {
      */
     public LoginServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.sendRedirect("login.jsp");
+		response.sendRedirect(App.Pages.Login.link);
 	}
 
 	/**
@@ -52,7 +50,7 @@ public class LoginServlet extends HttpServlet {
 		.validate();
 		
 		if(!formValid) {
-			formValidator.redirectWithErrors(request, response, "login.jsp");
+			formValidator.redirectWithErrors(request, response, App.Pages.Login.link);
 			return;
 		}
 		
@@ -61,17 +59,19 @@ public class LoginServlet extends HttpServlet {
 			UserEntity user = dao.loginUser(username, password);
 			if(user != null) {
 				App.setUser(session, user);
-				response.sendRedirect("dashboard.jsp");
+				if(user.getUserType().equals(UserEntity.UserType.student))
+					response.sendRedirect(App.Pages.StudentDashboard.link);
+				else response.sendRedirect(App.Pages.DriverDashboard.link);
 			}
 			else {
 				App.setFlashMessage(session, "Invalid username or password.");
-				response.sendRedirect("login.jsp");
+				response.sendRedirect(App.Pages.Login.link);
 			}
 		}
 		catch(Exception e) {
 			System.out.print(e);
 			App.setFlashMessage(session, "Sorry, an error occured. please try again.");
-			response.sendRedirect("login.jsp");
+			response.sendRedirect(App.Pages.Login.link);
 		}
 	}
 

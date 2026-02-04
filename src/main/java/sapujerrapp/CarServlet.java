@@ -82,8 +82,7 @@ public class CarServlet extends HttpServlet {
 				.validate();
 		
 		if(!formValid) {
-			App.setFlashMessage(request.getSession(),formValidator.getErrorMessage());
-			response.sendRedirect("cardetail.jsp");
+			formValidator.redirectWithErrors(request, response, App.Pages.DriverCarDetail.link);
 			return;
 		}
 		
@@ -94,13 +93,14 @@ public class CarServlet extends HttpServlet {
 		
 		//Validate that user has logged in and has driver data
 		if(user == null) {
-			response.sendRedirect("login.jsp");
+			App.setFlashMessage(request.getSession(), "Your session has expired, please login again");
+			response.sendRedirect(App.Pages.Login.link);
 			return;
 		}
 		driver = user.getDriver();
 		if(driver == null) {
 			App.setFlashMessage(request.getSession(), "Sorry, you are not registered as a driver and cannot register cars.");
-			response.sendRedirect("cardetail.jsp");
+			response.sendRedirect(App.Pages.DriverCarDetail.link);
 			return;
 		}
 		
@@ -111,7 +111,7 @@ public class CarServlet extends HttpServlet {
 			
 			if(car == null) {
 				App.setFlashMessage(request.getSession(), "System failed to register car details, registration aborted.");
-				response.sendRedirect("cardetail.jsp");
+				response.sendRedirect(App.Pages.DriverCarDetail.link);
 				return;
 			}
 			
@@ -120,7 +120,7 @@ public class CarServlet extends HttpServlet {
 			if(! filesSaved) {
 				dao.deleteCar(car);
 				App.setFlashMessage(request.getSession(), "System failed to save uploaded files, registration aborted.");
-				response.sendRedirect("cardetail.jsp");
+				response.sendRedirect(App.Pages.DriverCarDetail.link);
 				return;
 			}
 			
@@ -145,7 +145,7 @@ public class CarServlet extends HttpServlet {
 		catch(Exception e) {
 			System.out.print(e);
 			App.setFlashMessage(request.getSession(), "System exception while registering car.");
-			response.sendRedirect("cardetail.jsp");
+			response.sendRedirect(App.Pages.DriverCarDetail.link);
 			return;
 		}
 		
