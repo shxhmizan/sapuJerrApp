@@ -1,3 +1,4 @@
+<%@page import="sapujerrapp.App" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,18 +47,25 @@
 			<div class="logo">SapuJerr</div>
 		</div>
 	</header>
-
+	<form class="form-grid" enctype="multipart/form-data" action="CarServlet" method="post">
 	<div class="main-content">
-
 		<div class="image-section">
 			<div class="section-header">
 				<h3 class="section-title">
 					<i class="fa-solid fa-camera"></i> Car Photos
 				</h3>
+				<%
+				String errMsg = (String) App.getFlashMessage(session);
+						if(errMsg != null){
+				%>
+				<p><%=errMsg%></p>
+				<% 
+					}
+				%>
 			</div>
 
 			<input type="file" id="pic-main" class="hidden-file-input"
-				accept="image/*" onchange="previewImage(this, 'label-main')">
+				accept="image/*" onchange="previewImage(this, 'label-main')" name="image_left">
 			<label for="pic-main" id="label-main" class="upload-box large-box">
 				<div class="btn-view-example"
 					onclick="openExample(event, 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=1000&auto=format&fit=crop', 'Full View Example')">
@@ -74,7 +82,7 @@
 			<div class="small-boxes-container">
 				<div class="small-box-wrapper">
 					<input type="file" id="pic-right" class="hidden-file-input"
-						accept="image/*" onchange="previewImage(this, 'label-right')">
+						accept="image/*" onchange="previewImage(this, 'label-right')" name="image_right">
 					<label for="pic-right" id="label-right"
 						class="upload-box small-box">
 						<div class="btn-view-example"
@@ -90,7 +98,7 @@
 
 				<div class="small-box-wrapper">
 					<input type="file" id="pic-back" class="hidden-file-input"
-						accept="image/*" onchange="previewImage(this, 'label-back')">
+						accept="image/*" onchange="previewImage(this, 'label-back')" name="image_back">
 					<label for="pic-back" id="label-back" class="upload-box small-box">
 						<div class="btn-view-example"
 							onclick="openExample(event, 'https://images.unsplash.com/photo-1628198902509-c45f49d2112d?q=80&w=1000&auto=format&fit=crop', 'Rear View Example')">
@@ -105,7 +113,7 @@
 
 				<div class="small-box-wrapper">
 					<input type="file" id="pic-front" class="hidden-file-input"
-						accept="image/*" onchange="previewImage(this, 'label-front')">
+						accept="image/*" onchange="previewImage(this, 'label-front')" name="image_front">
 					<label for="pic-front" id="label-front"
 						class="upload-box small-box">
 						<div class="btn-view-example"
@@ -128,50 +136,48 @@
 						<i class="fa-solid fa-circle-info"></i> Vehicle Info
 					</h3>
 				</div>
+				<label class="form-label">Plate Number *</label> 
+				<input type="text" class="form-input" placeholder="e.g. ABC 1234" name="plate_number"> 
+				
+				<label class="form-label">Model *</label> 
+				<input type="text" class="form-input" placeholder="e.g. Perodua Myvi" name="model"> 
+				
+				<label class="form-label">Car Year</label> 
+				<select class="form-select" name="model">
+					<option>2025</option>
+					<option>2024</option>
+					<option>2023</option>
+					<option>Older...</option>
+				</select> 
+				
+				<label class="form-label">Color</label> 
+				<select	class="form-select" id="colorSelect" onchange="toggleOtherColor()">
+					<option value="White">White</option>
+					<option value="Black">Black</option>
+					<option value="Silver">Silver</option>
+					<option value="Blue">Blue</option>
+					<option value="Red">Red</option>
+					<option value="Other">Other (Please Specify)</option>
+				</select>
+				<div id="otherColorContainer">
+					<input type="text" class="form-input input-animate-in" placeholder="Type your car color here...">
+				</div>
 
-				<form class="form-grid">
-					<label class="form-label">Plate Number</label> <input type="text"
-						class="form-input" placeholder="e.g. ABC 1234"> <label
-						class="form-label">Model</label> <input type="text"
-						class="form-input" placeholder="e.g. Perodua Myvi"> <label
-						class="form-label">Car Year</label> <select class="form-select">
-						<option>2025</option>
-						<option>2024</option>
-						<option>2023</option>
-						<option>Older...</option>
-					</select> <label class="form-label">Color</label> <select
-						class="form-select" id="colorSelect" onchange="toggleOtherColor()">
-						<option value="White">White</option>
-						<option value="Black">Black</option>
-						<option value="Silver">Silver</option>
-						<option value="Blue">Blue</option>
-						<option value="Red">Red</option>
-						<option value="Other">Other (Please Specify)</option>
-					</select>
+				<label class="form-label">Type *</label> 
+				<input type="text" class="form-input" placeholder="e.g. 4 Seater" name="type">
+					
+				<label class="form-label">Capacity (No. off passengers) *</label> 
+				<input type="number" class="form-input" placeholder="e.g. 4" name="capacity" min="0" step="1">  
+					
+				<label class="form-label">Road Tax *</label>
+				<input type="file" class="form-input" name="road_tax"	accept="application/pdf">
 
-					<div id="otherColorContainer">
-						<input type="text" class="form-input input-animate-in"
-							placeholder="Type your car color here...">
-					</div>
+				<label class="form-label">Insurance *</label>
+				<input type="file" class="form-input" name="insurance"	accept="application/pdf">
 
-					<label class="form-label">Capacity</label> <input type="number"
-						class="form-input" placeholder="e.g. 4 Seater"> <label
-						class="form-label">Road Tax</label>
-					<button type="button" class="plain-doc-btn">
-						Add Document <span>+</span>
-					</button>
-
-					<label class="form-label">Insurance</label>
-					<button type="button" class="plain-doc-btn">
-						Add Document <span>+</span>
-					</button>
-
-					<label class="form-label">Grant</label>
-					<button type="button" class="plain-doc-btn">
-						Add Document <span>+</span>
-					</button>
-				</form>
-
+				<label class="form-label">Grant *</label>
+				<input type="file" class="form-input" name="grant"	accept="application/pdf">
+				
 				<div class="action-buttons">
 					<button class="btn-action btn-back" onclick="history.back()">Back</button>
 					<button class="btn-action btn-submit">Submit Vehicle</button>
@@ -179,7 +185,7 @@
 			</div>
 		</div>
 	</div>
-
+	</form>
 	<div class="modal-overlay" id="exampleModal">
 		<div class="modal-content">
 			<h3 id="modalTitle" style="margin-bottom: 15px; color: #333;">Example</h3>

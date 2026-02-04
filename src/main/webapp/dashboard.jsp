@@ -1,6 +1,6 @@
-<%@page import="model.UserEntity" %>
+<%@page import="model.UserEntity,sapujerrapp.App" %>
 <%
-	if(session.getAttribute("user") == null) response.sendRedirect("login.jsp");
+	if(! App.userLoggedIn(session)) response.sendRedirect("login.jsp");
 %>
 <jsp:useBean id="user" class="model.UserEntity" scope="session"/>
 <!DOCTYPE html>
@@ -157,29 +157,29 @@
         </div>
         
         <div class="suggestions-grid">
-            <div class="suggestion-card" onclick="alert('Opening Advance Booking...')">
+            <a href="bookings.jsp" class="suggestion-card" onclick="alert('Opening Advance Booking...')">
                 <div class="card-content">
                     <h3>Advance Booking</h3>
                     <p>Schedule your ride ahead.</p>
                 </div>
                 <div class="card-icon"><i class="fa-solid fa-calendar-plus"></i></div>
-            </div>
+            </a>
 
-            <div class="suggestion-card" onclick="alert('Opening Bookings...')">
+            <a href="bookings.jsp" class="suggestion-card" onclick="alert('Opening Bookings...')">
                 <div class="card-content">
                     <h3>My Bookings</h3>
                     <p>Check upcoming trips.</p>
                 </div>
                 <div class="card-icon"><i class="fa-solid fa-ticket"></i></div>
-            </div>
+            </a>
 
-            <div class="suggestion-card" onclick="alert('Opening History...')">
+            <a href="bookings.jsp" class="suggestion-card" onclick="alert('Opening History...')">
                 <div class="card-content">
                     <h3>History</h3>
                     <p>View past transactions.</p>
                 </div>
                 <div class="card-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
-            </div>
+            </a>
         </div>
     </div>
 
@@ -262,7 +262,7 @@
         }
         
         async function displayPrices(){
-        	const url = "/SapuJerr/BookingServlet?latestPrice";
+        	const url = "/BookingServlet?latestPrice";
         	
         	try{
         		const response = await fetch(url);

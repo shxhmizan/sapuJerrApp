@@ -1,3 +1,4 @@
+<%@page import="sapujerrapp.App" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,9 +15,9 @@
             <div class="card-header">
                 <h1>SignUp</h1>
                <%
-				String errMsg = (String) request.getAttribute("errmsg");
-				if(errMsg != null){
-				%>
+               String errMsg = App.getFlashMessage(session);
+               		if(errMsg != null){
+               %>
 				<p><%=errMsg%></p>
 				<% 
 					}
@@ -27,7 +28,7 @@
                 <form action="RegistrationServlet" method="post">
                     <div class="form-grid">
                         <div class="form-group">
-                            <label class="form-label">Full Name</label>
+                            <label class="form-label">User Name</label>
                             <input type="text" name="name" class="form-input" required>
                         </div>
                         <div class="form-group">

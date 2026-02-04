@@ -1,3 +1,19 @@
+<%@page import="model.*,sapujerrapp.App,java.util.List,jakarta.ejb.EJB" %>
+<%!
+	@EJB
+	UserDAO dao;
+%>
+<%
+	if(! App.userLoggedIn(session)) response.sendRedirect("login.jsp");
+	UserEntity user = App.getUser(session,dao);
+	
+	List<BookingEntity> bookings = null;
+	
+	if(user.getUserType().equals(UserEntity.UserType.student)){
+		bookings = user.getStudent().getBookings();
+	}
+	else bookings = user.getDriver().getBookings();
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +25,6 @@
     <link rel="stylesheet" href="css/bookings.css">
 </head>
 <body>
-
     <div class="backdrop" id="backdrop" onclick="toggleSidebar()"></div>
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
@@ -40,8 +55,92 @@
         </div>
 
         <div class="booking-list" id="bookingList">
-            
+            <% for(BookingEntity booking : bookings) { 
+            	BookingEntity.BookingStatus status = booking.getStatus();
+            	if(status == BookingEntity.BookingStatus.UPCOMING){
+            %>
             <div class="booking-card item-upcoming">
+                <div class="card-header">
+                    <div><span class="booking-date"><%=App.formatDate(booking.getBookingDate())%></span><span class="booking-id">#ID8823</span></div>
+                    <span class="status-badge status-scheduled">Scheduled</span>
+                </div>
+                <div class="card-body">
+                    <div class="route-visual">
+                        <div class="route-row">
+                        	<div class="route-icon">
+                        		<div class="dot"></div>
+                        		<div class="line"></div></div>
+                        		<div class="route-text">
+                        			<h4><%=booking.getPickupLocation()%></h4>
+                        			<p>Pickup</p>
+                        		</div>
+                        	</div>
+                        <div class="route-row">
+                        	<div class="route-icon"><i class="fa-solid fa-location-dot pin"></i></div>
+                        	<div class="route-text">
+                        		<h4><%=booking.getDropoffLocation() %></h4>
+                        		<p>Dropoff</p>
+                        	</div>
+                        </div>
+                    </div>
+                 <% if(booking.getDriver() != null) { 
+                	 DriverEntity driver = booking.getDriver();
+                 %>
+                    <div class="driver-info">
+                    	<div class="driver-name"><%=driver.getUsername()%></div>
+                        <div class="price-tag"><%=booking.getPrice()%></div>
+                    </div>
+                </div>
+                <% } %>
+                <div class="card-footer">
+                    <button class="btn-sm btn-cancel" onclick="openCancelModal()">Cancel</button>
+                    <button class="btn-sm btn-track" onclick="openDriverModal()">
+                        <i class="fa-solid fa-id-card"></i> Get Driver Details
+                    </button>
+                </div>
+            </div>
+			<% } else { %>
+            <div class="booking-card item-completed" style="display:none;">
+                <div class="card-header">
+                    <div><span class="booking-date"><%=App.formatDate(booking.getBookingDate()) %></span><span class="booking-id">#ID7721</span></div>
+                    <span class="status-badge status-completed">Completed</span>
+                </div>
+                <div class="card-body">
+                    <div class="route-visual">
+                        <div class="route-row">
+                        	<div class="route-icon">
+                        		<div class="dot"></div>
+                        		<div class="line"></div></div>
+                        		<div class="route-text">
+                        			<h4><%=booking.getPickupLocation()%></h4>
+                        		</div>
+                        	</div>
+                        <div class="route-row">
+                        	<div class="route-icon"><i class="fa-solid fa-location-dot pin"></i></div>
+                        	<div class="route-text"><h4><%=booking.getDropoffLocation()%></h4></div>
+                        </div>
+                    </div>
+                    <% if(booking.getDriver() != null) { 
+                	 DriverEntity driver = booking.getDriver();
+                 %>
+                    <div class="driver-info">
+                    	<div class="driver-name"><%=driver.getUsername()%></div>
+                        <div class="price-tag"><%=booking.getPrice()%></div>
+                    </div>
+                </div>
+                <% } %>
+                </div>
+                <div class="card-footer">
+                    <button class="btn-sm btn-edit">Get Receipt</button>
+                    <button class="btn-sm btn-rate" onclick="openRatingModal()">
+                        <i class="fa-solid fa-star"></i> Rate Driver
+                    </button>
+                </div>
+            </div>
+			<%	} 
+			} %>
+			<%--
+			<div class="booking-card item-upcoming">
                 <div class="card-header">
                     <div><span class="booking-date">Today, 5 Dec • 9:30 PM</span><span class="booking-id">#ID8823</span></div>
                     <span class="status-badge status-scheduled">Scheduled</span>
@@ -62,7 +161,6 @@
                     </button>
                 </div>
             </div>
-
             <div class="booking-card item-completed" style="display:none;">
                 <div class="card-header">
                     <div><span class="booking-date">1 Dec 2025</span><span class="booking-id">#ID7721</span></div>
@@ -83,8 +181,8 @@
                         <i class="fa-solid fa-star"></i> Rate Driver
                     </button>
                 </div>
-            </div>
-
+            </div> 
+            --%>
         </div>
     </div>
 

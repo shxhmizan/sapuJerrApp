@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="sapujerrapp.App"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,8 +19,8 @@
 			<h1 class="login-header">Log In</h1>
 
 			<%
-				String errMsg = (String) request.getAttribute("errmsg");
-				if(errMsg != null){
+			String errMsg = App.getFlashMessage(session);
+					if(errMsg != null){
 			%>
 			<p><%=errMsg%></p>
 			<% 
