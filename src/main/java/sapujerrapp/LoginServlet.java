@@ -33,6 +33,17 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(App.userLoggedIn(request.getSession())){
+			UserEntity user = App.getUser(request.getSession(), dao);
+			if(user.getUserType().equals(UserEntity.UserType.student)) {
+				response.sendRedirect(App.Pages.StudentDashboard.link);
+				return;
+			}
+			else if(user.getUserType().equals(UserEntity.UserType.driver)) {
+				response.sendRedirect(App.Pages.DriverDashboard.link);
+				return;
+			}
+		}
 		response.sendRedirect(App.Pages.Login.link);
 	}
 
@@ -59,9 +70,11 @@ public class LoginServlet extends HttpServlet {
 			UserEntity user = dao.loginUser(username, password);
 			if(user != null) {
 				App.setUser(session, user);
-				if(user.getUserType().equals(UserEntity.UserType.student))
+				response.sendRedirect(App.Pages.Splash.link);
+				/*if(user.getUserType().equals(UserEntity.UserType.student))
 					response.sendRedirect(App.Pages.StudentDashboard.link);
 				else response.sendRedirect(App.Pages.DriverDashboard.link);
+				*/
 			}
 			else {
 				App.setFlashMessage(session, "Invalid username or password.");

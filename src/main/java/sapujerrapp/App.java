@@ -25,6 +25,7 @@ public class App {
 	public static enum Pages {
 		Index("index.html"),
 		Login("login.jsp"),
+		Splash("splash.jsp"),
 		Registration("signup.jsp"),
 		StudentDashboard("student_dashboard.jsp"),
 		StudentBookingHistory("student_booking_history.jsp"),

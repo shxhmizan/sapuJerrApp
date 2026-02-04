@@ -123,7 +123,7 @@
                 // Finished
                 clearInterval(loadInterval);
                 setTimeout(() => {
-                    window.location.replace('dashboard.jsp');
+                    window.location.replace('LoginServlet');
                 }, 500); // Small delay to let the car finish the animation
             }
         }, 600); 
