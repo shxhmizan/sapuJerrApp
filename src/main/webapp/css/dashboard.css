@@ -269,6 +269,7 @@
         .suggestions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
         
         .suggestion-card {
+        	text-decoration: none;
             background-color: var(--brand-beige); padding: 30px; border-radius: 25px;
             display: flex; align-items: center; justify-content: space-between; cursor: pointer;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); border: 2px solid transparent;
