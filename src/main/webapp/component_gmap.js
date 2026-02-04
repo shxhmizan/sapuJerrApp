@@ -114,32 +114,61 @@ function processRoute(event){
 }
 	
 function updateRouteDisplay(){
-	const inpStart = document.getElementById('inputPickup');
-	const inpEnd = document.getElementById('inputDropoff');
+	/* Update user-editable inputs containing place names */
+	const inpStart = document.querySelector('input.map-input-origin');
+	const inpEnd = document.querySelector('input.map-input-destination');
+	
+	
 	if(startLoc && inpStart instanceof HTMLInputElement){
 		inpStart.value = startLoc?.displayName?.text;
 	}
 	if(destLoc && inpEnd instanceof HTMLInputElement){
 		inpEnd.value = destLoc?.displayName?.text;
 	}
+	
+	/* Update non-editable inputs containing place IDs */
+	const inpOrigin = document.querySelector('input.route-origin-placeid');
+	const inpDest = document.querySelector('input.route-destination-placeid');
+		
+	if(startLoc && inpOrigin instanceof HTMLInputElement){
+			inpOrigin.value = startLoc?.id;
+		}
+	if(destLoc && inpDest instanceof HTMLInputElement){
+		inpDest.value = destLoc?.id;
+	}
+	
+	/* Update distance,duration and info displays */
 	if(selectLoc && destLoc){
 		const route = curRoute;
-		const polyLine = route?.polyline;
-		const distance = route?.distanceMeters;
-		const duration = route?.duration;
-		const warnings = route?.warnings;
+		//const polyLine = route?.polyline;
+		const distanceMeters = route?.distanceMeters;
+		const durationText = route?.duration;
+		const warningsList = route?.warnings;
 		
-		const distDisplay = document.getElementById('route_distance');
-		const durDisplay = document.getElementById('route_duration');
-		const notesDisplay = document.getElementById('route_info');
+		const distDisplay = document.querySelector('span.route-distance');
+		const durDisplay = document.querySelector('span.route-duration');
+		const notesDisplay = document.querySelector('span.route-info');
 		
 		if(distDisplay instanceof HTMLElement){
-			distDisplay.innerText = distance;
+			distDisplay.innerText = (distanceMeters / 1000) + " km";
 		}
 		if(durDisplay instanceof HTMLElement){
-			durDisplay.innerText = duration;
+			const initDurationSec = (typeof durationText === 'string' || durationText instanceof String) ? Number.parseInt(durationText.replace("s","")) : 0;
+			var durationSec = initDurationSec;
+			const durationHour = (durationSec > 3600) ? Math.floor(durationSec/3600) : 0;
+			if(durationHour > 0) durationSec -= durationHour * 3600;
+			const durationMinutes = (durationSec > 60) ? Math.floor(durationSec/60) : 0;
+			if(durationMinutes > 0) durationSec -= durationMinutes * 60;
+			
+			const duration = { 
+				hours : durationHour,
+				minutes : durationMinutes,
+				seconds : durationSec
+			};
+			durDisplay.innerText = new Intl.DurationFormat("en-MS").format(duration) + `(${initDurationSec}s)`;
 		}
 		if(notesDisplay instanceof HTMLElement){
+			const warnings = (Array.isArray(warningsList)) ? warningsList.join("\n") : warningsList;
 			notesDisplay.innerText = warnings;
 		}
 	}
