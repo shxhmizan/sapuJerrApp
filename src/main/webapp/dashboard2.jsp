@@ -29,9 +29,8 @@
             <a href="#" class="menu-item" onclick="openPanel('notifications')">
                 <i class="fa-solid fa-bell"></i> Notifications <span class="badge-dot"></span>
             </a>
-            <a href="profile.html" class="menu-item"><i class="fa-solid fa-user"></i> Profile</a>
-            <a href="cardetail.html" class="menu-item"><i class="fa-solid fa-car"></i> Vehicle</a>
-            <a href="#" class="menu-item"><i class="fa-solid fa-wallet"></i> Earnings</a>
+            <a href="profile.jsp" class="menu-item"><i class="fa-solid fa-user"></i> Profile</a>
+            <a href="cardetail.jsp" class="menu-item"><i class="fa-solid fa-car"></i> Vehicle</a>
         </nav>
         <div class="sidebar-footer">
             <a href="#" style="color:#666; text-decoration:none; font-size:1rem;">Log Out <i class="fa-solid fa-right-from-bracket"></i></a>
