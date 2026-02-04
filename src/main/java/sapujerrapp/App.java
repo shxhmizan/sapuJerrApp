@@ -35,8 +35,7 @@ public class App {
 		DriverNotifications("driver_notifications.jsp"),
 		DriverCarDetail("driver_car_detail.jsp"),
 		DriverOrders("driver_orders.jsp"),
-		ComponentGMap("component_gmap.jsp"),
-		ComponentGMapDialog("component_gmap_dialog.jsp");
+		ComponentGMap("component_gmap.jsp");
 		
 		
 		public final String link;
