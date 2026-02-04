@@ -31,7 +31,7 @@ public class UserDAO {
 			user.setEmail(email);
 			user.setPhone(phone);
 			user.setAccountStatus("Active");
-			user.setUserTypes(type);
+			user.setUserType(UserEntity.UserType.valueOf(type.toLowerCase()));
 			em.persist(user);
 			return user;
 		}
@@ -53,8 +53,7 @@ public class UserDAO {
 		try {
 			return query.getSingleResult();
 		}
-		catch(NoResultException ne) {
-			System.out.println("User not found");
+		catch(NoResultException e) {
 			return null;
 		}
 		catch(Exception e) {
@@ -94,5 +93,10 @@ public class UserDAO {
 			System.out.println(e);
 			return null;
 		}
+	}
+	
+	public UserEntity getLatestUserData(UserEntity u) {
+		UserEntity user = em.find(UserEntity.class, u.getUserId());
+		return user;
 	}
 }
