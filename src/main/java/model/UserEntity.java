@@ -23,19 +23,29 @@ public class UserEntity implements Serializable {
 	@Column(name="account_status")
 	private String accountStatus;
 
+	@Column(name="email")
 	private String email;
 
+	@Column(name="name")
 	private String name;
 
+	@Column(name="password")
 	private String password;
 
+	@Column(name="phone")
 	private String phone;
-
+	
+	@Enumerated(EnumType.STRING)
 	@Column(name="user_types")
-	private String userTypes;
+	private UserType userType;
+	
+	public static enum UserType {
+		student,
+		driver;
+	}
 
 	//bi-directional one-to-one association to DriverEntity
-	@OneToOne(mappedBy="user")
+	@OneToOne(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private DriverEntity driver;
 
 	//bi-directional many-to-one association to NotificationEntity
@@ -47,7 +57,7 @@ public class UserEntity implements Serializable {
 	private List<ReviewEntity> reviews;
 
 	//bi-directional one-to-one association to StudentEntity
-	@OneToOne(mappedBy="user")
+	@OneToOne(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private StudentEntity student;
 
 	public UserEntity() {
@@ -101,12 +111,12 @@ public class UserEntity implements Serializable {
 		this.phone = phone;
 	}
 
-	public String getUserTypes() {
-		return this.userTypes;
+	public UserType getUserType() {
+		return this.userType;
 	}
 
-	public void setUserTypes(String userTypes) {
-		this.userTypes = userTypes;
+	public void setUserType(UserType userTypes) {
+		this.userType = userTypes;
 	}
 
 	public DriverEntity getDriver() {

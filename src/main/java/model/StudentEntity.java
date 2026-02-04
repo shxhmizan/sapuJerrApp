@@ -19,6 +19,7 @@ public class StudentEntity implements Serializable {
 	@Column(name="student_id")
 	private int studentId;
 
+	@Column(name="faculty")
 	private String faculty;
 
 	@Column(name="matric_number")

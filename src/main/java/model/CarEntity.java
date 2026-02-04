@@ -19,6 +19,7 @@ public class CarEntity implements Serializable {
 	@Column(name="vehicle_id")
 	private int vehicleId;
 
+	@Column(name="capacity")
 	private int capacity;
 
 	@Column(name="grant_doc")
@@ -39,6 +40,7 @@ public class CarEntity implements Serializable {
 	@Column(name="insurance_doc")
 	private String insuranceDoc;
 
+	@Column(name="model")
 	private String model;
 
 	@Column(name="plate_number")
