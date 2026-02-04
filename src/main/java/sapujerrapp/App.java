@@ -2,6 +2,7 @@ package sapujerrapp;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Date;
@@ -65,8 +66,8 @@ public class App {
 		return appCalendar;
 	}
 	
-	public static LocalDate getCurrentDate() {
-		return appCalendar.toInstant().atZone(appCalendar.getTimeZone().toZoneId()).toLocalDate();
+	public static LocalDateTime getCurrentDateTime() {
+		return appCalendar.toInstant().atZone(appCalendar.getTimeZone().toZoneId()).toLocalDateTime();
 	}
 	
 	/**
