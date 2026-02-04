@@ -44,6 +44,10 @@ public class App {
 		private Pages(String link) {
 			this.link = link;
 		}
+		
+		public String toString() {
+			return this.link;
+		}
 	}
 	
 	public static final SimpleDateFormat globalDateFormat = new SimpleDateFormat("dd MMM y");
