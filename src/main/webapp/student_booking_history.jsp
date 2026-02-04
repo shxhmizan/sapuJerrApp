@@ -1,3 +1,4 @@
+<%@ include file="component_redirect_if_no_login.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>

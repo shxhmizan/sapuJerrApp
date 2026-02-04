@@ -3,8 +3,8 @@
 	@EJB
 	UserDAO dao;
 %>
+<%@ include file="component_redirect_if_no_login.jsp" %>
 <%
-	if(! App.userLoggedIn(session)) response.sendRedirect("login.jsp");
 	UserEntity user = App.getUser(session,dao);
 	
 	List<BookingEntity> bookings = null;

@@ -1,3 +1,10 @@
+<%@ page import="sapujerrapp.App,java.util.*,java.time.*" %>
+<% 
+  	LocalDateTime currentDate = App.getCurrentDateTime();
+	String initDate = currentDate.format(App.htmlInputDateFormatter);
+	String initTime = currentDate.plus(Duration.ofHours(1L)).format(App.htmlInputTimeFormatter);
+%>
+<%@ include file="component_redirect_if_no_login.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -292,9 +299,9 @@
     
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">SapuJerr</div>
-        <a href="dashboard.html"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
-        <a href="mybookings.html"><i class="fa-solid fa-clock-rotate-left"></i> My Bookings</a>
-        <a href="advance-booking.html" class="active"><i class="fa-solid fa-calendar-days"></i> Advance Booking</a>
+        <a href="<%=App.Pages.StudentDashboard.link%>>"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+        <a href="<%=App.Pages.StudentBooking.link%>"><i class="fa-solid fa-clock-rotate-left"></i> My Bookings</a>
+        <a href="<%=App.Pages.StudentAdvanceBooking.link %>" class="active"><i class="fa-solid fa-calendar-days"></i> Advance Booking</a>
         <a href="#"><i class="fa-solid fa-user"></i> Profile</a>
     </div>
 
@@ -305,15 +312,28 @@
         </div>
         <div class="logo">SapuJerr</div>
     </div>
-
-    <form class="form-container" action="submit_booking.jsp" method="POST">
+	<%@include file="component_gmap.jsp" %>
+	<div class="input-row">
+		<div class="input-box">	                
+   			<div class="car-name">Trip Distance : <span class="route-distance">(Select Route)</span></div>
+        </div>
+        <div class="input-box">
+     		<div class="car-name">Expected Duration : <span class="route-duration">(Select Route)</span></div>
+        </div>
+        <div class="input-box w-45">
+     		<div class="car-name">Notes : </div>
+     		<p><span class="route-info">(Select Route)</span></p>
+        </div>
+     </div>
+    <form class="form-container" action="<%="./BookingServlet"%>" method="POST">
         
         <div class="input-row">
             <div class="w-45">
                 <label class="label" for="pickup">Pickup Location</label>
                 <div class="input-box">
                     <i class="fa-solid fa-location-dot input-icon icon-blue"></i>
-                    <input type="text" class="input-text" id="pickup" name="pickup" value="Kolej Beta, UiTM Tapah">
+                    <input type="text" class="input-text map-input-origin" id="inputPickup" name="pickup" value="Kolej Beta, UiTM Tapah">
+                    <input type="hidden" class="route-origin-placeid" name="origin_place_id">
                 </div>
             </div>
 
@@ -323,7 +343,8 @@
                 <label class="label" for="dropoff">Drop Off Location</label>
                 <div class="input-box">
                     <i class="fa-solid fa-location-dot input-icon icon-red"></i>
-                    <input type="text" class="input-text placeholder" id="dropoff" name="dropoff" placeholder="Where To?">
+                    <input type="text" class="input-text placeholder map-input-destination" id="dropoff" name="dropoff" placeholder="Where To?">
+                    <input type="hidden" class="route-destination-placeid" name="destination_place_id">
                 </div>
             </div>
         </div>
@@ -333,7 +354,7 @@
                 <label class="label" for="date">Date</label>
                 <div class="input-box">
                     <i class="fa-regular fa-calendar input-icon"></i>
-                    <input type="text" class="input-text" id="date" name="date" placeholder="DD/MM/YYYY">
+                    <input type="date" class="input-text" id="date" name="date" placeholder="DD/MM/YYYY" value="<%=initDate%>">
                 </div>
             </div>
 
@@ -358,7 +379,13 @@
                 <label class="label" for="time">Time</label>
                 <div class="input-box">
                     <i class="fa-regular fa-clock input-icon"></i>
-                    <input type="text" class="input-text" id="time" name="time" value="9:00 PM">
+                    <input type="time" class="input-text" id="time" name="time" value="<%=initTime%>">
+                </div>
+            </div>
+            
+            <div class="w-45">
+                <div class="input-box">
+                    <button type="submit" name="submit" value="advance_booking">Make Booking</button>
                 </div>
             </div>
 

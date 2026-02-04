@@ -1,7 +1,5 @@
 <%@page import="model.UserEntity,sapujerrapp.App" %>
-<%
-	if(! App.userLoggedIn(session)) response.sendRedirect("login.jsp");
-%>
+<%@ include file="component_redirect_if_no_login.jsp" %>
 <jsp:useBean id="user" class="model.UserEntity" scope="session"/>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,12 +87,12 @@
                 </button>
 
                 <div class="input-wrapper">
-                    <input type="text" class="clean-input" id="inputPickup" value="Kolej Beta, UiTM Tapah">
+                    <input type="text" class="clean-input map-input-origin" id="inputPickup" value="Kolej Beta, UiTM Tapah">
                     <i class="fa-solid fa-location-crosshairs" style="position:absolute; right:20px; top:15px; color:#999; cursor:pointer;" title="Current Location"></i>
                 </div>
 
                 <div class="input-wrapper" style="position:relative;">
-                    <input type="text" class="clean-input" id="inputDropoff" placeholder="Where to?" onfocus="showRecent()" onblur="hideRecent()">
+                    <input type="text" class="clean-input map-input-destination" id="inputDropoff" placeholder="Where to?" onfocus="showRecent()" onblur="hideRecent()">
                      <!-- 
                     <div class="recent-dropdown" id="recentDropdown">
                    
@@ -142,9 +140,9 @@
                 </div>
                 -->
                 <div class="block-tabs">
-                	<h3>Trip Distance</h3><p id="route_distance"></p>
-                	<h3>Expected Duration</h3><p id="route_duration"></p>
-                	<h3>Notes</h3><p id="route_info"></p>
+                	<h3>Trip Distance : <span class="route-distance"></span></h3>
+                	<h3>Expected Duration : <span class="route-duration"></span></h3>
+                	<h3>Notes : <span class="route-info"></span></h3>
             	</div>
             </div>
         </div>
@@ -156,7 +154,7 @@
         </div>
         
         <div class="suggestions-grid">
-            <a href="bookings.jsp" class="suggestion-card" onclick="alert('Opening Advance Booking...')">
+            <a href="<%=App.Pages.StudentAdvanceBooking.link%>" class="suggestion-card" onclick="alert('Opening Advance Booking...')">
                 <div class="card-content">
                     <h3>Advance Booking</h3>
                     <p>Schedule your ride ahead.</p>
@@ -164,7 +162,7 @@
                 <div class="card-icon"><i class="fa-solid fa-calendar-plus"></i></div>
             </a>
 
-            <a href="bookings.jsp" class="suggestion-card" onclick="alert('Opening Bookings...')">
+            <a href="<%=App.Pages.StudentBookingHistory.link%>" class="suggestion-card" onclick="alert('Opening Bookings...')">
                 <div class="card-content">
                     <h3>My Bookings</h3>
                     <p>Check upcoming trips.</p>
@@ -172,7 +170,7 @@
                 <div class="card-icon"><i class="fa-solid fa-ticket"></i></div>
             </a>
 
-            <a href="bookings.jsp" class="suggestion-card" onclick="alert('Opening History...')">
+            <a href="<%=App.Pages.StudentBookingHistory.link%>" class="suggestion-card" onclick="alert('Opening History...')">
                 <div class="card-content">
                     <h3>History</h3>
                     <p>View past transactions.</p>
