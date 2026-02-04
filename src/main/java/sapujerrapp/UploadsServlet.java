@@ -33,14 +33,24 @@ public class UploadsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String uploadRoot = this.getServletContext().getInitParameter("uploadRoot");
-		Path filePath = Path.of(uploadRoot,request.getPathInfo());
-		
-		File file = filePath.toFile();
-		BufferedInputStream fileInput = new BufferedInputStream( new FileInputStream(file) );
-		fileInput.transferTo(response.getOutputStream());
-		fileInput.close();
-		response.getOutputStream().close();
+		try {
+			String uploadRoot = this.getServletContext().getInitParameter("uploadRoot");
+			Path filePath = Path.of(uploadRoot,request.getPathInfo());
+			
+			File file = filePath.toFile();
+			if(file.exists()) {
+				BufferedInputStream fileInput = new BufferedInputStream( new FileInputStream(file) );
+				fileInput.transferTo(response.getOutputStream());
+				fileInput.close();
+				response.getOutputStream().close();
+				return;
+			}
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			response.sendError(500);
+		}
+		response.sendError(404);
 	}
 
 	/**
