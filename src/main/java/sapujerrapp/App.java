@@ -19,6 +19,33 @@ public class App {
 		public static final String FLASH_MESSAGE = "error";
 	}
 	
+	/**
+	 * Enum mapping links to Views
+	 */
+	public static enum Pages {
+		Index("index.html"),
+		Login("login.jsp"),
+		Registration("signup.jsp"),
+		StudentDashboard("student_dashboard.jsp"),
+		StudentBookingHistory("student_booking_history.jsp"),
+		StudentAdvanceBooking("student_advance_booking.jsp"),
+		DriverDashboard("driver_dashboard.jsp"),
+		DriverProfile("driver_profile.jsp"),
+		DriverSubscriptions("driver_subscription.jsp"),
+		DriverNotifications("driver_notifications.jsp"),
+		DriverCarDetail("driver_car_detail.jsp"),
+		DriverOrders("driver_orders.jsp"),
+		ComponentGMap("component_gmap.jsp"),
+		ComponentGMapDialog("component_gmap_dialog.jsp");
+		
+		
+		public final String link;
+		
+		private Pages(String link) {
+			this.link = link;
+		}
+	}
+	
 	public static final SimpleDateFormat globalDateFormat = new SimpleDateFormat("dd MMM y");
 	
 	public static String formatDate(Date d) {
