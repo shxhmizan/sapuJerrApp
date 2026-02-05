@@ -67,4 +67,20 @@ public class UserDAO {
 		UserEntity user = em.find(UserEntity.class, u.getUserId());
 		return user;
 	}
+	
+	public boolean updateUser(UserEntity u, String name, String email,String phone, String password) {
+		try {
+			UserEntity user = em.find(UserEntity.class,u.getUserId());
+			user.setEmail(email);
+			user.setName(name);
+			user.setPhone(phone);
+			if(password != null) user.setPassword(password);
+			em.persist(user);
+			return true;
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			return false;
+		}
+	}
 }

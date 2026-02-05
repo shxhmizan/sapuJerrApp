@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URI;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -41,11 +43,10 @@ public class PricingRateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map<String,String[]> params = request.getParameterMap();
 		PrintWriter writer = response.getWriter();
+		JsonWriter jsonOutWriter = Json.createWriter(writer);
+		PricingRateEntity pricingRate = pricingDao.getLatestPrice();
 		
 		if(request.getParameter("latestPrice") != null) {
-			JsonWriter jsonOutWriter = Json.createWriter(writer);
-	
-			PricingRateEntity pricingRate = pricingDao.getLatestPrice();
 			SimpleDateFormat df = new SimpleDateFormat("dd MMM y");
 			
 			if(pricingRate == null) {
@@ -64,6 +65,25 @@ public class PricingRateServlet extends HttpServlet {
 			
 			jsonOutWriter.close();
 		}
+		else if(request.getParameter("distanceMeters") != null) {
+			if(pricingRate == null) {
+				response.setStatus(404);
+				writer.close();
+				return;
+			}
+			BigDecimal distanceMeters = new BigDecimal(request.getParameter("distanceMeters"));
+			BigDecimal distanceKm = distanceMeters.divide(new BigDecimal(1000));
+			BigDecimal price = pricingDao.calculateBookingPrice(distanceKm);
+			
+			JsonObject obj = Json.createObjectBuilder()
+				.add("price", price)
+				.build();
+			
+			jsonOutWriter.writeObject(obj);
+			
+			jsonOutWriter.close();
+		}
+		
 		writer.close();
 	}
 

@@ -22,11 +22,16 @@
 				for(Object obj : bookings) if(obj instanceof BookingEntity) { 
 					BookingEntity booking = (BookingEntity) obj;
 					String bookingDate = App.dateDisplayFormatter.format(booking.getBookingDate());
+					DriverEntity driver = booking.getDriver();
 			%>
             <div class="booking-card">
                 <div class="card-header">
                     <div><span class="booking-date"><%=bookingDate%></span><span class="booking-id">#<%=booking.getBookingId()%></span></div>
+                    <% if(booking.getStatus().equals(BookingEntity.BookingStatus.UPCOMING)){ %>
                     <span class="status-badge status-scheduled">Scheduled</span>
+                    <% } else { %>
+                    <span class="status-badge status-accepted">Accepted</span>
+                    <% } %>
                 </div>
                 <div class="card-body">
                     <div class="route-visual">
@@ -40,11 +45,9 @@
                      --%>
                 </div>
                 <div class="card-footer">
-                	<% if(booking.getStatus().equals(BookingEntity.BookingStatus.UPCOMING)){ %>
-                    	<button class="btn-sm btn-cancel" onclick="openCancelModal(<%=booking.getBookingId()%>)">Cancel</button>
-                    <% } %>
-                    <% if(booking.getDriver() != null){ %>
-                    <button class="btn-sm btn-track" onclick="openDriverModal()">
+                    <button class="btn-sm btn-cancel" onclick="openCancelModal(<%=booking.getBookingId()%>)">Cancel</button>
+                    <% if(driver != null){ %>
+                    <button class="btn-sm btn-track" onclick="openDriverModal(<%=driver.getDriverId()%>)">
                         <i class="fa-solid fa-id-card"></i> Get Driver Details
                     </button>
                     <% } %>
@@ -93,12 +96,12 @@
         <div class="modal-card driver-card-modal">
             <div class="driver-modal-header">
                 <div class="driver-avatar-xl"><i class="fa-solid fa-user"></i></div>
-                <h3 style="margin:0;">Ali Bin Abu</h3>
+                <h3 style="margin:0;" id="field-driver-name">Ali Bin Abu</h3>
                 <div class="rating-pill"><i class="fa-solid fa-star" style="color:#FFD700;"></i> 4.9</div>
             </div>
             <div class="driver-details-grid">
-                <div class="detail-item"><span class="label">Car Model</span><span class="value">Perodua Aruz</span></div>
-                <div class="detail-item"><span class="label">Plate No.</span><span class="value-plate">PKA 1234</span></div>
+                <div class="detail-item"><span class="label">Car Model</span><span id="field-car-name" class="value">Perodua Aruz</span></div>
+                <div class="detail-item"><span class="label">Plate No.</span><span id="field-car-plate" class="value-plate">PKA 1234</span></div>
                 <div class="detail-item"><span class="label">Color</span><span class="value">Silver</span></div>
                 <div class="detail-item"><span class="label">Language</span><span class="value">Malay/Eng</span></div>
             </div>
@@ -128,7 +131,7 @@
         
         function confirmCancel(id) { 
         	console.log(id);
-        	const url = "./BookingManagementServlet?operation=cancel&id=" + id;
+        	const url = "<%=App.Pages.BookingAPI.link %>?operation=cancel&id=" + id;
         	fetch(url).then((response) => {
         		if(response.ok){
         			alert("Booking Cancelled");  
@@ -140,7 +143,9 @@
         }
         
 
-        function openDriverModal() { document.getElementById('driverModal').classList.add('show'); }
+        function openDriverModal() { 
+        	document.getElementById('driverModal').classList.add('show');
+        }
         function closeDriverModal() { document.getElementById('driverModal').classList.remove('show'); }
     </script>
 </body>

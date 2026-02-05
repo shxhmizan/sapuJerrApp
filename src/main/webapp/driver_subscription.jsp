@@ -1,3 +1,5 @@
+<%@page import="sapujerrapp.App" %>
+<%@ include file="component_redirect_if_no_login.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,13 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SapuJerr - Manage Subscription</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/suscription.css">
+    <link rel="stylesheet" href="css/subcription.css">
 </head>
 <body>
 
     <header class="header">
         <div class="logo">SapuJerr</div>
-        <button class="btn-close" onclick="window.history.back()">
+        <button class="btn-close" onclick="window.location.href='<%=App.Pages.DriverDashboard.link%>'">
             <i class="fa-solid fa-xmark"></i> Close
         </button>
     </header>
@@ -157,7 +159,7 @@
                 alert("Payment Successful! Welcome to your new plan.");
                 closeModal();
                 btn.innerHTML = 'Proceed to Payment'; // Reset
-                window.location.href = 'profile.html'; // Redirect to profile
+                window.location.href = '<%=App.Pages.DriverProfileJSP.link%>'; // Redirect to profile
             }, 2000);
         }
     </script>

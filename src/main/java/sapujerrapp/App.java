@@ -32,6 +32,7 @@ public class App {
 		Login("login.jsp"),
 		Splash("splash.jsp"),
 		Registration("signup.jsp"),
+		BookingAPI("./BookingManagementServlet"),
 		StudentDashboard("student_dashboard.jsp"),
 		StudentBooking("./StudentBookingServlet"),
 		StudentBookingJSP("student_bookings.jsp"),
@@ -39,13 +40,16 @@ public class App {
 		StudentBookingHistoryJSP("student_booking_history.jsp"),
 		StudentAdvanceBooking("student_advance_booking.jsp"),
 		DriverDashboard("driver_dashboard.jsp"),
-		DriverProfile("driver_profile.jsp"),
-		DriverSubscriptions("driver_subscription.jsp"),
-		DriverNotifications("driver_notifications.jsp"),
+		DriverProfileJSP("driver_profile.jsp"),
+		DriverProfile("./DriverProfileServlet"),
+		DriverNotifications("./NotificationServlet"),
+		DriverNotificationsJSP("driver_notifications.jsp"),
 		DriverCarDetailForm("driver_car_form.jsp"),
 		DriverCarDetail("./CarServlet"),
 		DriverCarDetailJSP("driver_car_detail.jsp"),
 		DriverOrders("driver_orders.jsp"),
+		DriverSubscription("./SubscriptionServlet"),
+		DriverSubscriptionJSP("driver_subscription.jsp"),
 		ComponentGMap("component_gmap.jsp");
 		
 		

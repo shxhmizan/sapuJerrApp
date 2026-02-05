@@ -98,7 +98,6 @@ public class CarDAO {
 			TypedQuery<CarEntity> query = em.createQuery("SELECT car FROM DriverEntity driver JOIN driver.cars car WHERE driver.driverId = ?1",CarEntity.class);
 			query.setParameter(1, u.getUserId());
 			List<CarEntity> result = query.getResultList();
-			System.out.println("Cars found : " + result.size());
 			return result;
 		}
 		catch(Exception e) {

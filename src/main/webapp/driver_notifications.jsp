@@ -1,4 +1,10 @@
+<%@page import="java.util.List,java.util.ArrayList,model.*" %>
 <%@ include file="component_redirect_if_no_login.jsp" %>
+<%
+     	//List notiList = (List) request.getAttribute("notifications");
+     	List cancelList = (List) request.getAttribute("cancelled");
+     	List newList = (List) request.getAttribute("new");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -256,33 +262,39 @@
             <button class="tab-btn active" onclick="switchTab('new')">New Requests</button>
             <button class="tab-btn" onclick="switchTab('canceled')">Canceled</button>
         </div>
-
+        
         <div id="list-new" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-            
-            <div class="notif-card" id="req-1">
+        <%
+        if(newList != null && newList.size() > 0) for(Object obj : newList) if(obj instanceof NotificationEntity){
+        	NotificationEntity noti = (NotificationEntity) obj;
+        	BookingEntity booking = noti.getBooking();
+        	StudentEntity student = booking.getStudent();
+        	UserEntity passenger = student.getUser();
+        %>    
+            <div class="notif-card" id="noti_<%=booking.getBookingId()%>">
                 <div class="notif-header">
                     <div class="notif-title">
                         <i class="fa-solid fa-user-clock" style="color:var(--brand-red);"></i> 
                         New Request 
                         <span class="badge-new">NEW</span>
                     </div>
-                    <div class="notif-time">2 mins ago</div>
+                    <div class="notif-time"></div>
                 </div>
                 <div class="route-info">
-                    <strong>Kolej Alpha</strong> 
+                    <strong><%=noti.getBooking().getPickupLocation()%></strong> 
                     <i class="fa-solid fa-arrow-right arrow-icon"></i> 
-                    <strong>Tapah KTM</strong>
+                    <strong>T<%=noti.getBooking().getDropoffLocation()%></strong>
                 </div>
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                    <div style="font-size:1.1rem; color:#555;">Passenger: <strong>Ali</strong></div>
-                    <div class="price-badge">RM 12.00</div>
+                    <div style="font-size:1.1rem; color:#555;">Passenger: <strong><%=passenger.getName() %></strong></div>
+                    <div class="price-badge"><%=booking.getPrice()%>></div>
                 </div>
                 <div class="action-row">
-                    <button class="btn-action btn-decline" onclick="removeCard('req-1')">Decline</button>
-                    <button class="btn-action btn-accept" onclick="acceptCard('req-1')">Accept</button>
+                    <button class="btn-action btn-decline" onclick="removeCard('<%=booking.getBookingId()%>')">Decline</button>
+                    <button class="btn-action btn-accept" onclick="acceptCard('<%=booking.getBookingId()%>')">Accept</button>
                 </div>
             </div>
-
+		<%-- 
             <div class="notif-card" id="req-2">
                 <div class="notif-header">
                     <div class="notif-title">
@@ -305,16 +317,20 @@
                     <button class="btn-action btn-accept" onclick="acceptCard('req-2')">Accept</button>
                 </div>
             </div>
-
+         --%>
+		<%
+        } 
+		%>
             <div class="empty-state" id="empty-new">
                 <i class="fa-solid fa-inbox"></i>
                 <h3>No new requests</h3>
             </div>
         </div>
-
-
+        <%
+        if(cancelList != null && cancelList.size() > 0) for(Object obj : cancelList) if(obj instanceof NotificationEntity) {
+        	NotificationEntity noti = (NotificationEntity) obj;
+        %>
         <div id="list-canceled" style="width: 100%; display: none; flex-direction: column; align-items: center;">
-            
             <div class="notif-card" id="cancel-1" style="border-color:#666;">
                 <div class="notif-header" style="border-bottom-color:#ccc;">
                     <div class="notif-title" style="color:#666;">
@@ -330,7 +346,7 @@
                     <button class="btn-action btn-dismiss" onclick="removeCard('cancel-1')">Dismiss</button>
                 </div>
             </div>
-
+		<%--
              <div class="notif-card" id="cancel-2" style="border-color:#666;">
                 <div class="notif-header" style="border-bottom-color:#ccc;">
                     <div class="notif-title" style="color:#666;">
@@ -346,7 +362,8 @@
                     <button class="btn-action btn-dismiss" onclick="removeCard('cancel-2')">Dismiss</button>
                 </div>
             </div>
-
+        --%>
+		<% } %>
             <div class="empty-state" id="empty-canceled">
                 <i class="fa-regular fa-folder-open"></i>
                 <h3>No canceled orders</h3>
@@ -381,7 +398,7 @@
 
         // Card Interaction Logic
         function removeCard(id) {
-            const card = document.getElementById(id);
+            const card = document.getElementById("noti_" + id);
             card.classList.add('fade-out');
             setTimeout(() => {
                 card.style.display = 'none';
@@ -391,8 +408,12 @@
 
         function acceptCard(id) {
             // In a real app, this would make an API call
-            alert("Order Accepted! Redirecting to navigation...");
-            removeCard(id);
+            //alert("Order Accepted! Redirecting to navigation...");
+            const url = "<%=App.Pages.BookingAPI.link%>?operation=accept&id=" + id;
+            fetch(url).then( (response) => {
+            	if(response.ok) removeCard(id);
+            	else alert("Could not accept order.");
+            } );
         }
 
         function checkEmptyStates() {

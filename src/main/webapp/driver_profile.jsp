@@ -1,4 +1,6 @@
+<%@page import="model.*,sapujerrapp.App" %>
 <%@ include file="component_redirect_if_no_login.jsp" %>
+<jsp:useBean id="driver" class="model.DriverEntity" scope="request"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +18,7 @@
 
     <div class="header-toggle-container">
         <button class="btn-profile-toggle" onclick="toggleSidebar()">
-            <i class="fa-solid fa-bars"></i> Mamat
+            <i class="fa-solid fa-bars"></i><jsp:getProperty property="name" name="user"/>
         </button>
     </div>
 
@@ -34,37 +36,44 @@
 
             <div class="card-bottom">
                 <div class="header-row">
-                    <h2 class="greeting">Hi Mamat,</h2>
+                    <h2 class="greeting">Hi <jsp:getProperty property="name" name="user"/></h2>
                     <button class="btn-edit-mode" id="editBtn" onclick="handleEditClick()">
                         <i class="fa-solid fa-pen-to-square"></i> Edit Profile
                     </button>
                 </div>
-
-                <form id="profileForm">
+				<div>
+				<%@include file="component_flash_message.jsp" %>
+				</div>
+                <form id="profileForm" action="<%=App.Pages.DriverProfile.link%>" method="post">
                     <div class="form-grid">
                         <div class="input-group">
                             <label>Name</label>
-                            <input type="text" class="red-input" value="Mamat Bin Abu" readonly>
-                        </div>
-                        <div class="input-group">
-                            <label>NRIC</label>
-                            <input type="text" class="red-input" value="901010-10-1234" readonly>
+                            <input type="text" class="red-input" name="name" value="<jsp:getProperty property="name" name="user"/>" readonly>
                         </div>
                         <div class="input-group">
                             <label>Email</label>
-                            <input type="email" class="red-input" value="mamat@sapujerr.com" readonly>
+                            <input type="email" class="red-input" name="email" value="<jsp:getProperty property="email" name="user"/>" readonly>
                         </div>
                         <div class="input-group">
-                            <label>Driving License (Front & Back)*</label>
-                            <input type="file" id="licenseUpload" style="display:none;" onchange="updateFileName(this)" disabled>
-                            <label for="licenseUpload" class="file-attach-label" id="licenseLabel">
-                                Attach File <i class="fa-solid fa-paperclip"></i>
-                            </label>
+                            <label>Phone Number</label>
+                            <input type="text" class="red-input" name="phone" value="<jsp:getProperty property="phone" name="user"/>" readonly>
+                        </div>
+                        <div class="input-group">
+                            <label>Driving License Number</label>
+                            <input type="text" class="red-input" name="license_number" value="<%=driver.getLicenceNumber()%>" readonly>
+                        </div>
+                        <div class="input-group">
+                            <label>Password<br>(Leave blank if no change)</label>
+                            <input type="text" class="red-input" name="password" readonly>
+                        </div>
+                        <div class="input-group">
+                            <label>Password Confirmation<br>(Leave blank if no change)</label>
+                            <input type="text" class="red-input" name="password_confirm" readonly>
                         </div>
                     </div>
 
                     <div class="actions-grid">
-                        <button type="button" class="btn-pro" onclick="window.location.href='cardetail.html'">
+                        <button type="button" class="btn-pro" onclick="window.location.href='<%=App.Pages.DriverCarDetail.link%>'">
                             <div class="btn-content">
                                 <span class="btn-title">Car Detail</span>
                                 <span class="btn-subtitle">Manage vehicle info</span>
@@ -72,10 +81,9 @@
                             <div class="btn-icon-circle"><i class="fa-solid fa-car"></i></div>
                         </button>
 
-                        <button type="button" class="btn-pro">
+                        <button type="button" class="btn-pro" onclick="window.location.href='<%=App.Pages.DriverSubscription.link%>'">
                             <div class="btn-content">
                                 <span class="btn-title">Subscription</span>
-                                <span class="btn-subtitle">Current Plan: Dewa</span>
                             </div>
                             <div class="btn-icon-circle"><i class="fa-solid fa-crown"></i></div>
                         </button>
@@ -131,13 +139,11 @@
         function enableEditing() {
             const inputs = document.querySelectorAll('.red-input');
             const btn = document.getElementById('editBtn');
-            const fileInput = document.getElementById('licenseUpload');
 
             inputs.forEach(input => {
                 input.readOnly = false;
                 input.classList.add('editable');
             });
-            fileInput.disabled = false; // Enable file upload
 
             btn.classList.add('active');
             btn.innerHTML = '<i class="fa-solid fa-check"></i> Save Changes';
@@ -160,21 +166,17 @@
             // Lock inputs (Revert state)
             const inputs = document.querySelectorAll('.red-input');
             const btn = document.getElementById('editBtn');
-            const fileInput = document.getElementById('licenseUpload');
 
             inputs.forEach(input => {
                 input.readOnly = true;
                 input.classList.remove('editable');
             });
-            fileInput.disabled = true;
-
+            
             btn.classList.remove('active');
             btn.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Edit Profile';
 
-            // Optional: Show simple success alert or toast
-            setTimeout(() => {
-                alert("Profile Updated Successfully!");
-            }, 300);
+            const form = document.querySelector('form#profileForm');
+            if(form instanceof HTMLFormElement) form.requestSubmit();
         }
     </script>
 

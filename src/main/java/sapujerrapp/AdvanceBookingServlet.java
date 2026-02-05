@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.BookingDAO;
 import model.BookingEntity;
+import model.NotificationDAO;
 import model.PricingRateDAO;
 import model.StudentDAO;
 import model.StudentEntity;
@@ -21,6 +22,7 @@ import model.UserEntity;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -50,6 +52,9 @@ public class AdvanceBookingServlet extends HttpServlet {
 	
 	@EJB
 	BookingDAO bookingDao;
+	
+	@EJB
+	NotificationDAO notiDao;
 	
 	private static final long serialVersionUID = 1L;
        
@@ -120,8 +125,7 @@ public class AdvanceBookingServlet extends HttpServlet {
 				String warnings = String.join(",",route.getJsonArray("warnings").getValuesAs(JsonString::getString));
 				
 				BigDecimal distanceKm = new BigDecimal(distanceMeters).divide(new BigDecimal(1000));
-				BigDecimal basePrice = pricingDao.getLatestPrice().getBasePrice();
-				BigDecimal price = basePrice.multiply(distanceKm);
+				BigDecimal price = pricingDao.calculateBookingPrice(distanceKm);
 				
 				UserEntity user = App.getUser(request.getSession(), userDao);
 				StudentEntity student = user.getStudent();
@@ -138,6 +142,8 @@ public class AdvanceBookingServlet extends HttpServlet {
 					response.sendRedirect(App.Pages.StudentBooking.link);
 					return;
 				}
+				
+				
 				else {
 					App.setFlashMessage(request.getSession(), "Error while saving booking data.");
 				}

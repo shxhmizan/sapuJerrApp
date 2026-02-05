@@ -54,9 +54,34 @@ public class BookingManagementServlet extends HttpServlet {
 		UserEntity user = App.getUser(request.getSession(),userDao);
 		switch(operation.trim()) {
 			case "cancel":
-				if(dao.cancelBooking(user, bookingId)) {
-					response.setStatus(200);
+				if(! dao.cancelBooking(user, bookingId)) {
+					response.setStatus(500);
+					response.getWriter().println("Booking #" + bookingId + " could not be cancelled.");
 				}
+				break;
+			case "accept":
+				switch(dao.acceptBooking(user, bookingId)) {
+					case -1 :
+						response.setStatus(404); //no booking found
+						response.getWriter().println("Booking #" + bookingId + " not found.");
+					break;
+					case -2 :
+						response.setStatus(209); //booking already accepted
+						response.getWriter().println("Booking #" + bookingId + " has already been accepted.");
+					break;
+					case -3 :
+						response.setStatus(403); //user not a driver 
+						response.getWriter().println("You are not a registered driver who can accept this booking");
+					break;
+					case 0 :
+						response.setStatus(200);
+						response.getWriter().println("Booking #" + bookingId + " is now assigned to you.");
+					break;
+					default :
+						response.setStatus(500);
+						response.getWriter().println("Server could not process your request.");
+				}
+				break;
 		}
 	}
 

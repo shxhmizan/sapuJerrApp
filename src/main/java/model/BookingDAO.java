@@ -31,11 +31,33 @@ public class BookingDAO {
 			booking.setStatus(BookingEntity.BookingStatus.UPCOMING);
 
 			em.persist(booking);
+			
+			notifyAllDriversNewBooking(booking);
+			
 			return booking;
 		}
 		catch(Exception e) {
 			System.out.print(e);
 			return null;
+		}
+	}
+	
+	private void notifyAllDriversNewBooking(BookingEntity booking) {
+		try {
+			TypedQuery<UserEntity> query = em.createQuery("SELECT u FROM UserEntity u WHERE u.userType = ?1", UserEntity.class);
+			query.setParameter(1, UserEntity.UserType.driver);
+			query.getResultStream().forEach((UserEntity driver) -> {
+				NotificationEntity noti = new NotificationEntity();
+				
+				noti.setUser(driver);
+				noti.setBooking(booking);
+				noti.setMessage("New booking " + booking.getBookingId());
+				
+				em.persist(noti);
+			});
+		}
+		catch(Exception e) {
+			System.out.println(e);
 		}
 	}
 	
@@ -94,11 +116,46 @@ public class BookingDAO {
 		if(booking != null) {
 			if(booking.getStudent().getStudentId() == user.getUserId()) {
 				booking.setStatus(BookingEntity.BookingStatus.CANCELLED);
+				
 				em.persist(booking);
+				
+				if(booking.getDriver() != null) {
+					NotificationEntity noti = new NotificationEntity();
+					noti.setBooking(booking);
+					noti.setUser(booking.getDriver().getUser());
+					noti.setMessage("Passenger <strong>" + user.getName() + "</strong> cancelled the trip to <strong>" + booking.getDropoffLocation() + "</scrong>");
+					em.persist(noti);
+				}
+				
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * 
+	 * @param user
+	 * @param bookingId
+	 * @return 0 if success, -1 if no booking, -2 if booking already accepted, -3 if user not a driver 
+	 */
+	public int acceptBooking(UserEntity user, int bookingId) {
+		BookingEntity booking = em.find(BookingEntity.class, bookingId);
+		if(booking != null) {
+			if(user.getUserType().equals(UserEntity.UserType.driver) && user.getDriver() != null && booking.getDriver() == null) {
+				booking.setStatus(BookingEntity.BookingStatus.ACCEPTED);
+				booking.setDriver(em.find(DriverEntity.class, user.getUserId()));
+				em.persist(booking);
+				return 0;
+			}
+			else if(booking.getDriver() != null || booking.getStatus() == BookingEntity.BookingStatus.ACCEPTED) {
+				return -2;
+			}
+			else if( ! user.getUserType().equals(UserEntity.UserType.driver)) {
+				return -3;
+			}
+		}
+		return -1;
 	}
 	
 	public boolean saveBooking(BookingEntity booking) {

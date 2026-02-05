@@ -12,7 +12,7 @@ public class DriverDAO {
 	private EntityManager em;
 	
 	public DriverEntity getDriverData(UserEntity user) {
-		return em.merge(user).getDriver();
+		return em.find(DriverEntity.class, user.getUserId());
 	}
 	
 	public DriverEntity registerDriver(UserEntity user, String licenseNo) {
@@ -30,6 +30,19 @@ public class DriverDAO {
 		catch(Exception e) {
 			System.out.println(e);
 			return null;
+		}
+	}
+	
+	public boolean updateDriver(DriverEntity d,String licenseNo) {
+		try {
+			DriverEntity driver = em.find(DriverEntity.class, d.getDriverId());
+			driver.setLicenceNumber(licenseNo);
+			em.persist(driver);
+			return true;
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			return false;
 		}
 	}
 }
