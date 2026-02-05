@@ -329,6 +329,9 @@
         <%
         if(cancelList != null && cancelList.size() > 0) for(Object obj : cancelList) if(obj instanceof NotificationEntity) {
         	NotificationEntity noti = (NotificationEntity) obj;
+        	BookingEntity booking = noti.getBooking();
+        	StudentEntity student = booking.getStudent();
+        	UserEntity passenger = student.getUser();
         %>
         <div id="list-canceled" style="width: 100%; display: none; flex-direction: column; align-items: center;">
             <div class="notif-card" id="cancel-1" style="border-color:#666;">
@@ -340,7 +343,7 @@
                     <div class="notif-time">1 hour ago</div>
                 </div>
                 <p style="font-size:1.2rem; color:#333; margin-bottom:15px;">
-                    Passenger <strong>Amir</strong> canceled the trip to <strong>KFC Tapah</strong>.
+                    Passenger <strong><%=passenger.getName()%></strong> canceled the trip to <strong><%=booking.getDropoffLocation()%></strong>.
                 </p>
                 <div class="action-row">
                     <button class="btn-action btn-dismiss" onclick="removeCard('cancel-1')">Dismiss</button>
