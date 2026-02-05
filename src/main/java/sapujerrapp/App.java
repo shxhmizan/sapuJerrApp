@@ -33,7 +33,8 @@ public class App {
 		Splash("splash.jsp"),
 		Registration("signup.jsp"),
 		StudentDashboard("student_dashboard.jsp"),
-		StudentBooking("student_bookings.jsp"),
+		StudentBooking("./StudentBookingServlet"),
+		StudentBookingJSP("student_bookings.jsp"),
 		StudentBookingHistory("student_booking_history.jsp"),
 		StudentAdvanceBooking("student_advance_booking.jsp"),
 		DriverDashboard("driver_dashboard.jsp"),
@@ -58,9 +59,9 @@ public class App {
 	
 	private static final GregorianCalendar appCalendar = new GregorianCalendar();
 	
-	public static final DateTimeFormatter dateDisplayFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM);;
-	public static final DateTimeFormatter htmlInputDateFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
+	public static final SimpleDateFormat dateDisplayFormatter = new SimpleDateFormat("dd MMMM y");
 	public static final DateTimeFormatter htmlInputTimeFormatter = DateTimeFormatter.ISO_LOCAL_TIME;
+	public static final SimpleDateFormat htmlInputDateFormatter = new SimpleDateFormat("y-MM-dd");
 	
 	public static GregorianCalendar getCalendar() {
 		return appCalendar;

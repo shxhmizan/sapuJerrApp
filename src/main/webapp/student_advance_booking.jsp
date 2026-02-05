@@ -1,9 +1,4 @@
 <%@ page import="sapujerrapp.App,java.util.*,java.time.*" %>
-<% 
-  	LocalDateTime currentDate = App.getCurrentDateTime();
-	String initDate = currentDate.format(App.htmlInputDateFormatter);
-	String initTime = currentDate.plus(Duration.ofHours(1L)).format(App.htmlInputTimeFormatter);
-%>
 <%@ include file="component_redirect_if_no_login.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -325,7 +320,10 @@
      		<p><span class="route-info">(Select Route)</span></p>
         </div>
      </div>
-    <form class="form-container" action="<%="./BookingServlet"%>" method="POST">
+     <div>
+     <%@include file="component_flash_message.jsp" %>
+     </div>
+    <form class="form-container" action="./AdvanceBookingServlet" method="POST">
         
         <div class="input-row">
             <div class="w-45">
@@ -343,7 +341,7 @@
                 <label class="label" for="dropoff">Drop Off Location</label>
                 <div class="input-box">
                     <i class="fa-solid fa-location-dot input-icon icon-red"></i>
-                    <input type="text" class="input-text placeholder map-input-destination" id="dropoff" name="dropoff" placeholder="Where To?">
+                    <input type="text" class="input-text placeholder map-input-destination" id="dropoff" name="destination" placeholder="Where To?">
                     <input type="hidden" class="route-destination-placeid" name="destination_place_id">
                 </div>
             </div>
@@ -354,7 +352,7 @@
                 <label class="label" for="date">Date</label>
                 <div class="input-box">
                     <i class="fa-regular fa-calendar input-icon"></i>
-                    <input type="date" class="input-text" id="date" name="date" placeholder="DD/MM/YYYY" value="<%=initDate%>">
+                    <input type="date" class="input-text" id="date" name="date" placeholder="DD/MM/YYYY">
                 </div>
             </div>
 
@@ -379,7 +377,7 @@
                 <label class="label" for="time">Time</label>
                 <div class="input-box">
                     <i class="fa-regular fa-clock input-icon"></i>
-                    <input type="time" class="input-text" id="time" name="time" value="<%=initTime%>">
+                    <input type="time" class="input-text" id="time" name="time">
                 </div>
             </div>
             

@@ -1,6 +1,7 @@
 package sapujerrapp;
 
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -79,49 +80,52 @@ public class MapsServlet extends HttpServlet {
 					response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 					return;
 				}
-				String routeAPIUrl = "https://routes.googleapis.com/directions/v2:computeRoutes";
-				
-				/**
-				 * Request body for getting routes
-				 */
-				JsonObject apiRequestData = Json.createObjectBuilder()
-						.add("origin",Json.createObjectBuilder()
-								.add("placeId", startPlace)
-						)
-						.add("destination", Json.createObjectBuilder()
-								.add("placeId", destPlace)
-						)
-						.add("travelMode", "DRIVE")
-						.add("routingPreference", "TRAFFIC_UNAWARE")
-						.add("computeAlternativeRoutes", false)
-						.add("routeModifiers", Json.createObjectBuilder()
-								.add("avoidTolls", true))
-						.add("languageCode", "en-MY")
-						.add("regionCode", "my")
-						.add("units", "METRIC")
-						.build();
-				StringWriter bodyWriter = new StringWriter();
-				JsonWriter jsonWriter = Json.createWriter(bodyWriter);
-				jsonWriter.writeObject(apiRequestData);
-				jsonWriter.close();
-				
-				String reqBody = bodyWriter.toString();
-				
-				bodyWriter.close();
-				
-				req = HttpRequest.newBuilder()
-						.uri(URI.create(routeAPIUrl))
-						.headers(
-								"Content-Type", "application/json",
-								"X-Goog-Api-Key" , apiKey,
-								"X-Goog-FieldMask" , "*")
-						.POST(HttpRequest.BodyPublishers.ofString(reqBody))
-						.build();
+				req = buildRouteRequest(this.getServletContext(),startPlace,destPlace);
 				forwardAPIRequest(req,response);
 				break;
 			default:
 				response.getWriter().println("Invalid route :" + leadPath);
 		}
+	}
+	
+	public static HttpRequest buildRouteRequest(ServletContext context,String startPlace,String destPlace) {
+		String apiKey = context.getInitParameter("mapsAPIKey");
+		String routeAPIUrl = "https://routes.googleapis.com/directions/v2:computeRoutes";
+		/**
+		 * Request body for getting routes
+		 */
+		JsonObject apiRequestData = Json.createObjectBuilder()
+				.add("origin",Json.createObjectBuilder()
+						.add("placeId", startPlace)
+				)
+				.add("destination", Json.createObjectBuilder()
+						.add("placeId", destPlace)
+				)
+				.add("travelMode", "DRIVE")
+				.add("routingPreference", "TRAFFIC_UNAWARE")
+				.add("computeAlternativeRoutes", false)
+				.add("routeModifiers", Json.createObjectBuilder()
+						.add("avoidTolls", true))
+				.add("languageCode", "en-MY")
+				.add("regionCode", "my")
+				.add("units", "METRIC")
+				.build();
+		StringWriter bodyWriter = new StringWriter();
+		JsonWriter jsonWriter = Json.createWriter(bodyWriter);
+		jsonWriter.writeObject(apiRequestData);
+		jsonWriter.close();
+		
+		String reqBody = bodyWriter.toString();
+		
+		HttpRequest req = HttpRequest.newBuilder()
+				.uri(URI.create(routeAPIUrl))
+				.headers(
+						"Content-Type", "application/json",
+						"X-Goog-Api-Key" , apiKey,
+						"X-Goog-FieldMask" , "routes.duration,routes.distanceMeters,routes.warnings")
+				.POST(HttpRequest.BodyPublishers.ofString(reqBody))
+				.build();
+		return req;
 	}
 	
 	/**

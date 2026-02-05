@@ -14,7 +14,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import model.UserDAO;
 import model.UserEntity;
+import model.DriverDAO;
 import model.DriverEntity;
+import model.StudentDAO;
 import model.StudentEntity;
 
 /**
@@ -26,6 +28,12 @@ public class RegistrationServlet extends HttpServlet {
 	
     @EJB
 	private UserDAO dao; 
+    
+    @EJB
+    private DriverDAO driverDao;
+    
+    @EJB
+    private StudentDAO studentDao;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -86,7 +94,7 @@ public class RegistrationServlet extends HttpServlet {
 			UserEntity user = dao.registerUser(name, password, email, phone,type);
 			if(user != null) {
 				if(type.equals("driver")) {
-					DriverEntity driver = dao.registerDriver(user, licenseNo);
+					DriverEntity driver = driverDao.registerDriver(user, licenseNo);
 					
 					if(driver != null) {
 						App.setFlashMessage(session, "Registration successful, please login.");
@@ -94,7 +102,7 @@ public class RegistrationServlet extends HttpServlet {
 					}
 				}
 				else {
-					StudentEntity student = dao.registerStudent(user, matricNo, faculty);
+					StudentEntity student = studentDao.registerStudent(user, matricNo, faculty);
 					
 					if(student != null) {
 						App.setFlashMessage(session, "Registration successful, please login.");

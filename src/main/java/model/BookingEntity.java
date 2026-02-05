@@ -66,7 +66,7 @@ public class BookingEntity implements Serializable {
 	private PricingRateEntity pricingRate;
 
 	//bi-directional one-to-one association to StudentEntity
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="student_id")
 	private StudentEntity student;
 

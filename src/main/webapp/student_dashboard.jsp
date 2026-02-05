@@ -162,7 +162,7 @@
                 <div class="card-icon"><i class="fa-solid fa-calendar-plus"></i></div>
             </a>
 
-            <a href="<%=App.Pages.StudentBookingHistory.link%>" class="suggestion-card" onclick="alert('Opening Bookings...')">
+            <a href="<%=App.Pages.StudentBooking.link%>" class="suggestion-card" onclick="alert('Opening Bookings...')">
                 <div class="card-content">
                     <h3>My Bookings</h3>
                     <p>Check upcoming trips.</p>
@@ -259,7 +259,7 @@
         }
         
         async function displayPrices(){
-        	const url = "/BookingServlet?latestPrice";
+        	const url = "/PricingRateServlet?latestPrice";
         	
         	try{
         		const response = await fetch(url);

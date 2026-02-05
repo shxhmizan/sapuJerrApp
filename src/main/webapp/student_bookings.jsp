@@ -1,19 +1,5 @@
-<%@page import="model.*,sapujerrapp.App,java.util.List,jakarta.ejb.EJB" %>
-<%!
-	@EJB
-	UserDAO dao;
-%>
+<%@page import="model.*,sapujerrapp.App,java.util.List,sapujerrapp.BookingListBean" %>
 <%@ include file="component_redirect_if_no_login.jsp" %>
-<%
-	UserEntity user = App.getUser(session,dao);
-	
-	List<BookingEntity> bookings = null;
-	
-	if(user.getUserType().equals(UserEntity.UserType.student)){
-		bookings = user.getStudent().getBookings();
-	}
-	else bookings = user.getDriver().getBookings();
-%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,18 +34,22 @@
 
     <div class="main-container">
         <h1 class="page-title">My Bookings</h1>
-
+		<% 	
+			List bookings = (List) request.getAttribute("bookings");
+			for(Object obj : bookings) if(obj instanceof BookingEntity) { 
+				BookingEntity booking = (BookingEntity) obj;
+				String bookingDate = App.dateDisplayFormatter.format(booking.getBookingDate());
+		%>
         <div class="booking-list">
-            
             <div class="booking-card">
                 <div class="card-header">
-                    <div><span class="booking-date">Today, 5 Dec • 9:30 PM</span><span class="booking-id">#ID8823</span></div>
+                    <div><span class="booking-date"><%=bookingDate%></span><span class="booking-id">#ID8823</span></div>
                     <span class="status-badge status-scheduled">Scheduled</span>
                 </div>
                 <div class="card-body">
                     <div class="route-visual">
-                        <div class="route-row"><div class="route-icon"><div class="dot"></div><div class="line"></div></div><div class="route-text"><h4>Kolej Beta</h4><p>Pickup</p></div></div>
-                        <div class="route-row"><div class="route-icon"><i class="fa-solid fa-location-dot pin"></i></div><div class="route-text"><h4>KFC Tapah</h4><p>Dropoff</p></div></div>
+                        <div class="route-row"><div class="route-icon"><div class="dot"></div><div class="line"></div></div><div class="route-text"><h4><%=booking.getPickupLocation() %></h4><p>Pickup</p></div></div>
+                        <div class="route-row"><div class="route-icon"><i class="fa-solid fa-location-dot pin"></i></div><div class="route-text"><h4><%=booking.getDropoffLocation() %></h4><p>Dropoff</p></div></div>
                     </div>
                     <div class="driver-info">
                         <div class="driver-car">Perodua Aruz</div><div class="driver-plate">PKA 1234</div><div class="price-tag">RM 25.00</div>
@@ -72,7 +62,8 @@
                     </button>
                 </div>
             </div>
-
+		<% } %>
+			<%-- 
             <div class="booking-card">
                 <div class="card-header">
                     <div><span class="booking-date">Tomorrow, 6 Dec • 8:00 AM</span><span class="booking-id">#ID9901</span></div>
@@ -94,7 +85,7 @@
                     </button>
                 </div>
             </div>
-
+			--%>
         </div>
     </div>
 

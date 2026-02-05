@@ -3,6 +3,7 @@ package model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -55,39 +56,6 @@ public class UserDAO {
 		}
 		catch(NoResultException e) {
 			return null;
-		}
-		catch(Exception e) {
-			System.out.println(e);
-			return null;
-		}
-	}
-	
-	public DriverEntity registerDriver(UserEntity user, String licenseNo) {
-		try {
-			DriverEntity driver = new DriverEntity();
-			//driver.setUser(user);
-			driver.setDriverId(user.getUserId());
-			driver.setLicenceNumber(licenseNo);
-			driver.setRatingAverage(new BigDecimal(0));
-			driver.setUsername(user.getName());
-			driver.setStatusVerified( (byte) 0);
-			em.persist(driver);
-			return driver;
-		}
-		catch(Exception e) {
-			System.out.println(e);
-			return null;
-		}
-	}
-	
-	public StudentEntity registerStudent(UserEntity user, String matricNo, String faculty) {
-		try {
-			StudentEntity student = new StudentEntity();
-			student.setStudentId(user.getUserId());
-			student.setMatricNumber(matricNo);
-			student.setFaculty(faculty);
-			em.persist(student);
-			return student;
 		}
 		catch(Exception e) {
 			System.out.println(e);

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" import="sapujerrapp.App"
-	pageEncoding="UTF-8"%>
+<%@ page import="sapujerrapp.App"%>
 <!DOCTYPE html>
 <html>
 <head>
