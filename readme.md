@@ -78,5 +78,7 @@ sapuJerrApp/
 └── pom.xml                        # Maven config (if used)
 ```
 **To Clone the Repository**
+```text
 git clone https://github.com/shxhmizan/sapuJerrApp.git
 cd sapuJerrApp
+```
