@@ -1,54 +1,82 @@
 # 🚖 SapuJerr – E-Hailing Web Application
 
-SapuJerrApp is a web-based e-hailing application that allows users to request and manage ride services through a browser. This project demonstrates a full-stack Java web application using traditional frontend technologies and a Java-based backend.
+SapuJerrApp is a **Java-based Dynamic Web Application** built using the **MVC (Model–View–Controller) architecture**.  
+The system simulates an e-hailing platform where users can request rides and manage ride-related operations through a web browser.
+
+This project is developed mainly for **learning and academic purposes**, demonstrating how MVC is implemented in a Java Dynamic Web environment.
 
 ---
 
 ## 📌 About the Project
 
-SapuJerr is designed as a learning-focused e-hailing system where users can book rides, view ride information, and manage basic ride operations. The project serves as a foundation for building scalable ride-hailing platforms and understanding full-stack web development using Java.
+SapuJerr follows the **MVC design pattern** to separate business logic, user interface, and request handling.  
+The application is structured as a **Java Dynamic Web Project** and deployed on an **Apache Tomcat** server.
+
+**MVC Breakdown:**
+- **Model** – Handles business logic and database operations
+- **View** – JSP / HTML / CSS for user interface
+- **Controller** – Java Servlets handling HTTP requests and responses
 
 ---
 
 ## 💡 Features
 
-- User registration and authentication
-- Ride booking and request management
+- User registration and login
+- Ride booking and request handling
 - View ride status and history
 - Admin management for users and rides
+- MVC-based request routing
 - Responsive web interface
 
-> Some features may vary depending on implementation.
+> Feature availability depends on implemented modules.
 
 ---
 
 ## 🧠 Tech Stack
 
+**Architecture**
+- MVC (Model–View–Controller)
+
 **Backend**
-- Java
+- Java (Servlets)
 
 **Frontend**
+- JSP
 - HTML
 - CSS
 - JavaScript
 
-**Build / Tools**
-- Maven or Gradle (depending on configuration)
+**Tools**
+- Eclipse IDE (Java EE / Enterprise)
+- Apache Tomcat 9+
 
 **Database**
-- MySQL / PostgreSQL (configurable)
+- MySQL (or any relational database)
 
 ---
 
-## 📁 Project Structure
+## 📁 Project Structure (MVC – Java Dynamic Web)
 
 ```text
 sapuJerrApp/
 ├── src/
 │   └── main/
-│       ├── java/          # Backend Java source code
-│       └── resources/     # Configuration files
-├── webapp/                # Frontend HTML, CSS, JavaScript
+│       ├── java/
+│       │   ├── controller/        # Servlets (Controller)
+│       │   ├── model/             # Java Beans / DAO (Model)
+│       │   └── util/              # Database utilities
+│       └── resources/
+├── WebContent/
+│   ├── jsp/                       # JSP files (View)
+│   ├── css/
+│   ├── js/
+│   └── images/
+├── WEB-INF/
+│   └── web.xml
 ├── .gitignore
 ├── README.md
-└── pom.xml / build.gradle
+└── pom.xml                        # Maven config (if used)
+```
+**To Clone the Repository**
+git clone https://github.com/shxhmizan/sapuJerrApp.git
+cd sapuJerrApp
