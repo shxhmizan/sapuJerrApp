@@ -64,11 +64,11 @@
                         </div>
                         <div class="input-group">
                             <label>Password<br>(Leave blank if no change)</label>
-                            <input type="text" class="red-input" name="password" readonly>
+                            <input type="password" class="red-input" name="password" readonly>
                         </div>
                         <div class="input-group">
                             <label>Password Confirmation<br>(Leave blank if no change)</label>
-                            <input type="text" class="red-input" name="password_confirm" readonly>
+                            <input type="password" class="red-input" name="password_confirm" readonly>
                         </div>
                     </div>
 
