@@ -17,10 +17,6 @@ import java.util.List;
 @NamedQuery(name="BookingEntity.findAll", query="SELECT b FROM BookingEntity b")
 public class BookingEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	public static final String BOOKING_PENDING = "PENDING";
-	public static final String BOOKING_CANCELLED = "CANCEL";
-	public static final String BOOKING_ACCEPTED = "ACCEPTED";
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -52,6 +48,8 @@ public class BookingEntity implements Serializable {
 	
 	public static enum BookingStatus {
 		UPCOMING,
+		ACCEPTED,
+		CANCELLED,
 		COMPLETED;
 	}
 

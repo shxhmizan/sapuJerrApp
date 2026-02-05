@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SapuJerr - Advance Booking</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/bookings.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ============================
            1. THEME VARIABLES & RESET
@@ -420,9 +423,9 @@
         // Sidebar Logic
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
+            const backdrop = document.getElementById('backdrop');
             sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
+            backdrop.classList.toggle('active');
         }
 
         // Card Selection Logic (Visual Feedback)

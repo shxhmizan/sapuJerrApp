@@ -1,3 +1,4 @@
+<%@page import="model.*,sapujerrapp.App,java.util.List" %>
 <%@ include file="component_redirect_if_no_login.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,22 +21,31 @@
             <button class="tab-btn active" onclick="switchTab(this, 'completed')">Completed</button>
             <button class="tab-btn" onclick="switchTab(this, 'cancelled')">Canceled</button>
         </div>
-
+		
         <div class="booking-list" id="historyList">
             
+            <% 	
+				List bookings = (List) request.getAttribute("bookings");
+				for(Object obj : bookings) if(obj instanceof BookingEntity) { 
+					BookingEntity booking = (BookingEntity) obj;
+					String bookingDate = App.dateDisplayFormatter.format(booking.getBookingDate());
+					if(booking.getStatus().equals(BookingEntity.BookingStatus.COMPLETED)){
+			%>
             <div class="booking-card item-completed">
                 <div class="card-header">
-                    <div><span class="booking-date">1 Dec 2025 • 2:00 PM</span><span class="booking-id">#ID7721</span></div>
+                    <div><span class="booking-date"><%=bookingDate%></span><span class="booking-id"><%=booking.getBookingId() %></span></div>
                     <span class="status-badge status-completed">Completed</span>
                 </div>
                 <div class="card-body">
                     <div class="route-visual">
-                        <div class="route-row"><div class="route-icon"><div class="dot"></div><div class="line"></div></div><div class="route-text"><h4>Tapah KTM</h4></div></div>
-                        <div class="route-row"><div class="route-icon"><i class="fa-solid fa-location-dot pin"></i></div><div class="route-text"><h4>UiTM Tapah</h4></div></div>
+                        <div class="route-row"><div class="route-icon"><div class="dot"></div><div class="line"></div></div><div class="route-text"><h4><%=booking.getPickupLocation() %></h4></div></div>
+                        <div class="route-row"><div class="route-icon"><i class="fa-solid fa-location-dot pin"></i></div><div class="route-text"><h4><%=booking.getDropoffLocation() %></h4></div></div>
                     </div>
+                    <%-- 
                     <div class="driver-info">
                         <div class="driver-car">Honda City</div><div class="driver-plate">JJU 8888</div><div class="price-tag">RM 15.00</div>
                     </div>
+                    --%>
                 </div>
                 <div class="card-footer">
                     <button class="btn-sm btn-edit">Get Receipt</button>
@@ -44,23 +54,24 @@
                     </button>
                 </div>
             </div>
-
+			<% 		} else { %>
             <div class="booking-card item-cancelled" style="display:none;">
                 <div class="card-header">
-                    <div><span class="booking-date">28 Nov 2025 • 10:00 AM</span><span class="booking-id">#ID6602</span></div>
+                    <div><span class="booking-date"><%=bookingDate%></span><span class="booking-id">#ID6602</span></div>
                     <span class="status-badge status-cancelled" style="background:#ffebee; color:var(--brand-red);">Cancelled</span>
                 </div>
                 <div class="card-body">
                     <div class="route-visual">
-                        <div class="route-row"><div class="route-icon"><div class="dot"></div><div class="line"></div></div><div class="route-text"><h4>Kolej Alpha</h4></div></div>
-                        <div class="route-row"><div class="route-icon"><i class="fa-solid fa-location-dot pin"></i></div><div class="route-text"><h4>Tapah Town</h4></div></div>
+                        <div class="route-row"><div class="route-icon"><div class="dot"></div><div class="line"></div></div><div class="route-text"><h4><%=booking.getPickupLocation() %></h4></div></div>
+                        <div class="route-row"><div class="route-icon"><i class="fa-solid fa-location-dot pin"></i></div><div class="route-text"><h4><%=booking.getDropoffLocation() %></h4></div></div>
                     </div>
                     <div class="driver-info">
                          <div style="color:var(--brand-red); font-weight:bold;">Cancelled by You</div>
                     </div>
                 </div>
             </div>
-
+			<% 		} 
+				} %>
         </div>
     </div>
 

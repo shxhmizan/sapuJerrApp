@@ -1,6 +1,5 @@
 <%@page import="model.UserEntity,sapujerrapp.App" %>
 <%@ include file="component_redirect_if_no_login.jsp" %>
-<jsp:useBean id="user" class="model.UserEntity" scope="session"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>

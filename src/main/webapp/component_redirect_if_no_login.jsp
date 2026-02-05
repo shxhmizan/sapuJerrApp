@@ -5,3 +5,4 @@
 		response.sendRedirect(App.Pages.Login.link);
 	}
 %>
+<jsp:useBean id="user" class="model.UserEntity" scope="session"/>

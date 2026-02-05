@@ -19,11 +19,11 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Servlet implementation class StudentBookingServlet
+ * Servlet implementation class StudentBookingHistoryServlet
  */
 @Stateless
-@WebServlet("/StudentBookingServlet")
-public class StudentBookingServlet extends HttpServlet {
+@WebServlet("/StudentBookingHistoryServlet")
+public class StudentBookingHistoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	@EJB
@@ -34,7 +34,7 @@ public class StudentBookingServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StudentBookingServlet() {
+    public StudentBookingHistoryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -56,9 +56,10 @@ public class StudentBookingServlet extends HttpServlet {
 			return;
 		}
 		try {
-			List<BookingEntity> bookings = bookingDao.getUserBookingsWithStatus(user,BookingEntity.BookingStatus.UPCOMING,BookingEntity.BookingStatus.ACCEPTED);	
+			List<BookingEntity> bookings = bookingDao.getUserBookingsWithStatus(user,BookingEntity.BookingStatus.COMPLETED,BookingEntity.BookingStatus.CANCELLED);
+			
 			request.setAttribute("bookings", bookings);
-			request.getRequestDispatcher(App.Pages.StudentBookingJSP.link).forward(request, response);
+			request.getRequestDispatcher(App.Pages.StudentBookingHistoryJSP.link).forward(request, response);
 			return;
 		}
 		catch(Exception e) {

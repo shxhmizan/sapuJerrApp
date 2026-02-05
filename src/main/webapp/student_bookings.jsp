@@ -16,16 +16,16 @@
 
     <div class="main-container">
         <h1 class="page-title">My Bookings</h1>
-		<% 	
-			List bookings = (List) request.getAttribute("bookings");
-			for(Object obj : bookings) if(obj instanceof BookingEntity) { 
-				BookingEntity booking = (BookingEntity) obj;
-				String bookingDate = App.dateDisplayFormatter.format(booking.getBookingDate());
-		%>
-        <div class="booking-list">
+        	<div class="booking-list">
+			<% 	
+				List bookings = (List) request.getAttribute("bookings");
+				for(Object obj : bookings) if(obj instanceof BookingEntity) { 
+					BookingEntity booking = (BookingEntity) obj;
+					String bookingDate = App.dateDisplayFormatter.format(booking.getBookingDate());
+			%>
             <div class="booking-card">
                 <div class="card-header">
-                    <div><span class="booking-date"><%=bookingDate%></span><span class="booking-id">#ID8823</span></div>
+                    <div><span class="booking-date"><%=bookingDate%></span><span class="booking-id">#<%=booking.getBookingId()%></span></div>
                     <span class="status-badge status-scheduled">Scheduled</span>
                 </div>
                 <div class="card-body">
@@ -33,15 +33,21 @@
                         <div class="route-row"><div class="route-icon"><div class="dot"></div><div class="line"></div></div><div class="route-text"><h4><%=booking.getPickupLocation() %></h4><p>Pickup</p></div></div>
                         <div class="route-row"><div class="route-icon"><i class="fa-solid fa-location-dot pin"></i></div><div class="route-text"><h4><%=booking.getDropoffLocation() %></h4><p>Dropoff</p></div></div>
                     </div>
+                    <%--
                     <div class="driver-info">
                         <div class="driver-car">Perodua Aruz</div><div class="driver-plate">PKA 1234</div><div class="price-tag">RM 25.00</div>
                     </div>
+                     --%>
                 </div>
                 <div class="card-footer">
-                    <button class="btn-sm btn-cancel" onclick="openCancelModal()">Cancel</button>
+                	<% if(booking.getStatus().equals(BookingEntity.BookingStatus.UPCOMING)){ %>
+                    	<button class="btn-sm btn-cancel" onclick="openCancelModal(<%=booking.getBookingId()%>)">Cancel</button>
+                    <% } %>
+                    <% if(booking.getDriver() != null){ %>
                     <button class="btn-sm btn-track" onclick="openDriverModal()">
                         <i class="fa-solid fa-id-card"></i> Get Driver Details
                     </button>
+                    <% } %>
                 </div>
             </div>
 		<% } %>
@@ -78,7 +84,7 @@
             <p style="color:#666;">Are you sure?</p>
             <div class="modal-actions">
                 <button class="btn-modal btn-modal-back" onclick="closeCancelModal()">No</button>
-                <button class="btn-modal btn-modal-confirm" onclick="confirmCancel()">Yes, Cancel</button>
+                <button class="btn-modal btn-modal-confirm" id="btn-confirm-cancel-booking" onclick="confirmCancel()">Yes, Cancel</button>
             </div>
         </div>
     </div>
@@ -111,9 +117,28 @@
             document.getElementById('backdrop').classList.toggle('active');
         }
 
-        function openCancelModal() { document.getElementById('cancelModal').classList.add('show'); }
+        function openCancelModal(id) { 
+        	document.getElementById('cancelModal').classList.add('show'); 
+        	document.getElementById("btn-confirm-cancel-booking").onclick = function(event){ 
+        		const cancelID = id;
+        		confirmCancel(cancelID);
+        	};
+        }
         function closeCancelModal() { document.getElementById('cancelModal').classList.remove('show'); }
-        function confirmCancel() { alert("Booking Cancelled"); closeCancelModal(); }
+        
+        function confirmCancel(id) { 
+        	console.log(id);
+        	const url = "./BookingManagementServlet?operation=cancel&id=" + id;
+        	fetch(url).then((response) => {
+        		if(response.ok){
+        			alert("Booking Cancelled");  
+        			window.location.reload();
+        		}
+        		else alert("Failed to Cancel Booking");
+        		closeCancelModal();
+        	})
+        }
+        
 
         function openDriverModal() { document.getElementById('driverModal').classList.add('show'); }
         function closeDriverModal() { document.getElementById('driverModal').classList.remove('show'); }
