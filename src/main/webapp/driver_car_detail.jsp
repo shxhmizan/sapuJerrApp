@@ -74,13 +74,13 @@
 					<div><%=car.getCapacity() %></div>
 						
 					<label class="form-label">Road Tax</label>
-					<div><a href="<%=car.getRoadtaxDoc() %>"></a></div>
+					<div><a href="<%=car.getRoadtaxDoc() %>">View</a></div>
 	
 					<label class="form-label">Insurance</label>
-					<div><a href="<%=car.getInsuranceDoc() %>"></a></div>
+					<div><a href="<%=car.getInsuranceDoc() %>">View</a></div>
 	
 					<label class="form-label">Grant</label>
-					<div><a href="<%=car.getGrantDoc() %>"></a></div>
+					<div><a href="<%=car.getGrantDoc() %>">View</a></div>
 				</div>
 			</div>
 		</div>

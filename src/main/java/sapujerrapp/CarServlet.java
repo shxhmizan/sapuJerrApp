@@ -103,7 +103,7 @@ public class CarServlet extends HttpServlet {
 		
 		Part[] uploads = {grantDoc,insuranceDoc,roadTaxDoc,frontImage,leftImage,rightImage,backImage};
 		
-		UserEntity user = (UserEntity) request.getSession().getAttribute(App.SessionDataKey.USER);
+		UserEntity user = (UserEntity) App.getUser(request.getSession(),userDao);
 		DriverEntity driver = null;
 		
 		//Validate that user has logged in and has driver data
