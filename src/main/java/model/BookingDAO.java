@@ -76,6 +76,8 @@ public class BookingDAO {
 			bookings = query.getResultList();
 			bookings.forEach((BookingEntity b) -> {
 				b.getDriver();
+				if(b.getDriver() != null)
+					b.getDriver().getUser();
 			});
 			return bookings;
 		}
