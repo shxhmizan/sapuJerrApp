@@ -289,24 +289,8 @@
     </style>
 </head>
 <body>
-
-    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
-    
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">SapuJerr</div>
-        <a href="<%=App.Pages.StudentDashboard.link%>>"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
-        <a href="<%=App.Pages.StudentBooking.link%>"><i class="fa-solid fa-clock-rotate-left"></i> My Bookings</a>
-        <a href="<%=App.Pages.StudentAdvanceBooking.link %>" class="active"><i class="fa-solid fa-calendar-days"></i> Advance Booking</a>
-        <a href="#"><i class="fa-solid fa-user"></i> Profile</a>
-    </div>
-
-    <div class="header">
-        <div class="header-left">
-            <div class="hamburger" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></div>
-            <div class="page-title">Advance Booking</div>
-        </div>
-        <div class="logo">SapuJerr</div>
-    </div>
+	<%@include file="component_sidebar_student.jsp" %>
+	<%@include file="component_header.jsp" %>
 	<%@include file="component_gmap.jsp" %>
 	<div class="input-row">
 		<div class="input-box">	                

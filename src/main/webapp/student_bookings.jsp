@@ -11,26 +11,8 @@
     <link rel="stylesheet" href="css/bookings.css">
 </head>
 <body>
-
-    <div class="backdrop" id="backdrop" onclick="toggleSidebar()"></div>
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="user-profile-row">
-                <div class="profile-avatar-large"><i class="fa-solid fa-user"></i></div>
-            </div>
-        </div>
-        <nav class="sidebar-menu">
-            <a href="dashboard.html" class="menu-item"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
-            <a href="mybookings.html" class="menu-item active"><i class="fa-solid fa-car-side"></i> Advance Bookings</a>
-            <a href="history.html" class="menu-item"><i class="fa-solid fa-clock-rotate-left"></i> My Bookings</a>
-            <a href="#" class="menu-item"><i class="fa-solid fa-wallet"></i> History</a>
-        </nav>
-    </aside>
-
-    <header class="header">
-        <div class="header-left"><button class="btn-profile-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i> Mamat</button></div>
-        <div class="header-right"><div class="logo">SapuJerr</div></div>
-    </header>
+    <%@include file="component_sidebar_student.jsp" %>
+	<%@include file="component_header.jsp" %>
 
     <div class="main-container">
         <h1 class="page-title">My Bookings</h1>

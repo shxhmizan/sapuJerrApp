@@ -12,56 +12,8 @@
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
-    <div class="backdrop" id="backdrop" onclick="toggleSidebar()"></div>
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="user-profile-row">
-                <div class="profile-avatar-large"><i class="fa-solid fa-user"></i></div>
-                <div class="profile-info">
-                    <h2><jsp:getProperty property="name" name="user"/></h2>
-                </div>
-            </div>
-            <div class="wallet-widget">
-                <div>
-                    <div class="wallet-label">SapuPay Balance</div>
-                    <div class="wallet-amount">RM 150.50</div>
-                </div>
-                <i class="fa-solid fa-chevron-right" style="color:#ccc;"></i>
-            </div>
-        </div>
-
-        <nav class="sidebar-menu">
-            <a href="#" class="menu-item"><i class="fa-solid fa-clock-rotate-left"></i> Your Trips</a>
-            <a href="#" class="menu-item"><i class="fa-solid fa-wallet"></i> Wallet</a>
-            <a href="#" class="menu-item"><i class="fa-solid fa-percent"></i> Promotions</a>
-            <a href="#" class="menu-item">
-                <i class="fa-solid fa-envelope"></i> Messages 
-                <span style="background:var(--brand-red); color:white; font-size:0.7rem; padding:2px 8px; border-radius:10px; margin-left:auto;">2</span>
-            </a>
-            <div style="height:1px; background:#eee; margin:10px 30px;"></div>
-            <a href="#" class="menu-item"><i class="fa-solid fa-gear"></i> Settings</a>
-            <a href="#" class="menu-item"><i class="fa-solid fa-circle-info"></i> Legal</a>
-        </nav>
-
-        <div class="sidebar-footer">
-            <a href="#" class="legal-link">Help</a>
-            <a href="#" class="legal-link">Privacy</a>
-            <p style="margin-top:10px; font-size:0.75rem; color:#ccc;">v4.20.0</p>
-        </div>
-    </aside>
-
-    <header class="header">
-        <div class="header-left">
-            <button class="btn-profile" onclick="toggleSidebar()">
-                <i class="fa-regular fa-user"></i><jsp:getProperty property="name" name="user"/>
-            </button>
-        </div>
-        <div class="header-right">
-            <a href="splash.html" style="text-decoration: none; color: inherit;" title="Replay Splash Screen">
-                <div class="logo">SapuJerr</div>
-            </a>
-        </div>
-    </header>
+    <%@include file="component_sidebar_student.jsp" %>
+	<%@include file="component_header.jsp" %>
 
     <div class="hero-container">
         
