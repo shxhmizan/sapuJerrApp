@@ -27,4 +27,18 @@ public class StudentDAO {
 			return null;
 		}
 	}
+	
+	public boolean updateStudent(StudentEntity s,String matricNo, String faculty) {
+		try {
+			StudentEntity student = em.find(StudentEntity.class, s.getStudentId());
+			student.setMatricNumber(matricNo);
+			student.setFaculty(faculty);
+			em.persist(student);
+			return true;
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			return false;
+		}
+	}
 }

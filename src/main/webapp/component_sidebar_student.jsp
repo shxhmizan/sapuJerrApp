@@ -11,6 +11,7 @@
          <a href="<%=App.Pages.StudentAdvanceBooking.link%>" class="menu-item"><i class="fa-solid fa-car-side"></i>Advance Bookings</a>
          <a href="<%=App.Pages.StudentBooking.link%>" class="menu-item active"><i class="fa-solid fa-clock-rotate-left"></i> My Bookings</a>
          <a href="<%=App.Pages.StudentBookingHistory.link%>" class="menu-item"><i class="fa-solid fa-wallet"></i> History</a>
+         <a href="<%=App.Pages.StudentProfile.link%>" class="menu-item"><i class="fa-solid fa-user"></i> Profile</a>
          <a href="<%=App.Pages.Login.link%>" class="menu-item">Logout</a>
      </nav>
  </aside>

@@ -39,6 +39,8 @@ public class App {
 		StudentBookingHistory("./StudentBookingHistoryServlet"),
 		StudentBookingHistoryJSP("student_booking_history.jsp"),
 		StudentAdvanceBooking("student_advance_booking.jsp"),
+		StudentProfile("./StudentProfileServlet"),
+		StudentProfileJSP("student_profile.jsp"),
 		DriverDashboard("driver_dashboard.jsp"),
 		DriverProfileJSP("driver_profile.jsp"),
 		DriverProfile("./DriverProfileServlet"),
