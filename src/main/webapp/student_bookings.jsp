@@ -1,4 +1,4 @@
-<%@page import="model.*,sapujerrapp.App,java.util.List,sapujerrapp.BookingListBean" %>
+<%@page import="model.*,sapujerrapp.App,java.util.List" %>
 <%@ include file="component_redirect_if_no_login.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
