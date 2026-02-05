@@ -12,7 +12,7 @@
 </head>
 <body>
     <%@include file="component_sidebar_student.jsp" %>
-	<%@include file="component_header.jsp" %>
+	<%@include file="component_header_student.jsp" %>
 
     <div class="hero-container">
         

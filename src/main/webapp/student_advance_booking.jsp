@@ -293,7 +293,7 @@
 </head>
 <body>
 	<%@include file="component_sidebar_student.jsp" %>
-	<%@include file="component_header.jsp" %>
+	<%@include file="component_header_student.jsp" %>
 	<%@include file="component_gmap.jsp" %>
 	<div class="input-row">
 		<div class="input-box">	                
