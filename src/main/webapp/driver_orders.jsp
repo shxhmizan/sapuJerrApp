@@ -1,3 +1,4 @@
+<%@page import="java.util.List,model.*,java.math.RoundingMode" %>
 <%@ include file="component_redirect_if_no_login.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -244,24 +245,31 @@
     </div>
 
     <div class="main-container">
-
+		<% 	
+				List bookings = (List) request.getAttribute("bookings");
+				for(Object obj : bookings) if(obj instanceof BookingEntity) { 
+					BookingEntity booking = (BookingEntity) obj;
+					String bookingDate = App.dateDisplayFormatter.format(booking.getBookingDate());
+					StudentEntity student = booking.getStudent();
+		        	UserEntity passenger = student.getUser();
+			%>
         <div class="order-card">
             
             <div class="card-top-row">
-                <div class="passenger-name">Lydia</div>
-                <div class="passenger-phone">019 5516 759</div>
+                <div class="passenger-name"><%=passenger.getName() %></div>
+                <div class="passenger-phone"><%=passenger.getPhone() %></div>
             </div>
 
             <div class="field-label">Depart</div>
             <div class="info-box">
                 <i class="fa-solid fa-location-dot"></i>
-                Kolej Beta, UiTM Tapah
+                <%=booking.getPickupLocation() %>
             </div>
 
             <div class="field-label">To</div>
             <div class="info-box">
                 <i class="fa-solid fa-location-dot" style="color:var(--brand-red);"></i>
-                KFC Tapah
+                <%=booking.getDropoffLocation() %>
             </div>
 
             <div class="field-label">Date & Time</div>
@@ -270,22 +278,20 @@
                 <span>5/12/2025</span>
             </div>
 
-            <button class="btn-details" onclick="openModal()">See Details</button>
+            <button class="btn-details" onclick="openModal(<%=booking.getBookingId()%>)">See Details</button>
         </div>
-
     </div>
-
-    <div class="modal-overlay" id="detailModal">
+    <div class="modal-overlay" id="detailModal_<%=booking.getBookingId()%>">
         <div class="modal-card">
             <div class="student-avatar">
                 <i class="fa-solid fa-user"></i>
             </div>
-            <h3 class="modal-title">Lydia binti Ahmad</h3>
-            <p class="modal-subtitle">Student ID: 2023481922</p>
+            <h3 class="modal-title"><%=passenger.getName() %></h3>
+            <p class="modal-subtitle">Student ID: <%=student.getMatricNumber() %></p>
 
             <div class="detail-row">
                 <span>Pickup Point</span>
-                <span>Waiting at Gate A</span>
+                <span><%=booking.getPickupLocation() %></span>
             </div>
             <div class="detail-row">
                 <span>Payment</span>
@@ -293,25 +299,25 @@
             </div>
             <div class="detail-row">
                 <span>Total Fare</span>
-                <span style="color:var(--brand-red); font-size:1.5rem;">RM 15.00</span>
+                <span style="color:var(--brand-red); font-size:1.5rem;">RM<%=booking.getPrice().setScale(2,RoundingMode.HALF_UP)%></span>
             </div>
 
-            <button class="btn-close" onclick="closeModal()">Close</button>
+            <button class="btn-close" onclick="closeModal(<%=booking.getBookingId()%>)">Close</button>
         </div>
     </div>
-
+	<% } %>
     <script>
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('backdrop').classList.toggle('active');
         }
 
-        function openModal() {
-            document.getElementById('detailModal').classList.add('show');
+        function openModal(id) {
+            document.getElementById('detailModal_' + id).classList.add('show');
         }
 
-        function closeModal() {
-            document.getElementById('detailModal').classList.remove('show');
+        function closeModal(id) {
+            document.getElementById('detailModal_' + id).classList.remove('show');
         }
     </script>
 

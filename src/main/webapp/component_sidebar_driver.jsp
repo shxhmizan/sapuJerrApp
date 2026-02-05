@@ -15,7 +15,7 @@
         <a href="<%=App.Pages.DriverDashboard.link %>" class="menu-item" style="background:#f5f5f5; color:var(--brand-red);">
             <i class="fa-solid fa-gauge-high"></i> Dashboard
         </a>
-        <a href="<%=App.Pages.DriverOrders.link %>" class="menu-item"><i class="fa-solid fa-car"></i> Orders</a>
+        <a href="<%=App.Pages.DriverOrders.link%>" class="menu-item"><i class="fa-solid fa-car"></i> Orders</a>
         <a href="<%=App.Pages.DriverNotifications.link %>" class="menu-item">
             <i class="fa-solid fa-bell"></i> Notifications <span class="badge-dot"></span>
         </a>

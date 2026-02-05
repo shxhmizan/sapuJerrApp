@@ -49,7 +49,8 @@ public class App {
 		DriverCarDetailForm("driver_car_form.jsp"),
 		DriverCarDetail("./CarServlet"),
 		DriverCarDetailJSP("driver_car_detail.jsp"),
-		DriverOrders("driver_orders.jsp"),
+		DriverOrders("./DriverOrdersServlet"),
+		DriverOrdersJSP("driver_orders.jsp"),
 		DriverSubscription("./SubscriptionServlet"),
 		DriverSubscriptionJSP("driver_subscription.jsp"),
 		ComponentGMap("component_gmap.jsp");

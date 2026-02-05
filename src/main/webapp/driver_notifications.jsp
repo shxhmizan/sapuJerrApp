@@ -1,4 +1,4 @@
-<%@page import="java.util.List,java.util.ArrayList,model.*" %>
+<%@page import="java.util.List,java.util.ArrayList,model.*,java.math.RoundingMode" %>
 <%@ include file="component_redirect_if_no_login.jsp" %>
 <%
      	//List notiList = (List) request.getAttribute("notifications");
@@ -287,7 +287,7 @@
                 </div>
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
                     <div style="font-size:1.1rem; color:#555;">Passenger: <strong><%=passenger.getName() %></strong></div>
-                    <div class="price-badge"><%=booking.getPrice()%>></div>
+                    <div class="price-badge">RM <%=booking.getPrice().setScale(2,RoundingMode.HALF_UP)%></div>
                 </div>
                 <div class="action-row">
                     <button class="btn-action btn-decline" onclick="removeCard('<%=booking.getBookingId()%>')">Decline</button>
