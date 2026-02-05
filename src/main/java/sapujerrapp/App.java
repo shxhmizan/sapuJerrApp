@@ -42,7 +42,9 @@ public class App {
 		DriverProfile("driver_profile.jsp"),
 		DriverSubscriptions("driver_subscription.jsp"),
 		DriverNotifications("driver_notifications.jsp"),
-		DriverCarDetail("driver_car_detail.jsp"),
+		DriverCarDetailForm("driver_car_form.jsp"),
+		DriverCarDetail("./CarServlet"),
+		DriverCarDetailJSP("driver_car_detail.jsp"),
 		DriverOrders("driver_orders.jsp"),
 		ComponentGMap("component_gmap.jsp");
 		

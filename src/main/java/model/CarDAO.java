@@ -7,10 +7,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.servlet.http.Part;
 
 @Stateless
@@ -89,6 +91,20 @@ public class CarDAO {
 		}
 		
 		return true;
+	}
+	
+	public List<CarEntity> getUserCar(UserEntity u) {
+		try {
+			TypedQuery<CarEntity> query = em.createQuery("SELECT car FROM DriverEntity driver JOIN driver.cars car WHERE driver.driverId = ?1",CarEntity.class);
+			query.setParameter(1, u.getUserId());
+			List<CarEntity> result = query.getResultList();
+			System.out.println("Cars found : " + result.size());
+			return result;
+		}
+		catch(Exception e) {
+			System.out.print(e);
+			return null;
+		}
 	}
 	
 	

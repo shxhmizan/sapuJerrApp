@@ -1,3 +1,4 @@
+<%@ include file="component_redirect_if_no_login.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,28 +9,10 @@
     <link rel="stylesheet" href="css/driverprofile.css">
 </head>
 <body>
-
+	<%@include file="component_sidebar_driver.jsp" %>
+	
     <div class="backdrop" id="backdrop" onclick="toggleSidebar()"></div>
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="user-profile-row">
-                <div class="profile-avatar-large"><i class="fa-solid fa-user"></i></div>
-                <div class="profile-info">
-                    <h2 style="color:white;">Mamat</h2>
-                    <div class="plan-badge plan-dewa"><i class="fa-solid fa-crown"></i> &nbsp;Dewa</div>
-                </div>
-            </div>
-        </div>
-        <nav class="sidebar-menu">
-            <a href="dashboard.jsp" class="menu-item"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
-            <a href="#" class="menu-item"><i class="fa-solid fa-clock-rotate-left"></i> Your Trips</a>
-            <a href="#" class="menu-item"><i class="fa-solid fa-wallet"></i> Wallet</a>
-            <a href="#" class="menu-item"><i class="fa-solid fa-gear"></i> Settings</a>
-        </nav>
-        <div class="sidebar-footer">
-            <a href="#" class="menu-item" style="padding-left:0;"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
-        </div>
-    </aside>
+    <%@include file="component_sidebar_driver.jsp" %>
 
     <div class="header-toggle-container">
         <button class="btn-profile-toggle" onclick="toggleSidebar()">

@@ -12,11 +12,13 @@ import jakarta.servlet.http.Part;
 import model.CarDAO;
 import model.CarEntity;
 import model.DriverEntity;
+import model.UserDAO;
 import model.UserEntity;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Servlet implementation class CarServlet
@@ -28,6 +30,9 @@ public class CarServlet extends HttpServlet {
 	
 	@EJB
 	CarDAO dao;
+	
+	@EJB
+	UserDAO userDao;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -41,8 +46,18 @@ public class CarServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		UserEntity user = App.getUser(request.getSession(),userDao);
+		
+		if(user == null) {
+			App.setFlashMessage(request.getSession(), "Your session has expired, please login again");
+			response.sendRedirect(App.Pages.Login.link);
+			return;
+		}
+		
+		List<CarEntity> cars = dao.getUserCar(user);
+		request.setAttribute("cars", cars);
+		request.getRequestDispatcher(App.Pages.DriverCarDetailJSP.link).forward(request, response);
+		return;
 	}
 
 	/**
@@ -82,7 +97,7 @@ public class CarServlet extends HttpServlet {
 				.validate();
 		
 		if(!formValid) {
-			formValidator.redirectWithErrors(request, response, App.Pages.DriverCarDetail.link);
+			formValidator.redirectWithErrors(request, response, App.Pages.DriverCarDetailForm.link);
 			return;
 		}
 		
@@ -100,7 +115,7 @@ public class CarServlet extends HttpServlet {
 		driver = user.getDriver();
 		if(driver == null) {
 			App.setFlashMessage(request.getSession(), "Sorry, you are not registered as a driver and cannot register cars.");
-			response.sendRedirect(App.Pages.DriverCarDetail.link);
+			response.sendRedirect(App.Pages.DriverCarDetailForm.link);
 			return;
 		}
 		
@@ -111,7 +126,7 @@ public class CarServlet extends HttpServlet {
 			
 			if(car == null) {
 				App.setFlashMessage(request.getSession(), "System failed to register car details, registration aborted.");
-				response.sendRedirect(App.Pages.DriverCarDetail.link);
+				response.sendRedirect(App.Pages.DriverCarDetailForm.link);
 				return;
 			}
 			
@@ -120,32 +135,17 @@ public class CarServlet extends HttpServlet {
 			if(! filesSaved) {
 				dao.deleteCar(car);
 				App.setFlashMessage(request.getSession(), "System failed to save uploaded files, registration aborted.");
-				response.sendRedirect(App.Pages.DriverCarDetail.link);
+				response.sendRedirect(App.Pages.DriverCarDetailForm.link);
 				return;
 			}
 			
-			String out = "<html><body>"
-					+ "<h1>Car Data : </h1><br>"
-					+ "Plate No : " + car.getPlateNumber() + "<br>"
-					+ "Model : " + car.getModel() + "<br>"
-					+ "Capacity : " + car.getCapacity() + "<br>"
-					+ "Type : " + car.getVehicleType() + "<br>"
-					+ "Road Tax : <a href=\"" + car.getRoadtaxDoc() + "\">View</a><br>"
-					+ "Insurance : <a href=\"" + car.getInsuranceDoc() + "\">View</a><br>"
-					+ "Grant : <a href=\"" + car.getGrantDoc() + "\">View</a><br>"
-					+ "Front Image : <img src=\"" + car.getImageFront() + "\"><br>"
-					+ "Left Image : <img src=\"" + car.getImageLeft() + "\"><br>"
-					+ "Right Image : <img src=\"" + car.getImageRight() + "\"><br>"
-					+ "Back Image : <img src=\"" + car.getImageBack() + "\"><br>"
-					+ "</body></html>";
-			
-			response.getWriter().println(out);
-			response.getWriter().close();
+			response.sendRedirect(App.Pages.DriverCarDetail.link);
+			return;
 		}
 		catch(Exception e) {
 			System.out.print(e);
 			App.setFlashMessage(request.getSession(), "System exception while registering car.");
-			response.sendRedirect(App.Pages.DriverCarDetail.link);
+			response.sendRedirect(App.Pages.DriverCarDetailForm.link);
 			return;
 		}
 		

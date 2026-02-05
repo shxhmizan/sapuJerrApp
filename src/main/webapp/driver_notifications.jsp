@@ -1,3 +1,4 @@
+<%@ include file="component_redirect_if_no_login.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -237,17 +238,7 @@
     </style>
 </head>
 <body>
-
-    <div class="backdrop" id="backdrop" onclick="toggleSidebar()"></div>
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">SapuJerr</div>
-        <a href="driver_dashboard.html"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
-        <a href="driver_orders.html"><i class="fa-solid fa-list-check"></i> Order List</a>
-        <a href="driver_notifications.html" class="active"><i class="fa-solid fa-bell"></i> Notifications</a>
-        <a href="#"><i class="fa-solid fa-clock-rotate-left"></i> Trip History</a>
-        <a href="#"><i class="fa-solid fa-user-gear"></i> Profile</a>
-        <a href="index.html" style="margin-top: auto; margin-bottom: 30px; color: #666;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
-    </div>
+	<%@include file="component_sidebar_driver.jsp" %>
 
     <div class="header">
         <div class="header-left">
