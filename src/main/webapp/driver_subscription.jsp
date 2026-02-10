@@ -22,14 +22,14 @@
 		else yearlyPkg.add(pkg);
 	}
 	
-	if(subscriptions != null) {
+	if(subscriptions != null && subscriptions.size() > 0) {
 		Object obj = subscriptions.getFirst();
 		if(obj instanceof SubscriptionEntity) currentSub = (SubscriptionEntity) obj;
 		subEndDays = Duration.between(new Date().toInstant(),currentSub.getDateEnd().toInstant()).toDays();
 	}
 	
 	
-	if(subbedPackages != null){
+	if(subbedPackages != null && subbedPackages.size() > 0){
 		Object obj = subbedPackages.getFirst();
 		if(obj instanceof SubscriptionPackageEntity) currentSubPkg = (SubscriptionPackageEntity) obj;
 	}
