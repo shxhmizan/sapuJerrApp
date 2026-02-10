@@ -13,25 +13,34 @@
 </head>
 <body>
 	<%@include file="component_sidebar_driver.jsp" %>
-	<header class="header">
-		<div class="header-left">
-			<button class="btn-profile-toggle" onclick="toggleSidebar()">
-				<i class="fa-solid fa-bars"></i> Mamat
-			</button>
-		</div>
-		<div class="header-right">
-			<div class="logo">SapuJerr</div>
-		</div>
-	</header>
+	<div class="header">
+        <div class="header-left">
+            <button class="hamburger" style="background:none; border:none; color:white;" onclick="toggleSidebar()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="page-title">Vehicle Detail</div>
+        </div>
+        <div class="logo">SapuJerr</div>
+    </div>
 	
 	
 	<div class="main-content">
-	<div>
-		<a href="<%=App.Pages.DriverCarDetailForm.link%>">Register New Car</a>
-	</div>
+	
 	<%
 		List cars = (List) request.getAttribute("cars");
-		if(cars != null) {
+		if(cars == null){
+	%>
+	<div>
+		<a href="<%=App.Pages.DriverCarDetailForm.link%>">Register Your Vehicle</a>
+	</div>
+	<%
+		}
+		else {
+	%>
+	<div>
+		<a href="<%=App.Pages.DriverCarDetailForm.link%>">Update Vehicle Details</a>
+	</div>		
+	<%
 			for(Object obj : cars){ 
 				if(obj instanceof CarEntity){
 				CarEntity car = (CarEntity) obj;

@@ -72,9 +72,6 @@ public class BookingEntity implements Serializable {
 	@OneToMany(mappedBy="booking")
 	private List<NotificationEntity> notifications;
 
-	//bi-directional many-to-one association to PaymentEntity
-	@OneToMany(mappedBy="booking")
-	private List<PaymentEntity> payments;
 
 	//bi-directional many-to-one association to ReviewEntity
 	@OneToMany(mappedBy="booking")
@@ -191,28 +188,6 @@ public class BookingEntity implements Serializable {
 		notification.setBooking(null);
 
 		return notification;
-	}
-
-	public List<PaymentEntity> getPayments() {
-		return this.payments;
-	}
-
-	public void setPayments(List<PaymentEntity> payments) {
-		this.payments = payments;
-	}
-
-	public PaymentEntity addPayment(PaymentEntity payment) {
-		getPayments().add(payment);
-		payment.setBooking(this);
-
-		return payment;
-	}
-
-	public PaymentEntity removePayment(PaymentEntity payment) {
-		getPayments().remove(payment);
-		payment.setBooking(null);
-
-		return payment;
 	}
 
 	public List<ReviewEntity> getReviews() {

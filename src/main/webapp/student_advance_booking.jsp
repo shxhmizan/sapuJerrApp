@@ -370,51 +370,10 @@
             
             <div class="w-45">
                 <div class="input-box">
-                    <button type="submit" name="submit" value="advance_booking">Make Booking</button>
+                    <button class="btn-action" type="button" onclick="displayPrices()">See Base Trip Price</button>
+                    <button class="btn-action" type="submit" name="submit" value="advance_booking">Make Booking</button>
                 </div>
             </div>
-
-            <div class="w-45">
-                <div class="filter-info"><i class="fa-solid fa-filter"></i> Active: Lady Driver, 6 Seater</div>
-            </div>
-        </div>
-
-        <div class="cards-container">
-            <label class="price-card" onclick="selectCard(this)">
-                <input type="radio" name="car_type" value="myvi" style="display:none;"> 
-                <div class="card-header-line">
-                    <div class="black-line"></div>
-                    <div class="price-text">RM 20</div>
-                </div>
-                <div>
-                    <div class="car-name">Perodua Myvi</div>
-                    <div class="car-seat">4 Seater</div>
-                </div>
-            </label>
-
-            <label class="price-card" onclick="selectCard(this)">
-                <input type="radio" name="car_type" value="kancil" style="display:none;">
-                <div class="card-header-line">
-                    <div class="black-line"></div>
-                    <div class="price-text">RM 18</div>
-                </div>
-                <div>
-                    <div class="car-name">Perodua Kancil</div>
-                    <div class="car-seat">4 Seater</div>
-                </div>
-            </label>
-
-            <label class="price-card" onclick="selectCard(this)">
-                <input type="radio" name="car_type" value="aruz" style="display:none;">
-                <div class="card-header-line">
-                    <div class="black-line"></div>
-                    <div class="price-text">RM 25</div>
-                </div>
-                <div>
-                    <div class="car-name">Perodua Aruz</div>
-                    <div class="car-seat">6 Seater</div>
-                </div>
-            </label>
         </div>
 
     </form>

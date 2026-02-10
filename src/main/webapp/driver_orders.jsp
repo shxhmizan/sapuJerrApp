@@ -274,8 +274,8 @@
 
             <div class="field-label">Date & Time</div>
             <div class="info-box time-box">
-                <span>9.30PM</span>
-                <span>5/12/2025</span>
+                <span><%=App.timeDisplayFormatter.format(booking.getPickupTime())%></span>
+                <span><%=bookingDate%></span>
             </div>
 
             <button class="btn-details" onclick="openModal(<%=booking.getBookingId()%>)">See Details</button>

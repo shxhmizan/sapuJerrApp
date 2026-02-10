@@ -8,10 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.DriverDAO;
 import model.DriverEntity;
-import model.SubscriptionDAO;
-import model.SubscriptionEntity;
-import model.SubscriptionPackageDAO;
-import model.SubscriptionPackageEntity;
 import model.UserDAO;
 import model.UserEntity;
 
@@ -19,28 +15,22 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Servlet implementation class SubscriptionServlet
+ * Servlet implementation class DriverDashboardServlet
  */
-@WebServlet("/SubscriptionServlet")
-public class SubscriptionServlet extends HttpServlet {
+@WebServlet("/DriverDashboardServlet")
+public class DriverDashboardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+       
 	@EJB
 	UserDAO dao;
 	
 	@EJB
 	DriverDAO driverDao;
 	
-	@EJB
-	SubscriptionPackageDAO pkgDao;
-	
-	@EJB
-	SubscriptionDAO subsDao;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SubscriptionServlet() {
+    public DriverDashboardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -52,26 +42,9 @@ public class SubscriptionServlet extends HttpServlet {
 		UserEntity user = App.getUser(request.getSession(), dao);
 		DriverEntity driver = driverDao.getDriverData(user);
 		
-		String pkgStr = request.getParameter("subscribe");
-		
-		if(pkgStr != null) {
-			SubscriptionPackageEntity pkg = pkgDao.getPackageById(Integer.parseInt(pkgStr));
-			if (subsDao.subscribe(driver, pkg)) {
-				response.setStatus(200);
-			}
-			else response.setStatus(500);
-			return;
-		}
-		
-		List<SubscriptionPackageEntity> subbedPackages = pkgDao.getDriverPackages(driver);
-		List<SubscriptionEntity> subscriptions = subsDao.getDriverSubscription(driver);
-		List<SubscriptionPackageEntity> unsubbedPackages = pkgDao.getUnsubbedPackages(driver);
-		
-		request.setAttribute("packages", subbedPackages);
-		request.setAttribute("unsubbedPackages", unsubbedPackages);
-		request.setAttribute("subscriptions", subscriptions);
-		
-		request.getRequestDispatcher(App.Pages.DriverSubscriptionJSP.link).forward(request, response);
+		List<Integer> stats = driverDao.getDriverStats(driver);
+		request.setAttribute("stats", stats);
+		request.getRequestDispatcher(App.Pages.DriverDashboardJSP.link).forward(request, response);
 	}
 
 	/**

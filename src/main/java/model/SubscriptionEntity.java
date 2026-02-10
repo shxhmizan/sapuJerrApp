@@ -32,10 +32,6 @@ public class SubscriptionEntity implements Serializable {
 	@Column(name="status_sub")
 	private String statusSub;
 
-	//bi-directional many-to-one association to PaymentEntity
-	@OneToMany(mappedBy="subscription")
-	private List<PaymentEntity> payments;
-
 	//bi-directional many-to-one association to DriverEntity
 	@ManyToOne
 	@JoinColumn(name="driver_id")
@@ -79,28 +75,6 @@ public class SubscriptionEntity implements Serializable {
 
 	public void setStatusSub(String statusSub) {
 		this.statusSub = statusSub;
-	}
-
-	public List<PaymentEntity> getPayments() {
-		return this.payments;
-	}
-
-	public void setPayments(List<PaymentEntity> payments) {
-		this.payments = payments;
-	}
-
-	public PaymentEntity addPayment(PaymentEntity payment) {
-		getPayments().add(payment);
-		payment.setSubscription(this);
-
-		return payment;
-	}
-
-	public PaymentEntity removePayment(PaymentEntity payment) {
-		getPayments().remove(payment);
-		payment.setSubscription(null);
-
-		return payment;
 	}
 
 	public DriverEntity getDriver() {

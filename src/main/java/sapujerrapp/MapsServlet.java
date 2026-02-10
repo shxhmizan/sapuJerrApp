@@ -37,6 +37,16 @@ public class MapsServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
+    private static String getApiKey(ServletContext context) {
+    	String apiKey = System.getenv(App.EnvironmentVarKey.MAPS_API_KEY);
+		if(apiKey == null) {
+			System.out.println("[SapuJerrApp] INFO: Google Maps API Key not found in system environment variables. Using defaults in context.xml");
+			apiKey = context.getInitParameter("mapsAPIKey");
+			if(apiKey == null) System.out.println("[SapuJerrApp] WARNING: Could not find Google Maps API Key in context.xml , it is set to null.");
+		}
+		return apiKey;
+    }
+    
 	/**
 	 * Processes HTTP GET requests sent to this servlet
 	 * For API requests, this servlet will construct the API call including API keys and request parameters
@@ -44,7 +54,8 @@ public class MapsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.apiKey = getServletContext().getInitParameter("mapsAPIKey");
+		apiKey = getApiKey(this.getServletContext());
+		//else System.out.println("[SapuJerrApp] INFO: Using Maps API Key from system environment variables." + apiKey.substring(0,3) + "********");
 		String leadPath = getFirstDir(request.getPathInfo());
 		HttpRequest req;
 		switch(leadPath) {
@@ -89,7 +100,7 @@ public class MapsServlet extends HttpServlet {
 	}
 	
 	public static HttpRequest buildRouteRequest(ServletContext context,String startPlace,String destPlace) {
-		String apiKey = context.getInitParameter("mapsAPIKey");
+		String apiKey = getApiKey(context);
 		String routeAPIUrl = "https://routes.googleapis.com/directions/v2:computeRoutes";
 		/**
 		 * Request body for getting routes
@@ -144,7 +155,7 @@ public class MapsServlet extends HttpServlet {
 		}
 		catch(Exception e) {
 			System.out.println(e);
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,e.toString());
 		}
 	}
 	

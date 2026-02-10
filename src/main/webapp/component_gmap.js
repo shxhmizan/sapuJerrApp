@@ -72,6 +72,38 @@ async function getRoute(){
 		console.log(err)
 	}
 }
+
+async function displayPrices(){
+	if(! startLoc || ! destLoc){
+		alert("Please select the trip starting location and destination first.");
+		return undefined;
+	} 
+	const url = `./PricingRateServlet?startPlace=${startLoc.id}&destPlace=${destLoc.id}`;
+
+	try{
+		const response = await fetch(url);
+		if(response.ok){
+			const json = await response.json();
+			console.log(json);
+			//const basePrice = json.base_price;
+			const pricePerKm = json.price_per_km;
+			//const pricePerMin = json.price_per_min;
+			const effectiveDate = json.effective_date;
+			const tripPrice = json.trip_price;
+			
+			alert("Prices :\n"
+				+ "Trip Price : RM " + tripPrice + "\n"
+				//+ "Base Price : RM" + basePrice + "\n"
+				+ "Price Per KM : RM" + pricePerKm + "\n"
+				//+ "Price Per Minute : RM" + pricePerMin + "\n"
+				+ "Prices Effective Since : " + effectiveDate + "\n"				
+			);
+		}
+	}
+	catch(error){
+		console.log(error);
+	}
+}
 	
 function showRouteEndpointDialog(placeid){
 	const dialog = document.getElementById("route_dialog");

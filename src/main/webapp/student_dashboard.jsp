@@ -24,7 +24,6 @@
                 
                 <div class="block-tabs">
                     <div class="tab-item active"><i class="fa-solid fa-car"></i> Ride</div>
-                    <div class="tab-item"><i class="fa-solid fa-box-open"></i> Courier</div>
                 </div>
 
                 <div class="connector-container">
@@ -66,10 +65,7 @@
                 </div>
 
                 <div class="actions-row">
-                    <button class="btn-schedule">
-                        <i class="fa-solid fa-clock"></i> Now <i class="fa-solid fa-chevron-down" style="font-size:0.8rem; margin-left:5px;"></i>
-                    </button>
-                    <button class="btn-action" onclick="displayPrices()">See Prices</button>
+                    <button class="btn-action" onclick="displayPrices()">See Current Prices</button>
                 </div>
 
             </div>
@@ -210,7 +206,7 @@
         }
         
         async function displayPrices(){
-        	const url = "/PricingRateServlet?latestPrice";
+        	const url = "<%=App.Pages.PricingRateAPI.link%>?latestPrice";
         	
         	try{
         		const response = await fetch(url);

@@ -5,6 +5,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -22,14 +23,22 @@ public class CarDAO {
 	
 	public CarEntity createCar(String plateNo,String model,int capacity,String type,DriverEntity driverRef) {
 		try {
-			CarEntity car = new CarEntity();
+			TypedQuery<CarEntity> query = em.createQuery("SELECT c FROM CarEntity c WHERE c.driver.driverId = ?1", CarEntity.class);
+			query.setParameter(1, driverRef.getDriverId());
+			CarEntity car;
+			List<CarEntity> carList = query.getResultList();
+			if(carList.size() > 0) {
+				car = carList.getFirst();
+			}
+			else {
+				car = new CarEntity();
+				DriverEntity driver = em.find(DriverEntity.class, driverRef.getDriverId());
+				car.setDriver(driver);
+			}
 			car.setPlateNumber(plateNo);
 			car.setModel(model);
 			car.setCapacity(capacity);
 			car.setVehicleType(type);
-			//Get the latest driver data from DB before updating
-			DriverEntity driver = em.find(DriverEntity.class, driverRef.getDriverId());
-			car.setDriver(driver);
 			em.persist(car);
 			return car;
 		}
@@ -84,6 +93,11 @@ public class CarDAO {
 			car.setImageBack(backImagePath);
 		
 			em.merge(car);
+		}
+		catch(AccessDeniedException ae) {
+			System.out.println("File access denied in upload folder path: " + uploadRoot);
+			System.out.print(ae);
+			return false;
 		}
 		catch(Exception e) {
 			System.out.print(e);

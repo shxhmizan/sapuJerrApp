@@ -25,6 +25,14 @@ public class App {
 	}
 	
 	/**
+	 * Holds environment variable names
+	 */
+	public static class EnvironmentVarKey {
+		public static final String MAPS_API_KEY = "SAPUJERRAPP_MAPS_API_KEY";
+		public static final String FILE_UPLOAD_ROOT_PATH = "SAPUJERRAPP_FILE_UPLOAD_ROOT_PATH";
+	}
+	
+	/**
 	 * Enum mapping links to Views
 	 */
 	public static enum Pages {
@@ -33,6 +41,7 @@ public class App {
 		Splash("splash.jsp"),
 		Registration("signup.jsp"),
 		BookingAPI("./BookingManagementServlet"),
+		PricingRateAPI("./PricingRateServlet"),
 		StudentDashboard("student_dashboard.jsp"),
 		StudentBooking("./StudentBookingServlet"),
 		StudentBookingJSP("student_bookings.jsp"),
@@ -41,7 +50,8 @@ public class App {
 		StudentAdvanceBooking("student_advance_booking.jsp"),
 		StudentProfile("./StudentProfileServlet"),
 		StudentProfileJSP("student_profile.jsp"),
-		DriverDashboard("driver_dashboard.jsp"),
+		DriverDashboard("./DriverDashboardServlet"),
+		DriverDashboardJSP("driver_dashboard.jsp"),
 		DriverProfileJSP("driver_profile.jsp"),
 		DriverProfile("./DriverProfileServlet"),
 		DriverNotifications("./NotificationServlet"),
@@ -70,6 +80,7 @@ public class App {
 	private static final GregorianCalendar appCalendar = new GregorianCalendar();
 	
 	public static final SimpleDateFormat dateDisplayFormatter = new SimpleDateFormat("dd MMMM y");
+	public static final SimpleDateFormat timeDisplayFormatter = new SimpleDateFormat("HH:mm");
 	public static final DateTimeFormatter htmlInputTimeFormatter = DateTimeFormatter.ISO_LOCAL_TIME;
 	public static final SimpleDateFormat htmlInputDateFormatter = new SimpleDateFormat("y-MM-dd");
 	

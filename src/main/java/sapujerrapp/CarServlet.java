@@ -55,8 +55,15 @@ public class CarServlet extends HttpServlet {
 		}
 		
 		List<CarEntity> cars = dao.getUserCar(user);
-		request.setAttribute("cars", cars);
-		request.getRequestDispatcher(App.Pages.DriverCarDetailJSP.link).forward(request, response);
+		
+		if(cars.size() > 0) {
+			request.setAttribute("cars", cars);
+			request.getRequestDispatcher(App.Pages.DriverCarDetailJSP.link).forward(request, response);
+		}
+		else {
+			request.getRequestDispatcher(App.Pages.DriverCarDetailForm.link).forward(request, response);
+		}
+		
 		return;
 	}
 
@@ -130,7 +137,7 @@ public class CarServlet extends HttpServlet {
 				return;
 			}
 			
-			String uploadRoot = this.getServletContext().getInitParameter("uploadRoot");
+			String uploadRoot = UploadsServlet.getUploadRoot(this.getServletContext());
 			boolean filesSaved = dao.updateCarFiles(uploadRoot,car, grantDoc, insuranceDoc, roadTaxDoc, frontImage, leftImage, rightImage, backImage);
 			if(! filesSaved) {
 				dao.deleteCar(car);

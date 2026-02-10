@@ -1,5 +1,8 @@
 <%@page import="sapujerrapp.App" %>
 <%@ include file="component_redirect_if_no_login.jsp" %>
+<%
+	
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,16 +16,15 @@
 </head>
 <body>
 	<%@include file="component_sidebar_driver.jsp" %>
-	<header class="header">
-		<div class="header-left">
-			<button class="btn-profile-toggle" onclick="toggleSidebar()">
-				<i class="fa-solid fa-bars"></i> Mamat
-			</button>
-		</div>
-		<div class="header-right">
-			<div class="logo">SapuJerr</div>
-		</div>
-	</header>
+	<div class="header">
+        <div class="header-left">
+            <button class="hamburger" style="background:none; border:none; color:white;" onclick="toggleSidebar()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="page-title">Vehicle Registration</div>
+        </div>
+        <div class="logo">SapuJerr</div>
+    </div>
 	
 	
 	<div class="main-content">

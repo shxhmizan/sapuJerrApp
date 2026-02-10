@@ -1,3 +1,4 @@
+<%@ page import="java.util.Date,java.util.List" %>
 <%@ include file="component_redirect_if_no_login.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,32 +30,35 @@
             <div class="radar-text"><i class="fa-solid fa-satellite-dish radar-icon"></i> <span id="radarText">System Paused</span></div>
             <div style="color:#999; font-weight:600;">v4.2.0</div>
         </div>
-
-        <div class="data-grid">
-            <div class="stats-col">
-                <div class="big-card card-earnings">
-                    <div class="card-label">Today's Earnings</div>
-                    <div class="card-value">RM 145</div>
-                    <div style="color:var(--brand-green); font-weight:700;"><i class="fa-solid fa-arrow-trend-up"></i> +12%</div>
+		<%
+		List stats = (List) request.getAttribute("stats");
+		
+		int jobsDone = 0;
+		int jobsInProgress = 0;
+		int jobsAvailable = 0;
+		
+		if(stats != null && stats.size() == 3){
+			jobsDone = (int) stats.get(0);
+			jobsInProgress = (int) stats.get(1);
+			jobsAvailable = (int) stats.get(2);
+		}
+		
+		%>
+        <div class="action-grid">
+               <div class="big-card card-performance">
+                    <div class="card-label">Jobs Done</div>
+                    <div class="card-value"><%=jobsDone%></div>
+                    <div style="color:#888; font-weight:600;">Goal: <%= jobsDone + jobsInProgress%></div>
                 </div>
                 <div class="big-card card-performance">
-                    <div class="card-label">Jobs Done</div>
-                    <div class="card-value">8</div>
-                    <div style="color:#888; font-weight:600;">Goal: 15</div>
+                    <div class="card-label">Jobs In Progress</div>
+                    <div class="card-value"><%=jobsInProgress %></div>
+                    <div style="color:#888; font-weight:600;">Goal: 0</div>
                 </div>
-            </div>
-            <div class="graph-card">
-                <div class="graph-header"><div class="graph-title">Weekly Revenue</div></div>
-                <div class="chart-container">
-                    <div class="bar-group" data-tooltip="RM 120"><div class="bar" style="height: 40%;"></div><div class="day-label">Mon</div></div>
-                    <div class="bar-group" data-tooltip="RM 200"><div class="bar" style="height: 65%;"></div><div class="day-label">Tue</div></div>
-                    <div class="bar-group" data-tooltip="RM 150"><div class="bar" style="height: 50%;"></div><div class="day-label">Wed</div></div>
-                    <div class="bar-group" data-tooltip="RM 280"><div class="bar" style="height: 85%;"></div><div class="day-label">Thu</div></div>
-                    <div class="bar-group" data-tooltip="RM 320"><div class="bar active" style="height: 100%;"></div><div class="day-label" style="color:var(--brand-red);">Fri</div></div>
-                    <div class="bar-group" data-tooltip="RM 90"><div class="bar" style="height: 30%;"></div><div class="day-label">Sat</div></div>
-                    <div class="bar-group" data-tooltip="RM 0"><div class="bar" style="height: 5%;"></div><div class="day-label">Sun</div></div>
+                <div class="big-card card-performance">
+                    <div class="card-label">Available Jobs</div>
+                    <div class="card-value"><%=jobsAvailable%></div>
                 </div>
-            </div>
         </div>
 
         <div class="action-grid">
@@ -62,25 +66,15 @@
                 <div class="btn-icon"><i class="fa-solid fa-clock"></i></div>
                 <div class="btn-text"><h3>Set Availability</h3><p>Manage shifts</p></div>
             </div>
-            <div class="action-btn" onclick="openPanel('orderList')">
+            <div class="action-btn" onclick="<%=App.Pages.DriverOrders%>">
                 <div class="btn-icon"><i class="fa-solid fa-clipboard-list"></i></div>
                 <div class="btn-text"><h3>Order List</h3><p>View requests</p></div>
             </div>
-            <div class="action-btn" onclick="openPanel('notifications')">
+            <a class="action-btn" href="<%=App.Pages.DriverNotifications%>">
                 <div class="btn-icon"><i class="fa-solid fa-bell"></i></div>
                 <div class="btn-text"><h3>Notifications</h3><p>3 New</p></div>
-            </div>
+            </a>
         </div>
-    </div>
-
-    <div class="side-panel" id="sidePanel">
-        <div class="panel-header">
-            <div class="panel-title" id="panelTitle">Title</div>
-            <i class="fa-solid fa-xmark" style="font-size:1.5rem; cursor:pointer;" onclick="closePanel()"></i>
-        </div>
-        
-        <div class="panel-content" id="panelContent">
-            </div>
     </div>
 
     <div class="modal-overlay" id="availModal">
@@ -89,19 +83,10 @@
             <div class="schedule-list">
                 <div class="schedule-item">
                     <div class="day-check">
-                        <span style="font-weight:700;">Mon, 6 Dec</span>
+                        <span style="font-weight:700;"><%=App.dateDisplayFormatter.format(new Date())%></span>
                         <label><input type="checkbox" checked hidden><div class="toggle-switch-sm"></div></label>
                     </div>
                     <div class="time-inputs">
-                        <input type="time" class="time-box" value="08:00"> <span style="align-self:center">-</span> <input type="time" class="time-box" value="17:00">
-                    </div>
-                </div>
-                <div class="schedule-item">
-                    <div class="day-check">
-                        <span style="font-weight:700;">Tue, 7 Dec</span>
-                        <label><input type="checkbox" hidden><div class="toggle-switch-sm"></div></label>
-                    </div>
-                    <div class="time-inputs" style="opacity:0.5; pointer-events:none;">
                         <input type="time" class="time-box" value="08:00"> <span style="align-self:center">-</span> <input type="time" class="time-box" value="17:00">
                     </div>
                 </div>
@@ -118,70 +103,6 @@
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('backdrop').classList.toggle('active');
         }
-
-        // --- SIDE PANEL LOGIC ---
-        const panelContent = {
-            notifications: `
-                <div class="sys-msg-item money">
-                    <div class="sys-msg-header"><span class="sys-msg-title">Payout Processed</span><span class="sys-msg-time">2h ago</span></div>
-                    <div class="sys-msg-body">RM 1,250.00 transferred to bank.</div>
-                </div>
-                <div class="sys-msg-item admin">
-                    <div class="sys-msg-header"><span class="sys-msg-title">Verification</span><span class="sys-msg-time">1d ago</span></div>
-                    <div class="sys-msg-body">Update insurance before 10 Dec.</div>
-                </div>`,
-            orderList: `
-                <div class="order-tabs">
-                    <div class="order-tab active">Marketplace</div>
-                    <div class="order-tab">My Schedule</div>
-                </div>
-                <div class="order-card">
-                    <div class="student-info">
-                        <div class="student-pic"><i class="fa-solid fa-user"></i></div>
-                        <div class="student-name"><h4>Sarah</h4><span>Student</span></div>
-                        <div style="margin-left:auto; font-weight:700;">9:30 PM</div>
-                    </div>
-                    <div class="route-mini">
-                        <div class="route-row-mini"><div class="dot-mini"></div><div class="addr-text">Kolej Beta</div></div>
-                        <div class="route-row-mini"><div class="dot-mini red"></div><div class="addr-text">KFC Tapah</div></div>
-                    </div>
-                    <div class="order-footer">
-                        <div class="order-price">RM 15.00</div>
-                        <button class="btn-take" onclick="alert('Order Accepted')">Accept</button>
-                    </div>
-                </div>
-                <div class="order-card">
-                    <div class="student-info">
-                        <div class="student-pic"><i class="fa-solid fa-user"></i></div>
-                        <div class="student-name"><h4>Ahmad</h4><span>Staff</span></div>
-                        <div style="margin-left:auto; font-weight:700;">Tom. 8 AM</div>
-                    </div>
-                    <div class="route-mini">
-                        <div class="route-row-mini"><div class="dot-mini"></div><div class="addr-text">UiTM Tapah</div></div>
-                        <div class="route-row-mini"><div class="dot-mini red"></div><div class="addr-text">KTM Station</div></div>
-                    </div>
-                    <div class="order-footer">
-                        <div class="order-price">RM 12.00</div>
-                        <button class="btn-take" onclick="alert('Order Accepted')">Accept</button>
-                    </div>
-                </div>`
-        };
-
-        function openPanel(type) {
-            const panel = document.getElementById('sidePanel');
-            const title = document.getElementById('panelTitle');
-            const content = document.getElementById('panelContent');
-            
-            panel.classList.add('active');
-            if(type === 'notifications') {
-                title.innerHTML = '<i class="fa-solid fa-bell"></i> System Alerts';
-                content.innerHTML = panelContent.notifications;
-            } else {
-                title.innerHTML = '<i class="fa-solid fa-list"></i> Order List';
-                content.innerHTML = panelContent.orderList;
-            }
-        }
-        function closePanel() { document.getElementById('sidePanel').classList.remove('active'); }
 
         // --- AVAILABILITY MODAL ---
         function openAvailabilityModal() { document.getElementById('availModal').classList.add('show'); }

@@ -1,5 +1,6 @@
 package sapujerrapp;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -28,13 +29,24 @@ public class UploadsServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    public static String getUploadRoot(ServletContext context) {
+    	String uploadRoot = System.getenv(App.EnvironmentVarKey.FILE_UPLOAD_ROOT_PATH);
+		if(uploadRoot == null) {
+			System.out.println("[SapuJerrApp] INFO: File upload path not found in system environment variables. Using defaults in context.xml");
+			uploadRoot = context.getInitParameter("uploadRoot");
+			if(uploadRoot == null) System.out.println("[SapuJerrApp] WARNING: Could not find default file upload path in context.xml , it is set to null.");
+		}
+		return uploadRoot;
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String uploadRoot = this.getServletContext().getInitParameter("uploadRoot");
+			String uploadRoot = getUploadRoot(this.getServletContext());
+			//else System.out.println("[SapuJerrApp] INFO: using file upload path defined in system environment variables." + uploadRoot.substring(0,3) + "***");
 			Path filePath = Path.of(uploadRoot,request.getPathInfo());
 			
 			File file = filePath.toFile();
